@@ -63,8 +63,150 @@ let checkUserEmail = (userEmail) => {
     })
 }
 
+let getAllUsers = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let users = await db.User.findAll();
+            resolve({
+                errCode: 0,
+                message: "Success",
+                data: users
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
 
+let getUserById = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!ObjectId.isValid(id)) {
+                resolve({
+                    errCode: 1,
+                    message: "Invalid user ID"
+                });
+            }
+
+            let user = await db.User.findOne({ where: { id: id } });
+            if (user) {
+                resolve({
+                    errCode: 0,
+                    message: "Success",
+                    data: user
+                });
+            } else {
+                resolve({
+                    errCode: 2,
+                    message: "User not found"
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let createUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.username || !data.email || !data.password) {
+                resolve({
+                    errCode: 1,
+                    message: "Missing required fields!"
+                });
+            }
+
+            let newUser = await db.User.create({
+                username: data.username,
+                email: data.email,
+                password: data.password, // Lưu ý: cần mã hóa mật khẩu trước khi lưu
+                role: data.role || 'user'
+            });
+
+            resolve({
+                errCode: 0,
+                message: "User created successfully",
+                data: newUser
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let updateUser = (id, data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!ObjectId.isValid(id)) {
+                resolve({
+                    errCode: 1,
+                    message: "Invalid user ID"
+                });
+            }
+
+            let user = await db.User.findOne({ where: { id: id } });
+
+            if (!user) {
+                resolve({
+                    errCode: 2,
+                    message: "User not found"
+                });
+            }
+
+            await user.update({
+                username: data.username || user.username,
+                email: data.email || user.email,
+                role: data.role || user.role
+            });
+
+            resolve({
+                errCode: 0,
+                message: "User updated successfully",
+                data: user
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let deleteUser = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!ObjectId.isValid(id)) {
+                resolve({
+                    errCode: 1,
+                    message: "Invalid user ID"
+                });
+            }
+
+            let user = await db.User.findOne({ where: { id: id } });
+
+            if (!user) {
+                resolve({
+                    errCode: 2,
+                    message: "User not found"
+                });
+            }
+
+            await db.User.destroy({ where: { id: id } });
+
+            resolve({
+                errCode: 0,
+                message: "User deleted successfully"
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
 
 module.exports = {
-    handleUserLogin: handleUserLogin,
+    handleUserLogin,
+    getAllUsers,
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser
 }

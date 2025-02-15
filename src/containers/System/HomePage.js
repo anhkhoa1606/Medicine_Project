@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getAllUsers, createNewUserServices, deleteUserServices } from '../../services/userService';
 import { Table, Input, Button, Modal, Form } from 'antd';
 
-class UserManage extends Component {
+class HomePage extends Component {
     state = {
         users: [],
         searchTerm: '',
@@ -55,6 +55,7 @@ class UserManage extends Component {
     handleModalOk = async (values) => {
         try {
             if (this.state.isEditMode) {
+                // Update user logic here
             } else {
                 await createNewUserServices(values);
             }
@@ -86,7 +87,7 @@ class UserManage extends Component {
 
         return (
             <div className="container mt-4">
-                <h2 className="text-center">Manage Users</h2>
+                <h2 className="text-center">HomePage</h2>
                 <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
                 <Input 
                     placeholder="Search users..."
@@ -127,4 +128,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

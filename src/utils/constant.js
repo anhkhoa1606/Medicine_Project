@@ -1,11 +1,12 @@
 export const path = {
     HOME: '/',
+    HOMEPAGE: "/home",
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system'
 };
 
-export const languages = {
+export const LANGUAGES = {
     VI: 'vi',
     EN: 'en'
 };
@@ -24,3 +25,10 @@ export const YesNoObj = {
     YES: 'Y',
     NO: 'N'
 }
+
+export const USER_ROLE = {
+    ADMIN: "Admin",
+    STAFF: "Staff",
+    CUSTOMER: "Customer",
+  };
+  

@@ -4,7 +4,7 @@ import { getAllUsers, createNewUserServices, deleteUserServices } from '../../se
 import { getAllProducts, createProduct, deleteProduct, updateProduct } from '../../services/productService';
 import { Table, Input, Button, Modal, Form } from 'antd';
 
-class ProductManage extends Component {
+class HomePage extends Component {
     state = {
         products: [],
         searchTerm: '',
@@ -87,7 +87,7 @@ class ProductManage extends Component {
 
         return (
             <div className="container mt-4">
-                <h2 className="text-center">Manage Products</h2>
+                <h2 className="text-center">HOME PAGE</h2>
                 <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
                 <Input 
                     placeholder="Search products..."
@@ -128,4 +128,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductManage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

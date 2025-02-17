@@ -14,16 +14,16 @@ let getAllProducts = async (req, res) => {
 
 let getProductById = async (req, res) => {
     try {
-        let productId = req.params.id;
-        let response = await medicineService.getProductById(productId);
-        return res.status(200).json(response);
-    } catch (error) {
-        return res.status(500).json({
-            errCode: -1,
-            message: "Error from server",
-        });
+      let infor = await medicineService.getProductById(req.query.id);
+      return res.status(200).json(infor);
+    } catch (e) {
+      console.log(e);
+      return res.status(200).json({
+        errCode: -1,
+        errMessage: "Error from server...",
+      });
     }
-};
+  };
 
 let createProduct = async (req, res) => {
     try {

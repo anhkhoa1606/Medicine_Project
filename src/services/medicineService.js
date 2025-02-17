@@ -17,13 +17,6 @@ let getAllProducts = () => {
 let getProductById = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!ObjectId.isValid(id)) {
-                resolve({
-                    errCode: 1,
-                    message: "Invalid product ID"
-                });
-            }
-
             let product = await db.Medicine.findOne({ where: { id: id } });
             if (product) {
                 resolve({

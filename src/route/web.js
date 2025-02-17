@@ -25,7 +25,7 @@ let initWebRoutes = (app) => {
 
     //Medicine
     router.get('/get-all-medicines', medicineController.getAllProducts);
-    router.get('/get-medicines-by-id', medicineController.getProductById);
+    router.get('/get-medicine-by-id', medicineController.getProductById);
     router.post('/create-product', medicineController.createProduct);
     router.put('/update-medicine', medicineController.updateProduct);
     router.delete('/delete-medicine', medicineController.deleteProduct);

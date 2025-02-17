@@ -102,7 +102,7 @@ let updateProduct = async (data) => {
         });
         if (medicine) {
           (medicine.id = data.id),
-            (medicine.email = data.email),
+            (medicine.name = data.name),
           (medicine.description = data.description),
             (medicine.price = data.price),
             (medicine.stock = data.stock),

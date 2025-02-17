@@ -3,6 +3,8 @@ import homeController from '../controllers/homeController';
 import userController from '../controllers/userController';
 import cartController from '../controllers/cartController';
 import medicineController from '../controllers/medicineController';
+import orderController from '../controllers/orderController';
+
 let router = express.Router();
 
 let initWebRoutes = (app) => {
@@ -29,6 +31,13 @@ let initWebRoutes = (app) => {
     router.post('/create-product', medicineController.createProduct);
     router.put('/update-medicine', medicineController.updateProduct);
     router.delete('/delete-medicine', medicineController.deleteProduct);
+
+    //Order
+    router.post("/api/create-order", orderController.createOrder);
+    router.get("/api/get-order", orderController.getOrder);
+    router.put("/api/edit-order", orderController.editOrder);
+    router.delete("/api/delete-order", orderController.deleteOrder);
+    router.get("/api/get-orders-by-id", orderController.getDetailOrderById);
 
     //Payment
     router.get("/payment/config", (req, res) => {

@@ -1,6 +1,7 @@
 import express from "express";
 import homeController from '../controllers/homeController';
 import userController from '../controllers/userController';
+import cartController from '../controllers/cartController';
 import medicineController from '../controllers/medicineController';
 let router = express.Router();
 
@@ -21,14 +22,28 @@ let initWebRoutes = (app) => {
     router.post('/create-user', userController.handleCreateUser);
     router.put('/update-user', userController.handleUpdateUser);
     router.delete('/delete-user', userController.handleDeleteUser);
-    
+
     //Medicine
     router.get('/get-all-medicines', medicineController.getAllProducts);
     router.get('/get-medicines-by-id', medicineController.getProductById);
     router.post('/create-product', medicineController.createProduct);
-    router.put('/update-product', medicineController.updateProduct);
+    router.put('/update-medicine', medicineController.updateProduct);
     router.delete('/delete-medicine', medicineController.deleteProduct);
 
+    //Payment
+    router.get("/payment/config", (req, res) => {
+        return res.status(200).json({
+          status: "success",
+          data: process.env.CLIENT_ID,
+        });
+    });
+
+    //Cart
+    router.post("/add-to-cart", cartController.addToCart);
+
+    router.get("/get-cart/:userId", cartController.getCartByUserId);
+    
+    
 
     return app.use("/", router);
 }

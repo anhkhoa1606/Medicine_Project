@@ -32,16 +32,16 @@ let handleGetAllUsers = async (req, res) => {
 };
 
 let handleGetUserById = async (req, res) => {
-    let userId = req.params.id;
     try {
-        let user = await userService.getUserById(userId);
-        return res.status(200).json(user);
-    } catch (error) {
-        return res.status(500).json({
-            errCode: -1,
-            message: 'Error from server',
+        let infor = await userService.getUserById(req.query.id);
+        return res.status(200).json(infor);
+      } catch (e) {
+        console.log(e);
+        return res.status(200).json({
+          errCode: -1,
+          errMessage: "Error from server...",
         });
-    }
+      }
 };
 
 let handleCreateUser = async (req, res) => {
@@ -57,29 +57,20 @@ let handleCreateUser = async (req, res) => {
 };
 
 let handleUpdateUser = async (req, res) => {
-    let userId = req.params.id;
-    try {
-        let updatedUser = await userService.updateUser(userId, req.body);
-        return res.status(200).json(updatedUser);
-    } catch (error) {
-        return res.status(500).json({
-            errCode: -1,
-            message: 'Error from server',
-        });
-    }
+    let data = req.body;
+    let message = await userService.updateUser(data);
+    return res.status(200).json(message);
 };
 
 let handleDeleteUser = async (req, res) => {
-    let userId = req.params.id;
-    try {
-        let response = await userService.deleteUser(userId);
-        return res.status(200).json(response);
-    } catch (error) {
-        return res.status(500).json({
-            errCode: -1,
-            message: 'Error from server',
+    if (!req.body.id) {
+        return res.status(200).json({
+          errCode: 1,
+          errMessage: "Missing required parameter",
         });
-    }
+      }
+      let message = await userService.deleteUser(req.body.id);
+      return res.status(200).json(message);
 };
 
 module.exports = {

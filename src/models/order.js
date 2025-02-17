@@ -14,15 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       email: DataTypes.STRING,
       phoneNumber: DataTypes.INTEGER,
       payment: DataTypes.STRING,
-      courses: {
-        type: DataTypes.TEXT("long"),
-        get: function () {
-          return JSON.parse(this.getDataValue("courses"));
-        },
-        set: function (value) {
-          return this.setDataValue("courses", JSON.stringify(value));
-        },
-      },
+      medicine: DataTypes.STRING,
     },
     { 
       sequelize,

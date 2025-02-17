@@ -28,6 +28,9 @@ module.exports = {
       phoneNumber: {
         type: Sequelize.INTEGER,
       },
+      medicine: {
+        type: Sequelize.STRING,
+      },
 
       createdAt: {
         allowNull: false,

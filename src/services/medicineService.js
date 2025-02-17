@@ -43,9 +43,22 @@ let getProductById = (id) => {
     });
 };
 
+import fs from "fs";
+
+let encodeImageToBase64 = (imagePath) => {
+    try {
+        let imageBuffer = fs.readFileSync(imagePath);
+        return imageBuffer.toString("base64");
+    } catch (error) {
+        console.error("Error reading image file:", error);
+        return "";
+    }
+};
+
 let createProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            let base64Image = data.image ? encodeImageToBase64(data.image) : "";
             if (!data.name || !data.price || !data.stock || !data.category) {
                 resolve({
                     errCode: 1,
@@ -59,7 +72,7 @@ let createProduct = (data) => {
                 price: data.price,
                 stock: data.stock,
                 category: data.category,
-                image: data.image || '',
+                image: base64Image,
             });
 
             resolve({
@@ -73,55 +86,48 @@ let createProduct = (data) => {
     });
 };
 
-let updateProduct = (id, data) => {
+
+let updateProduct = async (data) => {
     return new Promise(async (resolve, reject) => {
-        try {
-            if (!ObjectId.isValid(id)) {
-                resolve({
-                    errCode: 1,
-                    message: "Invalid product ID"
-                });
-            }
-
-            let product = await db.Medicine.findOne({ where: { id: id } });
-
-            if (!product) {
-                resolve({
-                    errCode: 2,
-                    message: "Product not found"
-                });
-            }
-
-            await product.update({
-                name: data.name || product.name,
-                description: data.description || product.description,
-                price: data.price || product.price,
-                stock: data.stock || product.stock,
-                category: data.category || product.category,
-                image: data.image || product.image,
-            });
-
-            resolve({
-                errCode: 0,
-                message: "Product updated successfully",
-                data: product
-            });
-        } catch (e) {
-            reject(e);
+      try {
+        if (!data.id) {
+          resolve({
+            errCode: 2,
+            errMessage: "Missing required parameters!",
+          });
         }
+        console.log(data)
+        let medicine = await db.Medicine.findOne({
+          where: { id: data.id },
+        });
+        if (medicine) {
+          (medicine.id = data.id),
+            (medicine.email = data.email),
+          (medicine.description = data.description),
+            (medicine.price = data.price),
+            (medicine.stock = data.stock),
+            (medicine.category = data.category),
+            (medicine.image = data.image);
+          await medicine.save();
+          resolve({
+            errCode: 0,
+            message: "The medicine has been updated successfully",
+          });
+        } else {
+          resolve({
+            errCode: 1,
+            message: "Medicine not found",
+          });
+        }
+      } catch (e) {
+        reject(e);
+      }
     });
 };
 
 let deleteProduct = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!ObjectId.isValid(id)) {
-                resolve({
-                    errCode: 1,
-                    message: "Invalid product ID"
-                });
-            }
-
             let product = await db.Medicine.findOne({ where: { id: id } });
 
             if (!product) {

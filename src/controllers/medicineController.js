@@ -38,29 +38,20 @@ let createProduct = async (req, res) => {
 };
 
 let updateProduct = async (req, res) => {
-    try {
-        let productId = req.params.id;
-        let response = await medicineService.updateProduct(productId, req.body);
-        return res.status(200).json(response);
-    } catch (error) {
-        return res.status(500).json({
-            errCode: -1,
-            message: "Error from server",
-        });
-    }
+    let data = req.body;
+    let message = await medicineService.updateProduct(data);
+    return res.status(200).json(message);
 };
 
 let deleteProduct = async (req, res) => {
-    try {
-        let productId = req.params.id;
-        let response = await medicineService.deleteProduct(productId);
-        return res.status(200).json(response);
-    } catch (error) {
-        return res.status(500).json({
-            errCode: -1,
-            message: "Error from server",
+    if (!req.body.id) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: "Missing required parameter",
         });
     }
+    let message = await medicineService.deleteProduct(req.body.id);
+    return res.status(200).json(message);
 };
 
 module.exports = {

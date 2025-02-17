@@ -8,7 +8,7 @@ const getAllUsers = () => {
   return axios.get(`/get-all-users`);
 };
 const createNewUserServices = (data) => {
-  return axios.post("api/create-new-user", data);
+  return axios.post("/create-user", data);
 };
 const createRegisterUserServices = (data) => {
   return axios.post("api/registerNewUser", data);
@@ -27,7 +27,7 @@ const deleteUserServices = (userId) => {
   });
 };
 const editUserServices = (inputData) => {
-  return axios.put("/edit-user", inputData);
+  return axios.put("/update-user", inputData);
 };
 
 export {

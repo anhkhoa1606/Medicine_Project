@@ -57,7 +57,8 @@ class ProductManage extends Component {
     handleModalOk = async (values) => {
         try {
             if (this.state.isEditMode) {
-                await updateProduct(values);
+                const updatedProduct = { ...values, id: this.state.selectedProduct.id }; 
+                await updateProduct(updatedProduct);
             } else {
                 await createProduct(values);
             }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllUsers, createNewUserServices, deleteUserServices } from '../../services/userService';
-import { Table, Input, Button, Modal, Form } from 'antd';
+import { getAllUsers, createNewUserServices, deleteUserServices, editUserServices } from '../../services/userService';
+import { Table, Input, Button, Modal, Form, Select } from 'antd';
 
 class UserManage extends Component {
     state = {
@@ -55,6 +55,8 @@ class UserManage extends Component {
     handleModalOk = async (values) => {
         try {
             if (this.state.isEditMode) {
+                const updatedUser = { ...values, id: this.state.selectedUser.id }; 
+                await editUserServices(updatedUser);
             } else {
                 await createNewUserServices(values);
             }
@@ -102,17 +104,53 @@ class UserManage extends Component {
                     onCancel={this.handleModalCancel}
                     footer={null}
                 >
-                    <Form onFinish={this.handleModalOk} initialValues={selectedUser || {}}>
+                    <Form onFinish={this.handleModalOk} initialValues={selectedUser || { roleId: "admin", gender: true }}>
                         <Form.Item name="email" label="Email" rules={[{ required: true, message: 'Please enter email' }]}>
                             <Input />
                         </Form.Item>
+
+                        {!isEditMode && (
+                            <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Please enter password' }]}>
+                                <Input.Password />
+                            </Form.Item>
+                        )}
+
                         <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Please enter first name' }]}>
                             <Input />
                         </Form.Item>
+
+                        <Form.Item name="lastName" label="Last Name" rules={[{ required: true, message: 'Please enter last name' }]}>
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item name="address" label="Address">
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item name="phoneNumber" label="Phone Number">
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item name="gender" label="Gender">
+                            <Select>
+                                <Select.Option value={true}>Male</Select.Option>
+                                <Select.Option value={false}>Female</Select.Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item name="roleId" label="Role ID" rules={[{ required: true, message: 'Please select a role' }]}>
+                            <Select>
+                                <Select.Option value="admin">Admin</Select.Option>
+                                <Select.Option value="staff">Staff</Select.Option>
+                                <Select.Option value="customer">Customer</Select.Option>
+                            </Select>
+                        </Form.Item>
+
                         <Form.Item>
                             <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
                         </Form.Item>
                     </Form>
+
                 </Modal>
             </div>
         );

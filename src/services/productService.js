@@ -14,7 +14,7 @@ const deleteProduct = (userId) => {
   });
 };
 const updateProduct = (inputData) => {
-  return axios.put("/update-product", inputData);
+  return axios.put("/update-medicine", inputData);
 };
 
 export {

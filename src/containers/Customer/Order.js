@@ -16,12 +16,11 @@ class Order extends Component {
       email: "",
       phoneNumber: "",
       payment: "PayPal",
-      courses: "",
-      coursePrice: "",
+      medicines: "",
+      medicinePrice: "",
       detailCourses: "",
       sdkReady: false,
       showPaypal: false,
-      coursePurchased: false,
     };
   }
   async componentDidMount() {
@@ -33,8 +32,23 @@ class Order extends Component {
       });
     }
     if (this.props.location.state) {
-      const { coursePrice, detailCourses } = this.props.location.state;
-      this.setState({ coursePrice, detailCourses });
+      let selectedProducts = this.props.location.state.selectedProducts;
+      
+      if (!Array.isArray(selectedProducts)) {
+        selectedProducts = [selectedProducts];
+      }
+  
+      const medicinePrice = selectedProducts.reduce(
+        (total, product) => total + product.price * product.quantity,
+        0
+      );
+  
+      this.setState({
+        medicines: selectedProducts,
+        medicinePrice: medicinePrice,
+      });
+    } else {
+      console.error("No selected products or invalid data.");
     }
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {}
@@ -46,7 +60,7 @@ class Order extends Component {
       ...stateCopy,
     });
   };
-  handlereturnHome = () => {
+  handleReturnHome = () => {
     if (this.props.history) {
       this.props.history.push(`/home`);
     }
@@ -57,13 +71,6 @@ class Order extends Component {
       return;
     }
     this.setState({ showPaypal: true });
-    const orderData = {
-      fullName: this.state.username,
-      email: this.state.email,
-      phoneNumber: this.state.phoneNumber,
-      courses: this.state.detailCourses,
-    };
-    console.log(orderData);
   };
   addPaypalScript = async () => {
     let data = await getConfig();
@@ -88,25 +95,18 @@ class Order extends Component {
       email: this.state.email,
       phoneNumber: this.state.phoneNumber,
       payment: "PayPal",
-      courses: this.state.detailCourses,
-      totalPrice: this.state.coursePrice,
+      medicines: this.state.medicines,
+      totalPrice: this.state.medicinePrice,
     };
     console.log(orderData);
     createOrderService(orderData)
       .then(async (response) => {
         toast.success("Order created successfully", response);
         this.props.history.push("/payment-return", { orderData });
-        // let res = await postStudentOrderCourses({
-        //   fullName: this.state.username,
-        //   email: this.state.email,
-        //   phoneNumber: this.state.phoneNumber,
-        //   courses: this.state.detailCourses,
-        // });
-        this.props.addPurchasedCourse(this.state.detailCourses.id);
+        this.props.addPurchasedCourse(this.state.medicines.id);
       })
       .catch((error) => {
         console.error("Error creating order", error);
-        // Handle errors here
       });
   };
   validateInput = () => {
@@ -137,10 +137,13 @@ class Order extends Component {
   };
   render() {
     console.log(this.state.payment);
-    let { coursePrice, detailCourses, showPaypal } = this.state;
-    console.log(detailCourses);
+    let { medicinePrice, medicines, showPaypal } = this.state;
+    console.log('medicines12: ', medicines);
     const { userIdNormal } = this.props;
     console.log(userIdNormal);
+    if (!Array.isArray(medicines)) {
+      return <p>Loading...</p>;
+    }
 
     return (
       <>
@@ -214,21 +217,12 @@ class Order extends Component {
               {" "}
               <FormattedMessage id="order.recheck" />
             </h3>
-
-            <div className="transport d-flex ">
-              <div
-                className="image align-self-center"
-                style={{
-                  backgroundImage: `url(${
-                    detailCourses.image ? detailCourses.image : ""
-                  })`,
-                }}
-              ></div>
-              <div className="name align-self-center">{detailCourses.name}</div>
-              <div className="price align-self-center">
-                {detailCourses.price} $
+            {medicines.map((item) => (
+              <div className="transport d-flex" key={item.id}>
+                <div className="name align-self-center">{item.name}</div>
+                <div className="price align-self-center">{item.price} $</div>
               </div>
-            </div>
+            ))}
           </div>
           <div className="content-checkout">
             <div className="top-content ">
@@ -241,7 +235,7 @@ class Order extends Component {
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
-                  }).format(coursePrice)}
+                  }).format(medicinePrice)}
                 </div>
               </div>
               <div className="total d-flex">
@@ -254,14 +248,14 @@ class Order extends Component {
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
-                  }).format(coursePrice)}
+                  }).format(medicinePrice)}
                 </div>
               </div>
             </div>
             <div className="bottom-content d-flex">
               <div
                 className="back-cart d-flex"
-                onClick={() => this.handlereturnHome()}
+                onClick={() => this.handleReturnHome()}
               >
                 <i class="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
                 <div>
@@ -277,7 +271,7 @@ class Order extends Component {
               )}
               {showPaypal && (
                 <PayPalButton
-                  amount={coursePrice}
+                  amount={medicinePrice}
                   // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                   onSuccess={this.onSuccessPaypal}
                   onError={() => {

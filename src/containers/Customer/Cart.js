@@ -4,6 +4,7 @@ import { removeFromCart, updateCartQuantity } from "../../store/actions/cartActi
 import "./Cart.scss";
 import { getCartByUserId } from "../../services/cartService";
 import { getMedicineById } from "../../services/productService";
+import { withRouter } from "react-router-dom";
 
 class Cart extends Component {
   state = {
@@ -72,6 +73,7 @@ class Cart extends Component {
     // Lấy các sản phẩm đã chọn và gửi tới backend để tạo đơn hàng
     const selectedProducts = this.state.cartData.filter(item => this.state.selectedItems.includes(item.id));
     console.log("Selected products:", selectedProducts);
+    this.props.history.push("/order", { selectedProducts });
     // Bạn có thể gửi dữ liệu selectedProducts vào backend để tạo order.
     // Sau khi tạo đơn hàng, bạn có thể chuyển hướng người dùng đến trang thanh toán
   };
@@ -147,4 +149,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));

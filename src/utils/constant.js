@@ -2,9 +2,14 @@ export const path = {
     HOME: '/',
     HOMEPAGE: "/home",
     LOGIN: '/login',
+    REGISTER: "/register",
     LOG_OUT: '/logout',
     SYSTEM: '/system',
     CART: '/cart',
+    ORDER: "/order",
+    PAYMENT_RETURN: "/payment-return",
+    PAYMENT: "/payment",
+    PROFILE: "/profile",
 };
 
 export const LANGUAGES = {

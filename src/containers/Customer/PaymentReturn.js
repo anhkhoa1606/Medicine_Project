@@ -43,49 +43,7 @@ class PaymentReturn extends Component {
       console.error("Error fetching orders:", error);
     }
   }
-  // async componentDidMount() {
-  //   try {
-  //     let userId = this.props.userId;
-  //     if (!userId) {
-  //       // If userId is not in props, try to get it from localStorage
-  //       userId = localStorage.getItem("userId");
-  //     } else {
-  //       // If userId is in props, save it to localStorage
-  //       localStorage.setItem("userId", userId);
-  //     }
-  //     console.log(userId);
-
-  //     let ordersArray;
-
-  //     // Try to get arrOrders from localStorage
-  //     const savedOrders = localStorage.getItem("arrOrders");
-
-  //     if (savedOrders) {
-  //       // If arrOrders exists in localStorage, use it
-  //       ordersArray = JSON.parse(savedOrders);
-  //     } else {
-  //       // If arrOrders doesn't exist in localStorage, fetch orders
-  //       const orders = await getOrderService(userId);
-  //       console.log("Orders:", orders);
-
-  //       const userOrders = orders.filter((order) => order.userId === userId);
-
-  //       // If orders is an array, use it directly. If not, convert it to an array.
-  //       ordersArray = Array.isArray(userOrders)
-  //         ? userOrders
-  //         : Object.values(orders);
-
-  //       // Save arrOrders to localStorage after state update
-  //       localStorage.setItem("arrOrders", JSON.stringify(ordersArray));
-  //     }
-
-  //     this.setState({
-  //       arrOrders: ordersArray,
-  //     });
-  //   } catch (error) {
-  //     console.error("Error fetching orders:", error);
-  //   }
-  // }
+  
   async componentDidUpdate(prevProps, prevState) {
     // Check if userId prop has changed
     if (this.props.userId !== prevProps.userId) {
@@ -166,7 +124,7 @@ class PaymentReturn extends Component {
                       <td>{item.email}</td>
                       <td>{item.phonenumber}</td>
                       <td>{item.payment}</td>
-                      <td>{item.courses.name}</td>
+                      {/* <td>{item.courses.name}</td> */}
                       <td>{item.totalPrice}</td>
                       <td>
                         {" "}

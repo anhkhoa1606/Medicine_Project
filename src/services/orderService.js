@@ -4,11 +4,13 @@ import { Op } from "sequelize";
 let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+      let medicineList = Array.isArray(data.medicine) ? data.medicine : [data.medicine];
+
       let existingOrder = await db.Order.findOne({
         where: {
           userId: data.userId,
           medicine: {
-            [Op.in]: data.medicine,
+            [Op.in]: medicineList,
           },
         },
       });
@@ -21,11 +23,11 @@ let createOrderService = (data) => {
         await db.Order.create({
           userId: data.userId,
           username: data.username,
-          totalPrice: data.totalPrice,
-          medicine: data.medicine,
           email: data.email,
           phoneNumber: data.phoneNumber,
           payment: data.payment,
+          medicine: JSON.stringify(data.medicine),
+          totalPrice: data.totalPrice,
         });
         resolve({
           errCode: 0,

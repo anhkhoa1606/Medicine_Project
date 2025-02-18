@@ -33,11 +33,11 @@ let initWebRoutes = (app) => {
     router.delete('/delete-medicine', medicineController.deleteProduct);
 
     //Order
-    router.post("/api/create-order", orderController.createOrder);
-    router.get("/api/get-order", orderController.getOrder);
-    router.put("/api/edit-order", orderController.editOrder);
-    router.delete("/api/delete-order", orderController.deleteOrder);
-    router.get("/api/get-orders-by-id", orderController.getDetailOrderById);
+    router.post("/create-order", orderController.createOrder);
+    router.get("/get-all-order", orderController.getOrder);
+    router.put("/edit-order", orderController.editOrder);
+    router.delete("/delete-order", orderController.deleteOrder);
+    router.get("/get-orders-by-id", orderController.getDetailOrderById);
 
     //Payment
     router.get("/payment/config", (req, res) => {

@@ -13,7 +13,6 @@ import HomePage from "./Customer/HomePage";
 import Cart from "./Customer/Cart";
 import Order from "./Customer/Order";
 import PaymentReturn from "./Customer/PaymentReturn";
-
 import ConfirmModal from '../components/ConfirmModal';
 import CustomScrollbars from '../components/CustomScrollbars';
 

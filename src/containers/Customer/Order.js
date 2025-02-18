@@ -103,7 +103,7 @@ class Order extends Component {
       .then(async (response) => {
         toast.success("Order created successfully", response);
         this.props.history.push("/payment-return", { orderData });
-        this.props.addPurchasedCourse(this.state.medicines.id);
+        // this.props.addPurchasedCourse(this.state.medicines.id);
       })
       .catch((error) => {
         console.error("Error creating order", error);

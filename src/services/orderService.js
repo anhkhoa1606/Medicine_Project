@@ -4,7 +4,7 @@ const createOrderService = (data) => {
   return axios.post("/create-order", data);
 };
 const getOrderService = () => {
-  return axios.get(`/get-order`);
+  return axios.get(`/get-all-order`);
 };
 const getOderByUserService = () => {
   return axios.get(`/get-order-by-user`);

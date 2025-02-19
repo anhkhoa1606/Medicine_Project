@@ -4,7 +4,8 @@ import { getOrderService, deleteOrderService, editOrderService } from '../../ser
 import { Table, Input, Button, Modal, Form } from 'antd';
 import { Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-
+// import Header from '../../components/Header';
+import Header from "../Roles/Header";
 class OrderManage extends Component {
     state = {
         orders: [],
@@ -69,7 +70,7 @@ class OrderManage extends Component {
         );
 
         const columns = [
-            { title: 'Order Name', dataIndex: 'name', key: 'name' },
+            { title: 'Order Name', dataIndex: 'username', key: 'username' },
             { title: 'Total Price', dataIndex: 'totalPrice', key: 'totalPrice' },
             { title: 'Actions', key: 'actions', render: (text, record) => (
                 <>
@@ -80,35 +81,38 @@ class OrderManage extends Component {
         ];
 
         return (
-            <div className="container mt-4">
-                <h2 className="text-center">Manage Orders</h2>
-                <Input 
-                    placeholder="Search orders..."
-                    value={searchTerm}
-                    onChange={this.handleSearch}
-                    className="mb-3"
-                />
-                <Table dataSource={filteredOrders} columns={columns} rowKey="id" />
+            <>
+                <Header toggleCart={this.toggleCartView} />
+                <div className="container mt-4">
+                    <h2 className="text-center">Manage Orders</h2>
+                    <Input 
+                        placeholder="Search orders..."
+                        value={searchTerm}
+                        onChange={this.handleSearch}
+                        className="mb-3"
+                    />
+                    <Table dataSource={filteredOrders} columns={columns} rowKey="id" />
 
-                <Modal
-                    title="Edit Order"
-                    visible={isModalVisible}
-                    onCancel={this.handleModalCancel}
-                    footer={null}
-                >
-                    <Form onFinish={this.handleModalOk} initialValues={selectedOrder || {}}>
-                        <Form.Item name="name" label="Order Name" rules={[{ required: true, message: 'Please enter order name' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="totalPrice" label="Total Price" rules={[{ required: true, message: 'Please enter total price' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">Save Changes</Button>
-                        </Form.Item>
-                    </Form>
-                </Modal>
-            </div>
+                    <Modal
+                        title="Edit Order"
+                        visible={isModalVisible}
+                        onCancel={this.handleModalCancel}
+                        footer={null}
+                    >
+                        <Form onFinish={this.handleModalOk} initialValues={selectedOrder || {}}>
+                            <Form.Item name="name" label="Order Name" rules={[{ required: true, message: 'Please enter order name' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="totalPrice" label="Total Price" rules={[{ required: true, message: 'Please enter total price' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit">Save Changes</Button>
+                            </Form.Item>
+                        </Form>
+                    </Modal>
+                </div>
+            </>
         );
     }
 }

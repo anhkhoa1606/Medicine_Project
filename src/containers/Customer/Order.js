@@ -7,6 +7,8 @@ import { FormattedMessage } from "react-intl";
 import { toast } from "react-toastify";
 import { PayPalButton } from "react-paypal-button-v2";
 import * as actions from "../../store/actions";
+// import Header from "../../components/Header";
+import Header from "../Roles/Header";
 
 class Order extends Component {
   constructor(props) {
@@ -147,6 +149,7 @@ class Order extends Component {
 
     return (
       <>
+        <Header toggleCart={this.toggleCartView} />
         <div className="order-container">
           <div className="address-container ">
             <form>

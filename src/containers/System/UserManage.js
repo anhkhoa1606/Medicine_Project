@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers, createNewUserServices, deleteUserServices, editUserServices } from '../../services/userService';
 import { Table, Input, Button, Modal, Form, Select } from 'antd';
-
+// import Header from '../../components/Header';
+import Header from "../Roles/Header";
 class UserManage extends Component {
     state = {
         users: [],
@@ -87,72 +88,75 @@ class UserManage extends Component {
         ];
 
         return (
-            <div className="container mt-4">
-                <h2 className="text-center">Manage Users</h2>
-                <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
-                <Input 
-                    placeholder="Search users..."
-                    value={searchTerm}
-                    onChange={this.handleSearch}
-                    className="mb-3"
-                />
-                <Table dataSource={filteredUsers} columns={columns} rowKey="id" />
+            <>
+                <Header toggleCart={this.toggleCartView} />
+                <div className="container mt-4">
+                    <h2 className="text-center">Manage Users</h2>
+                    <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
+                    <Input 
+                        placeholder="Search users..."
+                        value={searchTerm}
+                        onChange={this.handleSearch}
+                        className="mb-3"
+                    />
+                    <Table dataSource={filteredUsers} columns={columns} rowKey="id" />
 
-                <Modal
-                    title={isEditMode ? "Edit User" : "Add New User"}
-                    visible={isModalVisible}
-                    onCancel={this.handleModalCancel}
-                    footer={null}
-                >
-                    <Form onFinish={this.handleModalOk} initialValues={selectedUser || { roleId: "admin", gender: true }}>
-                        <Form.Item name="email" label="Email" rules={[{ required: true, message: 'Please enter email' }]}>
-                            <Input />
-                        </Form.Item>
-
-                        {!isEditMode && (
-                            <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Please enter password' }]}>
-                                <Input.Password />
+                    <Modal
+                        title={isEditMode ? "Edit User" : "Add New User"}
+                        visible={isModalVisible}
+                        onCancel={this.handleModalCancel}
+                        footer={null}
+                    >
+                        <Form onFinish={this.handleModalOk} initialValues={selectedUser || { roleId: "admin", gender: true }}>
+                            <Form.Item name="email" label="Email" rules={[{ required: true, message: 'Please enter email' }]}>
+                                <Input />
                             </Form.Item>
-                        )}
 
-                        <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Please enter first name' }]}>
-                            <Input />
-                        </Form.Item>
+                            {!isEditMode && (
+                                <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Please enter password' }]}>
+                                    <Input.Password />
+                                </Form.Item>
+                            )}
 
-                        <Form.Item name="lastName" label="Last Name" rules={[{ required: true, message: 'Please enter last name' }]}>
-                            <Input />
-                        </Form.Item>
+                            <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Please enter first name' }]}>
+                                <Input />
+                            </Form.Item>
 
-                        <Form.Item name="address" label="Address">
-                            <Input />
-                        </Form.Item>
+                            <Form.Item name="lastName" label="Last Name" rules={[{ required: true, message: 'Please enter last name' }]}>
+                                <Input />
+                            </Form.Item>
 
-                        <Form.Item name="phoneNumber" label="Phone Number">
-                            <Input />
-                        </Form.Item>
+                            <Form.Item name="address" label="Address">
+                                <Input />
+                            </Form.Item>
 
-                        <Form.Item name="gender" label="Gender">
-                            <Select>
-                                <Select.Option value={true}>Male</Select.Option>
-                                <Select.Option value={false}>Female</Select.Option>
-                            </Select>
-                        </Form.Item>
+                            <Form.Item name="phoneNumber" label="Phone Number">
+                                <Input />
+                            </Form.Item>
 
-                        <Form.Item name="roleId" label="Role ID" rules={[{ required: true, message: 'Please select a role' }]}>
-                            <Select>
-                                <Select.Option value="admin">Admin</Select.Option>
-                                <Select.Option value="staff">Staff</Select.Option>
-                                <Select.Option value="customer">Customer</Select.Option>
-                            </Select>
-                        </Form.Item>
+                            <Form.Item name="gender" label="Gender">
+                                <Select>
+                                    <Select.Option value={true}>Male</Select.Option>
+                                    <Select.Option value={false}>Female</Select.Option>
+                                </Select>
+                            </Form.Item>
 
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
-                        </Form.Item>
-                    </Form>
+                            <Form.Item name="roleId" label="Role ID" rules={[{ required: true, message: 'Please select a role' }]}>
+                                <Select>
+                                    <Select.Option value="admin">Admin</Select.Option>
+                                    <Select.Option value="staff">Staff</Select.Option>
+                                    <Select.Option value="customer">Customer</Select.Option>
+                                </Select>
+                            </Form.Item>
 
-                </Modal>
-            </div>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
+                            </Form.Item>
+                        </Form>
+
+                    </Modal>
+                </div>
+            </>
         );
     }
 }

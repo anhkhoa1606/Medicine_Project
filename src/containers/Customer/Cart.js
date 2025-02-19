@@ -5,6 +5,8 @@ import "./Cart.scss";
 import { getCartByUserId } from "../../services/cartService";
 import { getMedicineById } from "../../services/productService";
 import { withRouter } from "react-router-dom";
+// import Header from "../../components/Header";
+import Header from "../Roles/Header";
 
 class Cart extends Component {
   state = {
@@ -82,55 +84,58 @@ class Cart extends Component {
     const { cartData, selectedItems, selectAll } = this.state;
 
     return (
-      <div className="cart-container">
-        <h2 className="cart-title">Giỏ hàng của bạn</h2>
-        {cartData.length === 0 ? (
-          <p className="empty-cart">Giỏ hàng trống</p>
-        ) : (
-          <>
-            <div>
-              <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={this.handleSelectAll}
-              />{" "}
-              Chọn tất cả
-            </div>
+      <>
+        <Header toggleCart={this.toggleCartView} />
+        <div className="cart-container">
+          <h2 className="cart-title">Giỏ hàng của bạn</h2>
+          {cartData.length === 0 ? (
+            <p className="empty-cart">Giỏ hàng trống</p>
+          ) : (
+            <>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={selectAll}
+                  onChange={this.handleSelectAll}
+                />{" "}
+                Chọn tất cả
+              </div>
 
-            <div className="cart-items">
-              {cartData.map((item) => (
-                <div className="cart-item" key={item.id}>
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(item.id)}
-                    onChange={() => this.handleSelectItem(item.id)}
-                  />
-                  <img src={item.image} alt={item.name} className="cart-item-image" />
-                  <div className="cart-item-info">
-                    <h3 className="cart-item-name">{item.name}</h3>
-                    <p className="cart-item-price">{item.price.toLocaleString()}đ</p>
-                    <div className="cart-item-quantity">
-                      <button onClick={() => this.handleQuantityChange(item.id, item.quantity - 1)}>-</button>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => this.handleQuantityChange(item.id, item.quantity + 1)}>+</button>
+              <div className="cart-items">
+                {cartData.map((item) => (
+                  <div className="cart-item" key={item.id}>
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(item.id)}
+                      onChange={() => this.handleSelectItem(item.id)}
+                    />
+                    <img src={item.image} alt={item.name} className="cart-item-image" />
+                    <div className="cart-item-info">
+                      <h3 className="cart-item-name">{item.name}</h3>
+                      <p className="cart-item-price">{item.price.toLocaleString()}đ</p>
+                      <div className="cart-item-quantity">
+                        <button onClick={() => this.handleQuantityChange(item.id, item.quantity - 1)}>-</button>
+                        <span>{item.quantity}</span>
+                        <button onClick={() => this.handleQuantityChange(item.id, item.quantity + 1)}>+</button>
+                      </div>
+                      <button
+                        className="remove-button"
+                        onClick={() => this.handleRemoveFromCart(item.id)}
+                      >
+                        Xóa
+                      </button>
                     </div>
-                    <button
-                      className="remove-button"
-                      onClick={() => this.handleRemoveFromCart(item.id)}
-                    >
-                      Xóa
-                    </button>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            <button className="order-button" onClick={this.handleOrder}>
-              Đặt hàng
-            </button>
-          </>
-        )}
-      </div>
+              <button className="order-button" onClick={this.handleOrder}>
+                Đặt hàng
+              </button>
+            </>
+          )}
+        </div>
+      </>
     );
   }
 }

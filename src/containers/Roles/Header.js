@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import * as actions from "../../store/actions";
 import Navigator from "../../components/Navigator";
 import { adminMenu, customerMenu } from "../Roles/menuApp";
-import "./Roles.scss";
+import "./Header.scss";
 import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
@@ -16,20 +16,20 @@ class Header extends Component {
       menuApp: [],
     };
   }
+
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
+
   componentDidMount() {
     let { userInfo, history } = this.props;
-    console.log(userInfo)
+    console.log(userInfo);
     let menu = [];
     if (userInfo && !_.isEmpty(userInfo)) {
       let role = userInfo.roleId;
-      if (role === USER_ROLE.ADMIN) {
+      console.log('userInfo.roleId', userInfo.roleId)
+      if (role === USER_ROLE.ADMIN || role === USER_ROLE.STAFF) {
         menu = adminMenu;
-      }
-      if (role === USER_ROLE.STAFF) {
-        menu = customerMenu;
       }
       if (role === USER_ROLE.CUSTOMER) {
         history.push("/home");
@@ -38,40 +38,45 @@ class Header extends Component {
     this.setState({ menuApp: menu });
   }
 
+  handleLogout = () => {
+    const { processLogout, history } = this.props;
+    // Xử lý logout
+    processLogout();
+    // Chuyển hướng tới trang login
+    history.push('/login');
+  }
+
   render() {
     const { processLogout, language, userInfo } = this.props;
+
     return (
       <div className="header-container">
-        {/* thanh navigator */}
+        {/* Thanh Navigator */}
         <div className="header-tabs-container">
           <Navigator menus={this.state.menuApp} />
         </div>
+
         <div className="languages">
           <span className="welcome">
             <FormattedMessage id="home-header.welcome" />{" "}
             {userInfo && userInfo.firstName ? userInfo.firstName : " "} !
           </span>
           <span
-            className={
-              language === LANGUAGES.VI ? "languages-vi active" : "languages-vi"
-            }
+            className={language === LANGUAGES.VI ? "languages-vi active" : "languages-vi"}
             onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
           >
             VN
           </span>
           <span
-            className={
-              language === LANGUAGES.EN ? "languages-en active" : "languages-en"
-            }
+            className={language === LANGUAGES.EN ? "languages-en active" : "languages-en"}
             onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
           >
             EN
           </span>
 
-          {/* nút logout */}
           <div
             className="btn btn-logout"
-            onClick={processLogout}
+            onClick={this.handleLogout} // Gọi handleLogout để logout và chuyển hướng
             title="Log out"
           >
             <i className="fas fa-sign-out-alt"></i>
@@ -93,8 +98,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     processLogout: () => dispatch(actions.processLogout()),
-    changeLanguageAppRedux: (language) =>
-      dispatch(actions.changeLanguageApp(language)),
+    changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
   };
 };
 

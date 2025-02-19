@@ -4,6 +4,8 @@ import { getAllProducts, createProduct, deleteProduct, updateProduct } from '../
 import { Table, Input, Button, Modal, Form } from 'antd';
 import { Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+// import Header from '../../components/Header';
+import Header from "../Roles/Header";
 
 class ProductManage extends Component {
     state = {
@@ -98,51 +100,54 @@ class ProductManage extends Component {
         ];
 
         return (
-            <div className="container mt-4">
-                <h2 className="text-center">Manage Products</h2>
-                <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
-                <Input 
-                    placeholder="Search products..."
-                    value={searchTerm}
-                    onChange={this.handleSearch}
-                    className="mb-3"
-                />
-                <Table dataSource={filteredProducts} columns={columns} rowKey="id" />
+            <>
+                <Header toggleCart={this.toggleCartView} />
+                <div className="container mt-4">
+                    <h2 className="text-center">Manage Products</h2>
+                    <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
+                    <Input 
+                        placeholder="Search products..."
+                        value={searchTerm}
+                        onChange={this.handleSearch}
+                        className="mb-3"
+                    />
+                    <Table dataSource={filteredProducts} columns={columns} rowKey="id" />
 
-                <Modal
-                    title={isEditMode ? "Edit Product" : "Add New Product"}
-                    visible={isModalVisible}
-                    onCancel={this.handleModalCancel}
-                    footer={null}
-                >
-                    <Form onFinish={this.handleModalOk} initialValues={selectedProduct || {}}>
-                        <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter product name' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="description" label="Description">
-                            <Input.TextArea />
-                        </Form.Item>
-                        <Form.Item name="price" label="Price" rules={[{ required: true, message: 'Please enter product price' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="stock" label="Stock" rules={[{ required: true, message: 'Please enter stock quantity' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="category" label="Category" rules={[{ required: true, message: 'Please enter category' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item label="Image">
-                            <Upload beforeUpload={() => false} onChange={this.handleImageUpload} showUploadList={false}>
-                                <Button icon={<UploadOutlined />}>Upload Image</Button>
-                            </Upload>
-                            {selectedProduct?.image && <img src={selectedProduct.image} alt="Product" style={{ width: 100, marginTop: 10 }} />}
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
-                        </Form.Item>
-                    </Form>
-                </Modal>
-            </div>
+                    <Modal
+                        title={isEditMode ? "Edit Product" : "Add New Product"}
+                        visible={isModalVisible}
+                        onCancel={this.handleModalCancel}
+                        footer={null}
+                    >
+                        <Form onFinish={this.handleModalOk} initialValues={selectedProduct || {}}>
+                            <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter product name' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="description" label="Description">
+                                <Input.TextArea />
+                            </Form.Item>
+                            <Form.Item name="price" label="Price" rules={[{ required: true, message: 'Please enter product price' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="stock" label="Stock" rules={[{ required: true, message: 'Please enter stock quantity' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="category" label="Category" rules={[{ required: true, message: 'Please enter category' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item label="Image">
+                                <Upload beforeUpload={() => false} onChange={this.handleImageUpload} showUploadList={false}>
+                                    <Button icon={<UploadOutlined />}>Upload Image</Button>
+                                </Upload>
+                                {selectedProduct?.image && <img src={selectedProduct.image} alt="Product" style={{ width: 100, marginTop: 10 }} />}
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
+                            </Form.Item>
+                        </Form>
+                    </Modal>
+                </div>
+            </>
         );
     }
 }

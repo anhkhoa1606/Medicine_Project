@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers, createNewUserServices, deleteUserServices } from '../../services/userService';
 import { Table, Input, Button, Modal, Form } from 'antd';
-
+// import Header from '../../components/Header';
+import Header from "../Roles/Header";
 class HomePage extends Component {
     state = {
         users: [],
@@ -86,36 +87,39 @@ class HomePage extends Component {
         ];
 
         return (
-            <div className="container mt-4">
-                <h2 className="text-center">HomePage</h2>
-                <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
-                <Input 
-                    placeholder="Search users..."
-                    value={searchTerm}
-                    onChange={this.handleSearch}
-                    className="mb-3"
-                />
-                <Table dataSource={filteredUsers} columns={columns} rowKey="id" />
+            <>
+                <Header toggleCart={this.toggleCartView} />
+                <div className="container mt-4">
+                    <h2 className="text-center">HomePage</h2>
+                    <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
+                    <Input 
+                        placeholder="Search users..."
+                        value={searchTerm}
+                        onChange={this.handleSearch}
+                        className="mb-3"
+                    />
+                    <Table dataSource={filteredUsers} columns={columns} rowKey="id" />
 
-                <Modal
-                    title={isEditMode ? "Edit User" : "Add New User"}
-                    visible={isModalVisible}
-                    onCancel={this.handleModalCancel}
-                    footer={null}
-                >
-                    <Form onFinish={this.handleModalOk} initialValues={selectedUser || {}}>
-                        <Form.Item name="email" label="Email" rules={[{ required: true, message: 'Please enter email' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Please enter first name' }]}>
-                            <Input />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
-                        </Form.Item>
-                    </Form>
-                </Modal>
-            </div>
+                    <Modal
+                        title={isEditMode ? "Edit User" : "Add New User"}
+                        visible={isModalVisible}
+                        onCancel={this.handleModalCancel}
+                        footer={null}
+                    >
+                        <Form onFinish={this.handleModalOk} initialValues={selectedUser || {}}>
+                            <Form.Item name="email" label="Email" rules={[{ required: true, message: 'Please enter email' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item name="firstName" label="First Name" rules={[{ required: true, message: 'Please enter first name' }]}>
+                                <Input />
+                            </Form.Item>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
+                            </Form.Item>
+                        </Form>
+                    </Modal>
+                </div>
+            </>
         );
     }
 }

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllProducts, createProduct, deleteProduct, updateProduct } from '../../services/productService';
-import { Table, Input, Button, Modal, Form } from 'antd';
-import { Upload, message } from 'antd';
+import { Table, Input, Button, Modal, Form, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-// import Header from '../../components/Header';
 import Header from "../Roles/Header";
 
 class ProductManage extends Component {
@@ -13,8 +11,9 @@ class ProductManage extends Component {
         searchTerm: '',
         isModalVisible: false,
         isEditMode: false,
-        selectedProduct: null,
+        selectedProduct: {},
     };
+    formRef = React.createRef();
 
     componentDidMount() {
         this.fetchProducts();
@@ -36,13 +35,21 @@ class ProductManage extends Component {
     };
 
     handleAddNew = () => {
-        this.setState({ isModalVisible: true, isEditMode: false, selectedProduct: null });
+        this.setState({ isModalVisible: true, isEditMode: false, selectedProduct: {} }, () => {
+            this.formRef.current?.resetFields();
+        });
     };
 
     handleEdit = (product) => {
-        this.setState({ isModalVisible: true, isEditMode: true, selectedProduct: product });
+        this.setState({ 
+            isModalVisible: true, 
+            isEditMode: true, 
+            selectedProduct: product 
+        }, () => {
+            this.formRef.current?.setFieldsValue(product);
+        });
     };
-
+    
     handleDelete = async (productId) => {
         try {
             await deleteProduct(productId);
@@ -53,17 +60,26 @@ class ProductManage extends Component {
     };
 
     handleModalCancel = () => {
-        this.setState({ isModalVisible: false, selectedProduct: null });
+        this.setState({ isModalVisible: false, selectedProduct: {} });
     };
 
     handleModalOk = async (values) => {
         try {
-            if (this.state.isEditMode) {
-                const updatedProduct = { ...values, id: this.state.selectedProduct.id }; 
-                await updateProduct(updatedProduct);
+            const { isEditMode, selectedProduct } = this.state;
+            const productData = { 
+                ...selectedProduct,
+                ...values,
+                image: selectedProduct?.image || values.image || ""
+            };
+            console.log("productData", productData);
+
+            if (isEditMode) {
+                productData.id = selectedProduct.id;
+                await updateProduct(productData);
             } else {
-                await createProduct(values);
+                await createProduct(productData);
             }
+
             this.setState({ isModalVisible: false });
             this.fetchProducts();
         } catch (error) {
@@ -71,26 +87,44 @@ class ProductManage extends Component {
         }
     };
 
-    handleImageUpload = ({ file }) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            this.setState({ selectedProduct: { ...this.state.selectedProduct, image: reader.result } });
-        };
-        reader.onerror = (error) => {
-            message.error('Failed to upload image');
-        };
+    handleImageUpload = async ({ file }) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "user_avatar");
+
+        try {
+            const response = await fetch("https://api.cloudinary.com/v1_1/dyfbye716/image/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.secure_url) {
+                this.setState(prevState => ({
+                    selectedProduct: { ...prevState.selectedProduct, image: result.secure_url }
+                }));
+                message.success("Image uploaded successfully");
+            } else {
+                message.error("Image upload failed");
+            }
+        } catch (error) {
+            console.error("Error uploading image", error);
+            message.error("Image upload error");
+        }
     };
+
     render() {
         const { products, searchTerm, isModalVisible, isEditMode, selectedProduct } = this.state;
         const filteredProducts = products.filter(product =>
-            (product.name && product.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            product.name?.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
         const columns = [
             { title: 'Name', dataIndex: 'name', key: 'name' },
             { title: 'Price', dataIndex: 'price', key: 'price' },
             { title: 'Stock', dataIndex: 'stock', key: 'stock' },
+            { title: 'Image', dataIndex: 'image', key: 'image', render: image => image && <img src={image} alt="product" style={{ width: 50 }} /> },
             { title: 'Actions', key: 'actions', render: (text, record) => (
                 <>
                     <Button type="primary" onClick={() => this.handleEdit(record)}>Edit</Button>
@@ -119,8 +153,8 @@ class ProductManage extends Component {
                         onCancel={this.handleModalCancel}
                         footer={null}
                     >
-                        <Form onFinish={this.handleModalOk} initialValues={selectedProduct || {}}>
-                            <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter product name' }]}>
+                        <Form ref={this.formRef} onFinish={this.handleModalOk} initialValues={ selectedProduct || {}}>
+                        <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter product name' }]}>
                                 <Input />
                             </Form.Item>
                             <Form.Item name="description" label="Description">
@@ -139,7 +173,7 @@ class ProductManage extends Component {
                                 <Upload beforeUpload={() => false} onChange={this.handleImageUpload} showUploadList={false}>
                                     <Button icon={<UploadOutlined />}>Upload Image</Button>
                                 </Upload>
-                                {selectedProduct?.image && <img src={selectedProduct.image} alt="Product" style={{ width: 100, marginTop: 10 }} />}
+                                {this.state.selectedProduct?.image && <img src={this.state.selectedProduct.image} alt="Product" style={{ width: 100, marginTop: 10 }} />}
                             </Form.Item>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
@@ -152,12 +186,4 @@ class ProductManage extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {};
-};
-
-const mapDispatchToProps = dispatch => {
-    return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductManage);
+export default connect(null, null)(ProductManage);

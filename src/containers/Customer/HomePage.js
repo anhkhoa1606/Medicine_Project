@@ -20,7 +20,7 @@ class HomePage extends Component {
   fetchProducts = async () => {
     try {
       let response = await getAllProducts();
-      console.log(response.data);
+      console.log('response.data', response.data);
       if (response.errCode === 0) {
         this.setState({ products: response.data });
       }

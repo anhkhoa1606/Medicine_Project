@@ -2,11 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./Order.scss"; 
 import Modal from "react-bootstrap/Modal";
-import { storeOrderData } from "../../store/actions";
 import { getOrderService } from "../../services/orderService";
 import { FormattedMessage } from "react-intl";
-// import Header from "../../components/Header";
-import Header from "../Roles/Header";
 
 class PaymentReturn extends Component {
   constructor(props) {
@@ -81,7 +78,6 @@ class PaymentReturn extends Component {
     console.log(arrOrders);
     return (
       <>
-        <Header toggleCart={this.toggleCartView} />
         <div className="order-container">
           <h3>
             <FormattedMessage id="payment.title" />

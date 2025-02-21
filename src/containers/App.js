@@ -55,7 +55,7 @@ class App extends Component {
                                     path={path.PAYMENT_RETURN}
                                     component={userIsAuthenticated(PaymentReturn)}
                                 />
-                                <Route path={path.CART} component={Cart} />
+                                <Route path={path.CART} component={userIsAuthenticated(Cart)} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                             </Switch>

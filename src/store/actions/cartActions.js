@@ -114,7 +114,7 @@ export const addToCart = (userId, product, quantity = 1) => {
 
             const res = await addToCartService(userId, product.id, quantity);
             console.log('res', res);
-            if (res.data.success) {
+            if (res) {
                 dispatch({
                     type: actionTypes.ADD_TO_CART,
                     payload: product,

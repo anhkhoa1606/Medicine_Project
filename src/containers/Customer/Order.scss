@@ -1,648 +1,101 @@
-@media (min-width: 1023px) {
-    .order-container {
-      padding: 60px 140px;
-      height: 1100px;
-  
-      background-color: rgb(243, 239, 235);
-      .address-container {
-        background-color: white;
-        border-radius: 10px;
-        margin-top: 30px;
-        padding: 10px;
-        form {
-          margin-left: 10px;
-        }
-        h1 {
-          font-size: 20px;
-          font-weight: 700;
-          padding: 10px 0;
-          border: 1px solod red;
-        }
-        input {
-          height: 30px;
-          font-weight: normal;
-          font-size: 1em;
-          width: 500px;
-        }
-        label {
-          font-weight: normal;
-        }
-        .username {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 65px;
-          }
-        }
-        .email {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 95px;
-          }
-        }
-        .phone-number {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 35px;
-          }
-        }
-        .nation {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 90px;
-          }
-        }
-        .country {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 30px;
-          }
-        }
-        .district {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 55px;
-          }
-        }
-        .wards {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 65px;
-          }
-        }
-        .address {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 15px;
-          }
-        }
-      }
-  
-      .payment-container {
-        margin-top: 50px;
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px 10px;
-        h3 {
-          padding-bottom: 20px;
-        }
-        label {
-          margin-left: 10px;
-        }
-        input {
-          height: 15px;
-          width: 15px;
-          border-radius: 50%;
-          left: 0;
-        }
-        .payment {
-          width: 200px;
-          height: 30px;
-        }
-      }
-  
-      .recheck-products {
-        background-color: white;
-        border-radius: 10px;
-        margin-top: 50px;
-        padding: 10px;
-  
-        .payment-name {
-          padding-left: 100px;
-        }
-        .transport {
-          justify-content: space-between;
-          padding-left: 20px;
-          padding-right: 40px;
-          height: 157px;
-          border: 1px solid gray;
-          margin-bottom: 20px;
-        }
-        .image {
-          width: 300px;
-          height: 120px;
-        }
-      }
-      .content-checkout {
-        background-color: white;
-        margin-top: 50px;
-        border-radius: 10px;
-  
-        .top-content {
-          padding-top: 30px;
-          flex-direction: column;
-          align-items: flex-end;
-          display: flex;
-          justify-content: space-between;
-          width: 97%;
-        }
-        .bottom-content {
-          justify-content: space-between;
-          cursor: pointer;
-          padding: 20px;
-          margin-right: 20px;
-          .back-cart {
-            margin-top: 15px;
-          }
-          .confirm {
-            background: #c92127;
-            color: white;
-            border: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            padding: 8px 0;
-            margin: 8px 0;
-            border-radius: 5px;
-            width: 250px;
-          }
-        }
-      }
-    }
-  }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .order-container {
-      padding: 60px 140px;
-      height: 1000px;
-  
-      background-color: rgb(243, 239, 235);
-      .address-container {
-        background-color: white;
-        border-radius: 10px;
-        margin-top: 30px;
-        padding: 10px;
-        width: 100%;
-        form {
-          margin-left: 10px;
-        }
-        h1 {
-          font-size: 20px;
-          font-weight: 700;
-          padding: 10px 0;
-          border: 1px solod red;
-        }
-        input {
-          height: 30px;
-          font-weight: normal;
-          font-size: 1em;
-          width: 400px;
-        }
-        label {
-          font-weight: normal;
-        }
-        .username {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 65px;
-          }
-        }
-        .email {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 95px;
-          }
-        }
-        .phone-number {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 35px;
-          }
-        }
-        .nation {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 90px;
-          }
-        }
-        .country {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 30px;
-          }
-        }
-        .district {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 55px;
-          }
-        }
-        .wards {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 65px;
-          }
-        }
-        .address {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 15px;
-          }
-        }
-      }
-  
-      .payment-container {
-        margin-top: 50px;
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px 10px;
-        h3 {
-          padding-bottom: 20px;
-        }
-        label {
-          margin-left: 10px;
-        }
-        input {
-          height: 15px;
-          width: 15px;
-          border-radius: 50%;
-          left: 0;
-        }
-        .payment {
-          width: 200px;
-          height: 30px;
-        }
-      }
-  
-      .recheck-products {
-        background-color: white;
-        border-radius: 10px;
-        margin-top: 50px;
-        padding: 10px;
-        .payment-name {
-          padding-left: 100px;
-        }
-        .transport {
-          justify-content: space-between;
-          padding-left: 20px;
-          padding-right: 40px;
-          height: 157px;
-          border: 1px solid gray;
-          margin-bottom: 20px;
-        }
-        .image {
-          width: 100px;
-          height: 120px;
-        }
-      }
-      .content-checkout {
-        background-color: white;
-        margin-top: 50px;
-        border-radius: 10px;
-  
-        .top-content {
-          padding-top: 30px;
-          flex-direction: column;
-          align-items: flex-end;
-          display: flex;
-          justify-content: space-between;
-          width: 97%;
-        }
-        .bottom-content {
-          justify-content: space-between;
-          cursor: pointer;
-          padding: 20px;
-          margin-right: 20px;
-          .back-cart {
-            margin-top: 15px;
-          }
-          .confirm {
-            background: #c92127;
-            color: white;
-            border: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            padding: 8px 0;
-            margin: 8px 0;
-            border-radius: 5px;
-            width: 250px;
-          }
-        }
-      }
-    }
-  }
-  @media (max-width: 768px) {
-    .order-container {
-      padding: 10px;
-      padding-top: 50px;
-      // height: 140%;
-  
-      background-color: rgb(243, 239, 235);
-      .address-container {
-        background-color: white;
-        border-radius: 10px;
-        margin-top: 30px;
-        padding: 10px;
-        form {
-          margin-left: 10px;
-        }
-        h1 {
-          font-size: 20px;
-          font-weight: 700;
-          padding: 10px 0;
-          border: 1px solod red;
-        }
-        input {
-          height: 30px;
-          font-weight: normal;
-          font-size: 1em;
-          width: 220px;
-        }
-        label {
-          font-weight: normal;
-        }
-        .username {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 65px;
-          }
-        }
-        .email {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 95px;
-          }
-        }
-        .phone-number {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 35px;
-          }
-        }
-        .nation {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 90px;
-          }
-        }
-        .country {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 30px;
-          }
-        }
-        .district {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 55px;
-          }
-        }
-        .wards {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 65px;
-          }
-        }
-        .address {
-          flex-direction: column;
-          margin-bottom: 20px;
-          label {
-            margin-bottom: 5px;
-          }
-          input {
-            padding: 3px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 15px;
-          }
-        }
-      }
-  
-      .payment-container {
-        margin-top: 50px;
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px 10px;
-        h3 {
-          padding-bottom: 20px;
-        }
-        label {
-          margin-left: 10px;
-        }
-        input {
-          height: 15px;
-          width: 15px;
-          border-radius: 50%;
-          left: 0;
-        }
-        .payment {
-          width: 200px;
-          height: 30px;
-        }
-      }
-  
-      .recheck-products {
-        background-color: white;
-        border-radius: 10px;
-        margin-top: 50px;
-        padding: 10px;
-        .payment-name {
-          padding-left: 100px;
-        }
-        .transport {
-          justify-content: space-between;
-          padding-left: 20px;
-          padding-right: 40px;
-          height: 157px;
-          border: 1px solid gray;
-          margin-bottom: 20px;
-        }
-        .image {
-          width: 100px;
-          height: 120px;
-        }
-      }
-      .content-checkout {
-        background-color: white;
-        margin-top: 50px;
-        border-radius: 10px;
-  
-        .top-content {
-          padding-top: 30px;
-          flex-direction: column;
-          align-items: flex-end;
-          display: flex;
-          justify-content: space-between;
-          width: 97%;
-        }
-        .bottom-content {
-          justify-content: space-between;
-          cursor: pointer;
-          padding: 20px;
-          // margin-right: 20px;
-          .back-cart {
-            margin-top: 15px;
-          }
-          .confirm {
-            background: #c92127;
-            color: white;
-            border: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            padding: 8px 0;
-            margin: 8px 0;
-            border-radius: 5px;
-            width: 250px;
-          }
-        }
-      }
-    }
-  }
+/* Order.scss */
+.order-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.order-form, .order-summary, .order-total {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.item-details p {
+  margin: 0;
+  color: #333;
+}
+
+.order-total p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.confirm-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.confirm-button:hover {
+  background-color: #27ae60;
+}
+
+
+.back-button, .confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.back-button {
+  background-color: #3498db;
+  color: white;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.back-button:hover {
+  background-color: #2980b9;
+}

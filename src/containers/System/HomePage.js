@@ -88,7 +88,7 @@ class HomePage extends Component {
 
         return (
             <>
-                <Header toggleCart={this.toggleCartView} />
+                <Header/>
                 <div className="container mt-4">
                     <h2 className="text-center">HomePage</h2>
                     <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>

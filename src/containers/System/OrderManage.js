@@ -82,7 +82,7 @@ class OrderManage extends Component {
 
         return (
             <>
-                <Header toggleCart={this.toggleCartView} />
+                <Header/>
                 <div className="container mt-4">
                     <h2 className="text-center">Manage Orders</h2>
                     <Input 

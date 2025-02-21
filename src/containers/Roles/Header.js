@@ -23,7 +23,7 @@ class Header extends Component {
 
   componentDidMount() {
     let { userInfo, history } = this.props;
-    console.log(userInfo);
+    console.log('userInfo', userInfo);
     let menu = [];
     if (userInfo && !_.isEmpty(userInfo)) {
       let role = userInfo.roleId;
@@ -40,14 +40,16 @@ class Header extends Component {
 
   handleLogout = () => {
     const { processLogout, history } = this.props;
-    // Xử lý logout
     processLogout();
-    // Chuyển hướng tới trang login
     history.push('/login');
   }
 
+  toggleCart = () => {
+    this.props.history.push("/cart");
+  };
+
   render() {
-    const { processLogout, language, userInfo } = this.props;
+    const {language, userInfo } = this.props;
 
     return (
       <div className="header-container">
@@ -82,6 +84,9 @@ class Header extends Component {
             <i className="fas fa-sign-out-alt"></i>
           </div>
         </div>
+        <button className="view-cart-button" onClick={this.toggleCart}>
+            Cart
+        </button>
       </div>
     );
   }

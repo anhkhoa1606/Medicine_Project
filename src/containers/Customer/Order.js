@@ -6,91 +6,89 @@ import { getConfig } from "../../services/paymentService";
 import { FormattedMessage } from "react-intl";
 import { toast } from "react-toastify";
 import { PayPalButton } from "react-paypal-button-v2";
-import * as actions from "../../store/actions";
-// import Header from "../../components/Header";
-import Header from "../Roles/Header";
 
 class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      email: "",
-      phoneNumber: "",
+      username: localStorage.getItem("username") || "",
+      email: localStorage.getItem("email") || "",
+      phoneNumber: localStorage.getItem("phoneNumber") || "",
       payment: "PayPal",
-      medicines: "",
-      medicinePrice: "",
-      detailCourses: "",
+      medicines: JSON.parse(localStorage.getItem("medicines")) || [],
+      medicinePrice: localStorage.getItem("medicinePrice") || 0,
       sdkReady: false,
       showPaypal: false,
     };
   }
+
   async componentDidMount() {
     if (!window.paypal) {
       this.addPaypalScript();
     } else {
-      this.setState({
-        sdkReady: true,
-      });
+      this.setState({ sdkReady: true });
     }
-    if (this.props.location.state) {
-      let selectedProducts = this.props.location.state.selectedProducts;
-      
-      if (!Array.isArray(selectedProducts)) {
-        selectedProducts = [selectedProducts];
-      }
-  
-      const medicinePrice = selectedProducts.reduce(
-        (total, product) => total + product.price * product.quantity,
-        0
-      );
-  
+
+    // Load selected products from location state or localStorage
+    const storedProducts = JSON.parse(localStorage.getItem("medicines"));
+    if (this.props.location.state?.selectedProducts || storedProducts) {
+      const products = this.props.location.state?.selectedProducts || storedProducts;
+      const totalPrice = products.reduce((total, product) => total + product.price * product.quantity, 0);
+
       this.setState({
-        medicines: selectedProducts,
-        medicinePrice: medicinePrice,
+        medicines: products,
+        medicinePrice: totalPrice,
       });
-    } else {
-      console.error("No selected products or invalid data.");
+
+      localStorage.setItem("medicines", JSON.stringify(products));
+      localStorage.setItem("medicinePrice", totalPrice);
     }
   }
-  async componentDidUpdate(prevProps, prevState, snapshot) {}
-  handleOnChangeInput = (event, id) => {
-    console.log(event.target.value);
-    let stateCopy = { ...this.state };
-    stateCopy[id] = event.target.value;
-    this.setState({
-      ...stateCopy,
-    });
-  };
-  handleReturnHome = () => {
-    if (this.props.history) {
-      this.props.history.push(`/home`);
-    }
-  };
-  handleConfirm = async (event) => {
-    event.preventDefault();
-    if (!this.validateInput()) {
-      return;
-    }
-    this.setState({ showPaypal: true });
-  };
+
   addPaypalScript = async () => {
-    let data = await getConfig();
-    let script = document.createElement("script");
+    const data = await getConfig();
+    const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
     script.async = true;
-    script.onload = () => {
-      this.setState({
-        sdkReady: true,
-      });
-    };
+    script.onload = () => this.setState({ sdkReady: true });
     document.body.appendChild(script);
-    console.log(data);
   };
+
+  handleInputChange = (e, field) => {
+    const value = e.target.value;
+    this.setState({ [field]: value });
+    localStorage.setItem(field, value);
+  };
+
+  handleConfirm = (e) => {
+    e.preventDefault();
+    if (!this.validateInput()) return;
+    this.setState({ showPaypal: true });
+  };
+
+  validateInput = () => {
+    const { username, email, phoneNumber } = this.state;
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    const phoneRegex = /^\d{10}$/;
+
+    if (!username) {
+      toast.warning("Vui lòng nhập tên.");
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      toast.warning("Email không hợp lệ.");
+      return false;
+    }
+    if (!phoneRegex.test(phoneNumber)) {
+      toast.warning("Số điện thoại không hợp lệ.");
+      return false;
+    }
+    return true;
+  };
+
   onSuccessPaypal = async (details, data) => {
-    toast.success("Payment completed successfully", details, data);
-    const userId = this.props.userIdNormal || this.props.userIdGoogle;
+    const userId = this.props.userIdNormal;
     const orderData = {
       userId,
       username: this.state.username,
@@ -100,207 +98,85 @@ class Order extends Component {
       medicines: this.state.medicines,
       totalPrice: this.state.medicinePrice,
     };
-    console.log(orderData);
+
     createOrderService(orderData)
-      .then(async (response) => {
-        toast.success("Order created successfully", response);
+      .then(() => {
+        toast.success("Đặt hàng thành công!");
+        localStorage.clear();
         this.props.history.push("/payment-return", { orderData });
-        // this.props.addPurchasedCourse(this.state.medicines.id);
       })
-      .catch((error) => {
-        console.error("Error creating order", error);
+      .catch(() => {
+        toast.error("Lỗi khi tạo đơn hàng.");
       });
   };
-  validateInput = () => {
-    const { username, email, phoneNumber } = this.state;
 
-    // Check if username is not empty
-    if (!username) {
-      toast.warning("Username is required");
-      return false;
-    }
-
-    // Check if email is valid
-    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    if (!emailRegex.test(email)) {
-      toast.warning("Email is not valid");
-      return false;
-    }
-
-    // Check if phone number is valid
-    const phoneRegex = /^\d{10}$/; // Change this regex to match your country's phone number format
-    if (!phoneRegex.test(phoneNumber)) {
-      toast.warning("Phone number is not valid");
-      return false;
-    }
-
-    // If all checks pass, return true
-    return true;
+  handleBackToCart = () => {
+    this.props.history.push("/cart");
   };
+
   render() {
-    console.log(this.state.payment);
-    let { medicinePrice, medicines, showPaypal } = this.state;
-    console.log('medicines12: ', medicines);
-    const { userIdNormal } = this.props;
-    console.log(userIdNormal);
-    if (!Array.isArray(medicines)) {
-      return <p>Loading...</p>;
-    }
+    const { medicines, medicinePrice, showPaypal, username, email, phoneNumber } = this.state;
 
     return (
-      <>
-        <Header toggleCart={this.toggleCartView} />
-        <div className="order-container">
-          <div className="address-container ">
-            <form>
-              <h3>
-                {" "}
-                <FormattedMessage id="order.orderinfor" />
-              </h3>
-              <div className="username">
-                <label for="username">
-                  <b>
-                    {" "}
-                    <FormattedMessage id="order.username" /> :
-                  </b>
-                </label>
-                <input
-                  className="username"
-                  type="text"
-                  value={this.state.username}
-                  onChange={(event) =>
-                    this.handleOnChangeInput(event, "username")
-                  }
-                />
-              </div>
-              <div className="email">
-                <label for="email">
-                  <b>Email : </b>
-                </label>
-                <input
-                  className="email"
-                  type="text"
-                  value={this.state.email}
-                  onChange={(event) => this.handleOnChangeInput(event, "email")}
-                />
-              </div>
-              <div className="phone-number">
-                <label for="phoneNumber">
-                  <b>
-                    {" "}
-                    <FormattedMessage id="order.phoneNumber" /> :
-                  </b>
-                </label>
-                <input
-                  className="phoneNumber"
-                  type="text"
-                  value={this.state.phoneNumber}
-                  onChange={(event) =>
-                    this.handleOnChangeInput(event, "phoneNumber")
-                  }
-                />
-              </div>
-            </form>
-          </div>
-          <div className="payment-container">
-            <h3>
-              {" "}
-              <FormattedMessage id="order.payment" />
-            </h3>
-            <select
-              className="payment"
-              value={this.state.payment}
-              onChange={(event) => this.handleOnChangeInput(event, "payment")}
-            >
-              <option value="VN Pay">PayPal</option>
-            </select>
-          </div>
-          <div className="recheck-products">
-            <h3>
-              {" "}
-              <FormattedMessage id="order.recheck" />
-            </h3>
-            {medicines.map((item) => (
-              <div className="transport d-flex" key={item.id}>
-                <div className="name align-self-center">{item.name}</div>
-                <div className="price align-self-center">{item.price} $</div>
-              </div>
-            ))}
-          </div>
-          <div className="content-checkout">
-            <div className="top-content ">
-              <div className="price d-flex">
-                <div className="mr-5">
-                  {" "}
-                  <FormattedMessage id="order.money" />
-                </div>
-                <div>
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(medicinePrice)}
-                </div>
-              </div>
-              <div className="total d-flex">
-                <div className="mr-5">
-                  {" "}
-                  <FormattedMessage id="order.total" />
-                  (gồm VAT)
-                </div>
-                <div>
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(medicinePrice)}
-                </div>
-              </div>
-            </div>
-            <div className="bottom-content d-flex">
-              <div
-                className="back-cart d-flex"
-                onClick={() => this.handleReturnHome()}
-              >
-                <i class="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
-                <div>
-                  {" "}
-                  <FormattedMessage id="order.back" />
-                </div>
-              </div>
+      <div className="order-container">
+        <h2>🛒 Xác nhận đơn hàng</h2>
 
-              {!showPaypal && (
-                <button className="confirm" onClick={this.handleConfirm}>
-                  Xác nhận Thanh Toán
-                </button>
-              )}
-              {showPaypal && (
-                <PayPalButton
-                  amount={medicinePrice}
-                  // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                  onSuccess={this.onSuccessPaypal}
-                  onError={() => {
-                    toast.warning("Error ");
-                  }}
-                />
-              )}
-            </div>
+        <div className="order-form">
+          <h3>1️⃣ Thông tin người nhận</h3>
+          <div className="form-group">
+            <label>Tên người nhận:</label>
+            <input type="text" value={username} onChange={(e) => this.handleInputChange(e, "username")} />
+          </div>
+
+          <div className="form-group">
+            <label>Email:</label>
+            <input type="email" value={email} onChange={(e) => this.handleInputChange(e, "email")} />
+          </div>
+
+          <div className="form-group">
+            <label>Số điện thoại:</label>
+            <input type="text" value={phoneNumber} onChange={(e) => this.handleInputChange(e, "phoneNumber")} />
           </div>
         </div>
-      </>
+
+        <div className="order-summary">
+          <h3>2️⃣ Sản phẩm đặt hàng</h3>
+          {medicines.map((item) => (
+            <div className="order-item" key={item.id}>
+              <img src={item.image} alt={item.name} className="item-image" />
+              <div className="item-details">
+                <p><strong>{item.name}</strong></p>
+                <p>{item.price.toLocaleString()} $ x {item.quantity}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="order-total">
+          <h3>3️⃣ Thanh toán</h3>
+          <p>Tổng tiền: <strong>{medicinePrice.toLocaleString()} $</strong></p>
+          <button className="back-button" onClick={this.handleBackToCart}>
+              🔙 Quay lại giỏ hàng
+          </button>
+          {!showPaypal ? (
+            <button className="confirm-button" onClick={this.handleConfirm}>
+              ✅ Xác nhận & Thanh toán
+            </button>
+          ) : (
+            <PayPalButton
+              amount={medicinePrice}
+              onSuccess={this.onSuccessPaypal}
+              onError={() => toast.error("Thanh toán thất bại.")}
+            />
+          )}
+        </div>
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    language: state.app.language,
-    userIdNormal: state.user.userInfo?.id || state.user.user?.userId,
-  };
-};
+const mapStateToProps = (state) => ({
+  userIdNormal: state.user.userInfo?.id,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // clearOrder: () => dispatch(actions.clearOrder()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Order);
+export default connect(mapStateToProps)(Order);

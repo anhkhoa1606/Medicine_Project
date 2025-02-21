@@ -76,7 +76,7 @@ class Login extends Component {
     render() {
         return (
             <>
-                <Header toggleCart={this.toggleCartView} />
+                <Header/>
                 <div className="login-background">
                     <div className="login-container">
                         <div className="login-content row">

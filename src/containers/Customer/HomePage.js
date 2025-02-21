@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllProducts } from "../../services/productService";
 import { addToCart } from "../../store/actions/cartActions";
-// import Header from "../../components/Header";
 import Header from "../Roles/Header";
-import Cart from "../Customer/Cart";
 import "./HomePage.scss";
 import { withRouter } from "react-router-dom";
+
 class HomePage extends Component {
   state = {
     products: [],
-    showCart: false,
   };
 
   componentDidMount() {
@@ -31,30 +29,30 @@ class HomePage extends Component {
 
   handleAddToCart = (product) => {
     let { userInfo } = this.props;
+    if (!userInfo) {
+      alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+      return;
+    }
     let userId = userInfo.id;
-    console.log('userId', userInfo.id);
+    console.log('userId', userId);
     this.props.addToCart(userId, product, 1);
     console.log('product', product);
     alert("Sản phẩm đã được thêm vào giỏ hàng!");
   };
 
-  toggleCartView = () => {
-    let { history } = this.props;
-    history.push("/cart");
-  };
+   
 
   render() {
-    const { products, showCart } = this.state;
+    const { products } = this.state;
 
     return (
       <>
-        <Header toggleCart={this.toggleCartView} />
+        <Header />
         <div className="container">
           <h2 className="text-center">Danh sách sản phẩm</h2>
-          <button className="view-cart-button" onClick={this.toggleCartView}>
+          {/* <button className="view-cart-button" onClick={this.toggleCartView}>
             Xem giỏ hàng
-          </button>
-          {showCart && <Cart />}
+          </button> */}
           <div className="product-grid">
             {products.map((product) => (
               <div className="product-card" key={product.id}>
@@ -72,6 +70,7 @@ class HomePage extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   userInfo: state.user.userInfo,
 });

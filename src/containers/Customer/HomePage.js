@@ -50,9 +50,6 @@ class HomePage extends Component {
         <Header />
         <div className="container">
           <h2 className="text-center">Danh sách sản phẩm</h2>
-          {/* <button className="view-cart-button" onClick={this.toggleCartView}>
-            Xem giỏ hàng
-          </button> */}
           <div className="product-grid">
             {products.map((product) => (
               <div className="product-card" key={product.id}>

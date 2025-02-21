@@ -54,18 +54,6 @@ class Cart extends Component {
     localStorage.setItem("cartData", JSON.stringify(updatedCart));
   };
 
-  // Update quantity of item
-  handleQuantityChange = (productId, quantity) => {
-    if (quantity > 0) {
-      this.props.updateCartQuantity(productId, quantity);
-      const updatedCartData = this.state.cartData.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
-      );
-      this.setState({ cartData: updatedCartData });
-      localStorage.setItem("cartData", JSON.stringify(updatedCartData));
-    }
-  };
-
   // Select individual item
   handleSelectItem = (productId) => {
     const { selectedItems } = this.state;
@@ -131,20 +119,11 @@ class Cart extends Component {
                   />
 
                   <img src={item.image} alt={item.name} className="cart-item-image" />
-
                   <div className="cart-item-info">
                     <h3 className="cart-item-name">{item.name}</h3>
                     <p className="cart-item-description">{item.description}</p>
                   </div>
-
                   <p className="cart-item-price">{item.price.toLocaleString()} $</p>
-
-                  <div className="cart-item-quantity">
-                    <button onClick={() => this.handleQuantityChange(item.id, item.quantity - 1)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => this.handleQuantityChange(item.id, item.quantity + 1)}>+</button>
-                  </div>
-
                   <button
                     className="remove-button"
                     onClick={() => this.handleRemoveFromCart(item.id)}

@@ -45,6 +45,7 @@ h2 {
   gap: 10px;
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
+  justify-content: space-between;
 }
 
 .item-image {
@@ -98,4 +99,36 @@ h2 {
 
 .back-button:hover {
   background-color: #2980b9;
+}
+
+.cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cart-item-quantity button {
+  padding: 5px 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-item-quantity button:hover {
+  background-color: #2980b9;
+}
+
+.remove-button {
+  padding: 5px 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #c0392b;
 }

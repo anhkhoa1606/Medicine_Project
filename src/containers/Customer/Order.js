@@ -6,6 +6,7 @@ import { getConfig } from "../../services/paymentService";
 import { FormattedMessage } from "react-intl";
 import { toast } from "react-toastify";
 import { PayPalButton } from "react-paypal-button-v2";
+import { removeFromCart, updateCartQuantity } from "../../store/actions/cartActions";
 
 class Order extends Component {
   constructor(props) {
@@ -110,6 +111,41 @@ class Order extends Component {
       });
   };
 
+  handleRemoveFromCart = (productId) => {
+    this.props.removeFromCart(productId);
+    const updatedMedicines = this.state.medicines.filter((item) => item.id !== productId);
+    this.setState({ medicines: updatedMedicines });
+
+    // Cập nhật lại localStorage
+    localStorage.setItem("medicines", JSON.stringify(updatedMedicines));
+
+    // Cập nhật lại tổng tiền
+    const updatedTotalPrice = updatedMedicines.reduce((total, item) => total + item.price * item.quantity, 0);
+    this.setState({ medicinePrice: updatedTotalPrice });
+    localStorage.setItem("medicinePrice", updatedTotalPrice);
+  };
+
+
+  handleQuantityChange = (productId, quantity) => {
+    if (quantity > 0) {
+        this.props.updateCartQuantity(productId, quantity);
+        const updatedMedicines = this.state.medicines.map((item) =>
+            item.id === productId ? { ...item, quantity } : item
+        );
+
+        this.setState({ medicines: updatedMedicines });
+
+        // Cập nhật lại localStorage
+        localStorage.setItem("medicines", JSON.stringify(updatedMedicines));
+
+        // Cập nhật lại tổng tiền
+        const updatedTotalPrice = updatedMedicines.reduce((total, item) => total + item.price * item.quantity, 0);
+        this.setState({ medicinePrice: updatedTotalPrice });
+        localStorage.setItem("medicinePrice", updatedTotalPrice);
+    }
+  };
+
+
   handleBackToCart = () => {
     this.props.history.push("/cart");
   };
@@ -147,6 +183,21 @@ class Order extends Component {
               <div className="item-details">
                 <p><strong>{item.name}</strong></p>
                 <p>{item.price.toLocaleString()} $ x {item.quantity}</p>
+                
+              </div>
+              <div className="cart-item-quantity">
+                <div className="cart-item-quantity">
+                  <button onClick={() => this.handleQuantityChange(item.id, item.quantity - 1)}>-</button>
+                  <span>{item.quantity}</span>
+                  <button onClick={() => this.handleQuantityChange(item.id, item.quantity + 1)}>+</button>
+                </div>
+
+                <button
+                  className="remove-button"
+                  onClick={() => this.handleRemoveFromCart(item.id)}
+                >
+                  Xóa
+                </button>
               </div>
             </div>
           ))}
@@ -179,4 +230,9 @@ const mapStateToProps = (state) => ({
   userIdNormal: state.user.userInfo?.id,
 });
 
-export default connect(mapStateToProps)(Order);
+const mapDispatchToProps = (dispatch) => ({
+  removeFromCart: (productId) => dispatch(removeFromCart(productId)),
+  updateCartQuantity: (productId, quantity) => dispatch(updateCartQuantity(productId, quantity)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Order);

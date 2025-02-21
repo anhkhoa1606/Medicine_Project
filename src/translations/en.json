@@ -30,12 +30,9 @@
             "header": "System",
             "system-administrator": {
                 "header": "System Administrator",
-                "user-manage": "User manage",
-                "product-manage": "Package manage",
-                "register-package-group-or-account": "Register service package for group/account"
-            },
-            "system-parameter": {
-                "header": "System-parameter"
+                "user-manage": "Users Management",
+                "product-manage": "Products Management",
+                "order-manage": "Orders Management"
             }
         }
     },

@@ -7,15 +7,3 @@ export const adminMenu = [
         ]
     },
 ];
-export const customerMenu = [
-    {
-        name: 'menu.system.header', menus: [
-            {
-                name: 'menu.system.system-administrator.header',
-                subMenus: [
-                    { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                ]
-            },
-        ]
-    },
-];

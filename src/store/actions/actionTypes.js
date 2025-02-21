@@ -2,7 +2,7 @@ const actionTypes = Object.freeze({
     //app
     APP_START_UP_COMPLETE: 'APP_START_UP_COMPLETE',
     SET_CONTENT_OF_CONFIRM_MODAL: 'SET_CONTENT_OF_CONFIRM_MODAL',
-
+    CHANGE_LANGUAGE: 'CHANGE_LANGUAGE',
     //user
     ADD_USER_SUCCESS: 'ADD_USER_SUCCESS',
 
@@ -13,6 +13,7 @@ const actionTypes = Object.freeze({
     //Cart
     ADD_TO_CART: 'ADD_TO_CART',
     REMOVE_CART: 'REMOVE_CART',
+    UPDATE_CART_QUANTITY: 'UPDATE_CART_QUANTITY'
 })
 
 export default actionTypes;

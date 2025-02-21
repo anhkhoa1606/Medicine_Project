@@ -147,7 +147,7 @@ export const addToCart = (userId, product, quantity = 1) => {
 
 export const removeFromCart = (productId) => {
     return {
-        type: actionTypes.DELETE_CART,
+        type: actionTypes.REMOVE_CART,
         payload: productId,
     };
 };

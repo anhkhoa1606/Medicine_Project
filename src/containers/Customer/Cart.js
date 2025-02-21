@@ -8,84 +8,99 @@ import { withRouter } from "react-router-dom";
 
 class Cart extends Component {
   state = {
-    cartData: [],
+    cartData: JSON.parse(localStorage.getItem("cartData")) || [],
     selectedItems: [],
     selectAll: false,
   };
 
   componentDidMount() {
-    this.fetchCartData();
+    if (!this.state.cartData.length) {
+      this.fetchCartData();
+    }
   }
 
+  // Fetch cart data from API
   fetchCartData = async () => {
     try {
-      let { userInfo } = this.props;
-      let userId = userInfo?.id;
-      let response = await getCartByUserId(userId);
-      let cartItems = response.cartItems;
+      const { userInfo } = this.props;
+      const userId = userInfo?.id;
+      const response = await getCartByUserId(userId);
+      const cartItems = response.cartItems;
 
-      const updatedCartItems = await Promise.all(cartItems.map(async (item) => {
-        const medicineResponse = await getMedicineById(item.medicineId);
-        return {
-          ...item,
-          name: medicineResponse.data.name,
-          description: medicineResponse.data.description,
-          image: medicineResponse.data.image || "/images/default.png",
-        };
-      }));
+      const updatedCartItems = await Promise.all(
+        cartItems.map(async (item) => {
+          const medicineResponse = await getMedicineById(item.medicineId);
+          return {
+            ...item,
+            name: medicineResponse.data.name,
+            description: medicineResponse.data.description,
+            image: medicineResponse.data.image || "/images/default.png",
+          };
+        })
+      );
 
       this.setState({ cartData: updatedCartItems });
+      localStorage.setItem("cartData", JSON.stringify(updatedCartItems));
     } catch (error) {
       console.error("Error fetching products", error);
     }
   };
 
+  // Remove item from cart
   handleRemoveFromCart = (productId) => {
     this.props.removeFromCart(productId);
-    this.setState({
-      cartData: this.state.cartData.filter(item => item.id !== productId)
-    });
+    const updatedCart = this.state.cartData.filter((item) => item.id !== productId);
+    this.setState({ cartData: updatedCart });
+    localStorage.setItem("cartData", JSON.stringify(updatedCart));
   };
 
+  // Update quantity of item
   handleQuantityChange = (productId, quantity) => {
     if (quantity > 0) {
       this.props.updateCartQuantity(productId, quantity);
-      const updatedCartData = this.state.cartData.map(item =>
+      const updatedCartData = this.state.cartData.map((item) =>
         item.id === productId ? { ...item, quantity } : item
       );
       this.setState({ cartData: updatedCartData });
+      localStorage.setItem("cartData", JSON.stringify(updatedCartData));
     }
   };
 
+  // Select individual item
   handleSelectItem = (productId) => {
     const { selectedItems } = this.state;
-    this.setState({
-      selectedItems: selectedItems.includes(productId)
-        ? selectedItems.filter(id => id !== productId)
-        : [...selectedItems, productId]
-    });
+    const updatedSelection = selectedItems.includes(productId)
+      ? selectedItems.filter((id) => id !== productId)
+      : [...selectedItems, productId];
+
+    this.setState({ selectedItems: updatedSelection });
   };
 
+  // Select all items
   handleSelectAll = () => {
     const { selectAll, cartData } = this.state;
     if (selectAll) {
       this.setState({ selectedItems: [], selectAll: false });
     } else {
-      const allProductIds = cartData.map(item => item.id);
+      const allProductIds = cartData.map((item) => item.id);
       this.setState({ selectedItems: allProductIds, selectAll: true });
     }
   };
 
+  // Proceed to order page with selected items
   handleOrder = () => {
-    const selectedProducts = this.state.cartData.filter(item =>
+    const selectedProducts = this.state.cartData.filter((item) =>
       this.state.selectedItems.includes(item.id)
     );
-    console.log("Selected products:", selectedProducts);
+    localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
     this.props.history.push("/order", { selectedProducts });
   };
-  handleBackToCart = () => {
+
+  // Back to home or product page
+  handleBackToHome = () => {
     this.props.history.push("/home");
   };
+
   render() {
     const { cartData, selectedItems, selectAll } = this.state;
 
@@ -141,8 +156,8 @@ class Cart extends Component {
             </div>
 
             <div className="cart-footer">
-              <button className="back-buttons" onClick={this.handleBackToCart}>
-                🔙 Quay lại giỏ hàng
+              <button className="back-buttons" onClick={this.handleBackToHome}>
+                🔙 Quay lại
               </button>
               <button className="order-button" onClick={this.handleOrder}>
                 🛒 Đặt hàng

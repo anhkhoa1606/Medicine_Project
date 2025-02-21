@@ -19,6 +19,7 @@ class Header extends Component {
 
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
+    console.log('changeLanguageAppRedux', language);
   };
 
   componentDidMount() {
@@ -78,7 +79,7 @@ class Header extends Component {
 
           <div
             className="btn btn-logout"
-            onClick={this.handleLogout} // Gọi handleLogout để logout và chuyển hướng
+            onClick={this.handleLogout}
             title="Log out"
           >
             <i className="fas fa-sign-out-alt"></i>

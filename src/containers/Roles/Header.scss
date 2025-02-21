@@ -53,3 +53,20 @@
     border: none;
   }
 }
+
+.view-cart-button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: #dad1d1;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.view-cart-button i {
+  margin-right: 5px;
+}
+
+.view-cart-button:hover {
+  color: #352422;
+}

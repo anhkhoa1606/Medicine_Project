@@ -194,6 +194,7 @@ class Order extends Component {
 
                 <button
                   className="remove-button"
+                  style={{ backgroundColor: '#e74c3c' }}
                   onClick={() => this.handleRemoveFromCart(item.id)}
                 >
                   Xóa

@@ -62,8 +62,13 @@ class Header extends Component {
         <div className="languages">
           <span className="welcome">
             <FormattedMessage id="home-header.welcome" />{" "}
-            {userInfo && userInfo.firstName ? userInfo.firstName : " "} !
+            {userInfo && userInfo.email ? userInfo.email : " "} !
           </span>
+
+          <button className="view-cart-button" onClick={this.toggleCart}>
+            <i className="fas fa-shopping-cart"></i> {/* Icon giỏ hàng */}
+          </button>
+
           <span
             className={language === LANGUAGES.VI ? "languages-vi active" : "languages-vi"}
             onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
@@ -84,10 +89,8 @@ class Header extends Component {
           >
             <i className="fas fa-sign-out-alt"></i>
           </div>
+          
         </div>
-        <button className="view-cart-button" onClick={this.toggleCart}>
-            Cart
-        </button>
       </div>
     );
   }

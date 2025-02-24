@@ -91,6 +91,9 @@ class HomePage extends Component {
     });
   };
 
+  handleViewDetail = (medicineId) => {
+    this.props.history.push(`/medicine-details?id=${medicineId}`);
+  };
   render() {
     const { products, showModal, modalMessage } = this.state;
 
@@ -110,6 +113,12 @@ class HomePage extends Component {
                   onClick={() => this.handleAddToCart(product)}
                 >
                   🛍️ Chọn mua
+                </button>
+                <button
+                  className="detail-button"
+                  onClick={() => this.handleViewDetail(product.id)}
+                >
+                  🔍 Xem chi tiết
                 </button>
               </div>
             ))}

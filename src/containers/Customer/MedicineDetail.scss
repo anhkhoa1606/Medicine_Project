@@ -1,0 +1,100 @@
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.loading-screen {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+}
+
+.medicine-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-wrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.medicine-image {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.medicine-info {
+  flex: 1;
+}
+
+.medicine-info h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.medicine-description {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.medicine-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff5733;
+  margin-top: 10px;
+}
+
+.medicine-stock {
+  font-size: 16px;
+  color: #009688;
+  margin-top: 10px;
+}
+
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.buy-button {
+  background-color: #ff5733;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.buy-button-detail:hover {
+  background-color: #e04e2a;
+}
+
+.back-button-detail {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.back-button-detail:hover {
+  background-color: #0056b3;
+}

@@ -52,15 +52,32 @@
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 10px;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    margin-right: 5px;
   }
   
   .buy-button:hover {
     background-color: #0056b3;
   }
+
+  .detail-button {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  .detail-button:hover {
+    background-color: rgb(107, 94, 94);
+  }
+  
   .pagination {
     display: flex;
     justify-content: center;

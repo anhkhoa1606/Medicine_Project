@@ -3,6 +3,7 @@ import homeController from '../controllers/homeController';
 import userController from '../controllers/userController';
 import cartController from '../controllers/cartController';
 import medicineController from '../controllers/medicineController';
+import categoryController from '../controllers/categoryController';
 import orderController from '../controllers/orderController';
 
 let router = express.Router();
@@ -24,6 +25,13 @@ let initWebRoutes = (app) => {
     router.post('/create-user', userController.handleCreateUser);
     router.put('/update-user', userController.handleUpdateUser);
     router.delete('/delete-user', userController.handleDeleteUser);
+
+    //Category
+    router.get('/get-all-categories', categoryController.getAllCategories);
+    router.get('/get-category-by-id', categoryController.getCategoryById);
+    router.post('/create-category', categoryController.createCategory);
+    router.put('/update-category', categoryController.updateCategory);
+    router.delete('/delete-category', categoryController.deleteCategory);
 
     //Medicine
     router.get('/get-all-medicines', medicineController.getAllProducts);

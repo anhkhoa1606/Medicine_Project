@@ -41,19 +41,30 @@ let getProductById = (id) => {
 let createProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.name || !data.price || !data.stock || !data.category) {
-                resolve({
+            // Kiểm tra xem các trường bắt buộc có bị thiếu không
+            if (!data.name || !data.price || !data.stock || !data.categoryId) {
+                return resolve({
                     errCode: 1,
-                    message: "Missing required fields!"
+                    message: "Missing required fields! (name, price, stock, categoryId)"
                 });
             }
 
+            // Kiểm tra xem categoryId có tồn tại không
+            let categoryExists = await db.Category.findOne({ where: { id: data.categoryId } });
+            if (!categoryExists) {
+                return resolve({
+                    errCode: 2,
+                    message: "Category not found"
+                });
+            }
+
+            // Tạo sản phẩm mới
             let newProduct = await db.Medicine.create({
                 name: data.name,
                 description: data.description || '',
                 price: data.price,
                 stock: data.stock,
-                category: data.category,
+                categoryId: data.categoryId,  // Dùng categoryId thay vì category
                 image: data.image,
             });
 
@@ -68,44 +79,56 @@ let createProduct = (data) => {
     });
 };
 
-
-let updateProduct = async (data) => {
+let updateProduct = (data) => {
     return new Promise(async (resolve, reject) => {
-      try {
-        if (!data.id) {
-          resolve({
-            errCode: 2,
-            errMessage: "Missing required parameters!",
-          });
+        try {
+            if (!data.id || !data.categoryId) {
+                return resolve({
+                    errCode: 1,
+                    message: "Missing required parameters! (id, categoryId)"
+                });
+            }
+
+            let medicine = await db.Medicine.findOne({
+                where: { id: data.id },
+            });
+
+            if (!medicine) {
+                return resolve({
+                    errCode: 2,
+                    message: "Medicine not found"
+                });
+            }
+
+            // Kiểm tra xem categoryId có tồn tại không
+            let categoryExists = await db.Category.findOne({ where: { id: data.categoryId } });
+            if (!categoryExists) {
+                return resolve({
+                    errCode: 3,
+                    message: "Category not found"
+                });
+            }
+
+            // Cập nhật thông tin sản phẩm
+            medicine.name = data.name;
+            medicine.description = data.description;
+            medicine.price = data.price;
+            medicine.stock = data.stock;
+            medicine.categoryId = data.categoryId;  // Cập nhật categoryId thay vì category
+            medicine.image = data.image;
+
+            await medicine.save();
+
+            resolve({
+                errCode: 0,
+                message: "The medicine has been updated successfully",
+            });
+        } catch (e) {
+            reject(e);
         }
-        console.log(data)
-        let medicine = await db.Medicine.findOne({
-          where: { id: data.id },
-        });
-        if (medicine) {
-          (medicine.id = data.id),
-            (medicine.name = data.name),
-          (medicine.description = data.description),
-            (medicine.price = data.price),
-            (medicine.stock = data.stock),
-            (medicine.category = data.category),
-            (medicine.image = data.image);
-          await medicine.save();
-          resolve({
-            errCode: 0,
-            message: "The medicine has been updated successfully",
-          });
-        } else {
-          resolve({
-            errCode: 1,
-            message: "Medicine not found",
-          });
-        }
-      } catch (e) {
-        reject(e);
-      }
     });
 };
+
 
 let deleteProduct = (id) => {
     return new Promise(async (resolve, reject) => {

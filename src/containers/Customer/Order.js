@@ -54,6 +54,7 @@ class Order extends Component {
     script.async = true;
     script.onload = () => this.setState({ sdkReady: true });
     document.body.appendChild(script);
+    console.log(data);
   };
 
   handleInputChange = (e, field) => {

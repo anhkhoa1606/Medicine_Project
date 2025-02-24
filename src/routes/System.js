@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import UserManage from '../containers/System/UserManage';
 import ProductManage from '../containers/System/ProductManage';
 import OrderManage from '../containers/System/OrderManage';
+import CategoryManage from '../containers/System/CategoryManage';
 
 class System extends Component {
     render() {
@@ -14,6 +15,7 @@ class System extends Component {
                     <Switch>
                         <Route path="/system/user-manage" component={UserManage} />
                         <Route path="/system/product-manage" component={ProductManage} />
+                        <Route path="/system/category-manage" component={CategoryManage} />
                         <Route path="/system/order-manage" component={OrderManage} />
                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                     </Switch>

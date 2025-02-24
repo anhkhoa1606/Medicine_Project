@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllProducts, createProduct, deleteProduct, updateProduct } from '../../services/productService';
-import { Table, Input, Button, Modal, Form, Upload, message } from 'antd';
+import { Table, Input, Button, Modal, Form, Upload, message, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Header from "../Roles/Header";
+import { getAllCategories } from '../../services/categoryService';
+import { Option } from 'lucide-react';
 
 class ProductManage extends Component {
     state = {
         products: [],
         searchTerm: '',
+        categories: [],
         isModalVisible: false,
         isEditMode: false,
         selectedProduct: {},
@@ -17,6 +20,7 @@ class ProductManage extends Component {
 
     componentDidMount() {
         this.fetchProducts();
+        this.fetchCategories(); 
     }
 
     fetchProducts = async () => {
@@ -27,6 +31,17 @@ class ProductManage extends Component {
             }
         } catch (error) {
             console.error("Error fetching products", error);
+        }
+    };
+
+    fetchCategories = async () => {
+        try {
+            let response = await getAllCategories();
+            if (response.errCode === 0) {
+                this.setState({ categories: response.data });
+            }
+        } catch (error) {
+            console.error("Error fetching categories", error);
         }
     };
 
@@ -115,7 +130,7 @@ class ProductManage extends Component {
     };
 
     render() {
-        const { products, searchTerm, isModalVisible, isEditMode, selectedProduct } = this.state;
+        const { products, searchTerm, isModalVisible, isEditMode, selectedProduct, categories } = this.state;
         const filteredProducts = products.filter(product =>
             product.name?.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -125,6 +140,12 @@ class ProductManage extends Component {
             { title: 'Price', dataIndex: 'price', key: 'price' },
             { title: 'Stock', dataIndex: 'stock', key: 'stock' },
             { title: 'Image', dataIndex: 'image', key: 'image', render: image => image && <img src={image} alt="product" style={{ width: 50 }} /> },
+            { title: 'Category', dataIndex: 'categoryId', key: 'categoryId', 
+                render: categoryId => {
+                    const category = categories.find(cat => cat.id === categoryId);
+                    return category ? category.name : "Unknown";
+                }
+            },
             { title: 'Actions', key: 'actions', render: (text, record) => (
                 <>
                     <Button type="primary" onClick={() => this.handleEdit(record)}>Edit</Button>
@@ -166,8 +187,12 @@ class ProductManage extends Component {
                             <Form.Item name="stock" label="Stock" rules={[{ required: true, message: 'Please enter stock quantity' }]}>
                                 <Input />
                             </Form.Item>
-                            <Form.Item name="category" label="Category" rules={[{ required: true, message: 'Please enter category' }]}>
-                                <Input />
+                            <Form.Item name="categoryId" label="Category" rules={[{ required: true, message: 'Please select a category' }]}>
+                                <Select placeholder="Select a category">
+                                    {categories.map(category => (
+                                        <Option key={category.id} value={category.id}>{category.name}</Option>
+                                    ))}
+                                </Select>
                             </Form.Item>
                             <Form.Item label="Image">
                                 <Upload beforeUpload={() => false} onChange={this.handleImageUpload} showUploadList={false}>

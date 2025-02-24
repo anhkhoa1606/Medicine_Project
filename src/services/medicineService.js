@@ -1,4 +1,6 @@
 import db from '../models/index';
+import fs from "fs";
+
 let getAllProducts = () => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -36,22 +38,9 @@ let getProductById = (id) => {
     });
 };
 
-import fs from "fs";
-
-let encodeImageToBase64 = (imagePath) => {
-    try {
-        let imageBuffer = fs.readFileSync(imagePath);
-        return imageBuffer.toString("base64");
-    } catch (error) {
-        console.error("Error reading image file:", error);
-        return "";
-    }
-};
-
 let createProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let base64Image = data.image ? encodeImageToBase64(data.image) : "";
             if (!data.name || !data.price || !data.stock || !data.category) {
                 resolve({
                     errCode: 1,
@@ -65,7 +54,7 @@ let createProduct = (data) => {
                 price: data.price,
                 stock: data.stock,
                 category: data.category,
-                image: base64Image,
+                image: data.image,
             });
 
             resolve({

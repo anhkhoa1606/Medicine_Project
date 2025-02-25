@@ -4,11 +4,11 @@
   z-index: 99;
   display: flex;
   justify-content: space-between;
-  background-color: $colormain;
-  color: $common-text-color;
-  height: 40px;
+  background-color: #0f13142b;
+  height: 100px;
   position: relative;
   .btn-logout {
+    width: 30px;
     color: $common-text-color;
     line-height: 40px;
     height: 40px;
@@ -17,10 +17,13 @@
       background-color: darken($colormain, 5);
     }
     i {
-      font-size: $base-size + 1px;
+      font-size: 45px;
     }
   }
   .languages {
+    font-size: 25px;
+    margin-top: 30px;
+    margin-right: 50px;
     .welcome {
       margin-right: 10px;
     }
@@ -69,4 +72,11 @@
 
 .view-cart-button:hover {
   color: #352422;
+}
+
+.background-logo {
+  background-image: url('../../assets/images/pngwing.com.png'); /* Replace with your image path */
+  background-size: cover; /* Ensures the background image covers the entire div */
+  background-position: center; /* Centers the background image */
+  height: 100vh; /* Adjust the height of the div */
 }

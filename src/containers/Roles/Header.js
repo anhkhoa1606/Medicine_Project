@@ -58,7 +58,7 @@ class Header extends Component {
         <div className="header-tabs-container">
           <Navigator menus={this.state.menuApp} />
         </div>
-
+        {/* <div className="background-logo"></div> */}
         <div className="languages">
           <span className="welcome">
             <FormattedMessage id="home-header.welcome" />{" "}

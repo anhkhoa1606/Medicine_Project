@@ -7,6 +7,7 @@ import Header from "../Roles/Header";
 import { Modal, Button } from "react-bootstrap"; // Thêm modal từ Bootstrap
 import "./HomePage.scss";
 import { withRouter } from "react-router-dom";
+import Footer from "../Roles/Footer";
 
 class HomePage extends Component {
   state = {
@@ -100,6 +101,7 @@ class HomePage extends Component {
     return (
       <>
         <Header />
+        <div className="background"></div>
         <div className="container">
           <h2 className="text-center">🛒 Danh sách sản phẩm</h2>
           <div className="product-grid">
@@ -139,6 +141,7 @@ class HomePage extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        <Footer/>
       </>
     );
   }

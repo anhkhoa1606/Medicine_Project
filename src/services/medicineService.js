@@ -1,19 +1,33 @@
 import db from '../models/index';
 import fs from "fs";
 
-let getAllProducts = () => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let products = await db.Medicine.findAll();
-            resolve({
-                errCode: 0,
-                message: "Success",
-                data: products
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
+let getAllProducts = async (page, limit) => {
+    try {
+        let offset = (page - 1) * limit;
+
+        let { count, rows: products } = await db.Medicine.findAndCountAll({
+            limit: limit,
+            offset: offset
+        });
+
+        return {
+            errCode: 0,
+            message: "Success",
+            data: products,
+            pagination: {
+                totalItems: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page,
+                pageSize: limit
+            }
+        };
+    } catch (e) {
+        return {
+            errCode: -1,
+            message: "Error fetching products",
+            error: e.message
+        };
+    }
 };
 
 let getProductById = (id) => {

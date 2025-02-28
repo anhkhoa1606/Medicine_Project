@@ -2,12 +2,17 @@ import medicineService from '../services/medicineService';
 
 let getAllProducts = async (req, res) => {
     try {
-        let response = await medicineService.getAllProducts();
+        let page = parseInt(req.query.page) || 1;
+        let limit = parseInt(req.query.limit) || 10;
+
+        let response = await medicineService.getAllProducts(page, limit);
+
         return res.status(200).json(response);
-    } catch (error) {
+    } catch (e) {
         return res.status(500).json({
             errCode: -1,
             message: "Error from server",
+            error: e.message
         });
     }
 };

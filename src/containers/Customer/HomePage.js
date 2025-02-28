@@ -4,7 +4,7 @@ import { getAllProducts } from "../../services/productService";
 import { addToCart } from "../../store/actions/cartActions";
 import { getCartByUserId } from "../../services/cartService";
 import Header from "../Roles/Header";
-import { Modal, Button } from "react-bootstrap"; // Thêm modal từ Bootstrap
+import { Modal, Button } from "react-bootstrap";
 import "./HomePage.scss";
 import { withRouter } from "react-router-dom";
 import Footer from "../Roles/Footer";
@@ -15,22 +15,38 @@ class HomePage extends Component {
     cartItems: [],
     showModal: false,         // Kiểm soát hiển thị modal
     modalMessage: "",         // Nội dung thông báo modal
+    currentPage: 1,           // Trang hiện tại
+    totalPages: 1,            // Tổng số trang
+    limit: 8,
   };
 
   componentDidMount() {
-    this.fetchProducts();
+    this.fetchProducts(this.state.currentPage);
     this.fetchCartData();
   }
 
   // Lấy danh sách sản phẩm
-  fetchProducts = async () => {
+  fetchProducts = async (page) => {
     try {
-      let response = await getAllProducts();
-      if (response.errCode === 0) {
-        this.setState({ products: response.data });
+      let response = await getAllProducts(page, this.state.limit);
+      console.log('response', response);
+      if (response.data.errCode === 0) {
+        this.setState({
+          products: response.data.data,
+          totalPages: response.data.pagination.totalPages,
+          currentPage: response.data.pagination.currentPage
+        });
       }
     } catch (error) {
       console.error("Error fetching products", error);
+    }
+};
+
+
+  // Chuyển trang
+  handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= this.state.totalPages) {
+      this.fetchProducts(newPage);
     }
   };
 
@@ -96,7 +112,7 @@ class HomePage extends Component {
     this.props.history.push(`/medicine-details?id=${medicineId}`);
   };
   render() {
-    const { products, showModal, modalMessage } = this.state;
+    const { products, showModal, modalMessage, currentPage, totalPages } = this.state;
 
     return (
       <>
@@ -108,8 +124,8 @@ class HomePage extends Component {
             {products.map((product) => (
               <div className="product-card" key={product.id}>
                 <img src={product.image} className="product-image" alt={product.name} />
-                <h3 className="product-name">{product.name}</h3>
-                <p className="product-price">{product.price.toLocaleString()}đ</p>
+                <h3 className="product-name">Name: {product.name}</h3>
+                <p className="product-price">Price: {product.price.toLocaleString()} đ</p>
                 <button
                   className="buy-button"
                   onClick={() => this.handleAddToCart(product)}
@@ -124,6 +140,26 @@ class HomePage extends Component {
                 </button>
               </div>
             ))}
+          </div>
+          {/* Nút chuyển trang */}
+          <div className="pagination">
+            <Button
+              variant="secondary"
+              onClick={() => this.handlePageChange(this.state.currentPage - 1)}
+              disabled={this.state.currentPage === 1}
+            >
+              ⬅️ Previous
+            </Button>
+
+            <span className="page-info">Trang {this.state.currentPage} / {this.state.totalPages}</span>
+
+            <Button
+              variant="secondary"
+              onClick={() => this.handlePageChange(this.state.currentPage + 1)}
+              disabled={this.state.currentPage === this.state.totalPages}
+            >
+              Next ➡️
+            </Button>
           </div>
         </div>
 

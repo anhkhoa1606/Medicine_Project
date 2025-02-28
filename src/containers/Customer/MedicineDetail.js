@@ -27,8 +27,10 @@ class MedicineDetail extends Component {
 
     try {
       let response = await getMedicineById(medicineId);
-      if (response.errCode === 0) {
-        this.setState({ medicine: response.data });
+      console.log('response', response.data.data)
+      
+      if (response.data.errCode === 0) {
+        this.setState({ medicine: response.data.data });
       }
     } catch (error) {
       console.error("Error fetching medicine details", error);
@@ -86,6 +88,7 @@ class MedicineDetail extends Component {
 
   render() {
     const { medicine, showModal, modalMessage } = this.state;
+    console.log('medicine', medicine)
 
     if (!medicine) {
       return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers, createNewUserServices, deleteUserServices, editUserServices } from '../../services/userService';
 import { Table, Input, Button, Modal, Form, Select } from 'antd';
-// import Header from '../../components/Header';
+import ChatBoxAdmin from "./ChatBoxAdmin";
 import Header from "../Roles/Header";
 class UserManage extends Component {
     state = {
@@ -156,6 +156,7 @@ class UserManage extends Component {
 
                     </Modal>
                 </div>
+                <ChatBoxAdmin />
             </>
         );
     }

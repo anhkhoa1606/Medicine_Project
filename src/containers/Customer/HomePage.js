@@ -8,6 +8,7 @@ import { Modal, Button } from "react-bootstrap";
 import "./HomePage.scss";
 import { withRouter } from "react-router-dom";
 import Footer from "../Roles/Footer";
+import ChatBox from "./ChatBox";
 
 class HomePage extends Component {
   state = {
@@ -161,6 +162,7 @@ class HomePage extends Component {
               Next ➡️
             </Button>
           </div>
+          <ChatBox />
         </div>
 
         {/* Modal thông báo */}

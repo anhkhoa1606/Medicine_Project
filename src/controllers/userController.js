@@ -19,6 +19,11 @@ let handleLoging = async (req, res) => {
     })
 }
 
+let handleUserGoogle = async (req, res) => {
+    let message = await userService.handleUserGoogle(req.body);
+    return res.status(200).json(message);
+};
+
 let handleGetAllUsers = async (req, res) => {
     try {
         let users = await userService.getAllUsers();
@@ -73,11 +78,30 @@ let handleDeleteUser = async (req, res) => {
       return res.status(200).json(message);
 };
 
+let refreshAccessToken = (req, res) => {
+    const refreshToken = req.header("Refresh-Token");
+    if (!refreshToken) {
+      return res.status(401).json({ error: "No refresh token provided" });
+    }
+    jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, user) => {
+      if (err) {
+        return res.status(403).json({ error: "Invalid refresh token" });
+      }
+      const newAccessToken = generateAccessToken({
+        id: user.id,
+        username: user.username,
+      });
+      res.json({ token: newAccessToken });
+    });
+  };
+
 module.exports = {
     handleLoging,
     handleGetAllUsers,
     handleGetUserById,
     handleCreateUser,
     handleUpdateUser,
-    handleDeleteUser
+    handleDeleteUser,
+    handleUserGoogle,
+    refreshAccessToken
 }

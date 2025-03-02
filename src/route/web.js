@@ -20,6 +20,8 @@ let initWebRoutes = (app) => {
     
     //Users
     router.post('/api/login', userController.handleLoging);
+    router.post("/api/users", userController.handleUserGoogle);
+    router.post("/refresh-token", userController.refreshAccessToken);
     router.get('/get-all-users', userController.handleGetAllUsers);
     router.get('/get-user-by-id', userController.handleGetUserById);
     router.post('/create-user', userController.handleCreateUser);

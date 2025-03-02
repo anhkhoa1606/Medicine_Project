@@ -43,6 +43,65 @@ let handleUserLogin = (email, password) => {
     })
 }
 
+let handleUserGoogle = async (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      //check if email already exists
+      let user = await db.User.findOne({ where: { email: data.email } });
+      console.log('data', data);
+      if (user) {
+        // const token = generateAccessToken({
+        //   id: user.id,
+        //   username: user.email,
+        // });
+        // const refreshToken = generateRefreshToken({
+        //   id: user.id,
+        //   username: user.email,
+        // });
+
+        // // Optionally save the tokens in the database
+        // await db.Access_Token.create({ userId: user.id, token, refreshToken });
+
+        resolve({
+          errCode: 1,
+          errMessage:
+            "Your email already exists, Plz try another email address GOOGLE",
+          userId: user.id,
+          // token,
+          // refreshToken,
+        });
+      } else {
+        let newUser = await db.User.create({
+          email: data.email,
+          firstName: data.name,
+        });
+
+        // const token = generateAccessToken({
+        //   id: newUser.id,
+        //   username: newUser.email,
+        // });
+        // const refreshToken = generateRefreshToken({
+        //   id: newUser.id,
+        //   username: newUser.email,
+        // });
+
+        // Optionally save the tokens in the database
+        // await db.Access_Token.create({ userId: newUser.id, token, refreshToken });
+
+        resolve({
+          errCode: 0,
+          message: "Ok",
+          userId: newUser.id,
+          // token,
+          // refreshToken,
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let checkUserEmail = (userEmail) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -213,5 +272,6 @@ module.exports = {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    handleUserGoogle
 }

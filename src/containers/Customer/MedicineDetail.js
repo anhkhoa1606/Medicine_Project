@@ -44,11 +44,11 @@ class MedicineDetail extends Component {
 
   // Xử lý thêm sản phẩm vào giỏ hàng
   handleAddToCart = (medicine) => {
-    const { userInfo } = this.props;
+    const { userInfo, userGoogle } = this.props;
     const { cartItems } = this.state;
     console.log('cartItems: ' + cartItems)
 
-    if (!userInfo) {
+    if (!userInfo || !userGoogle) {
       this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
       return;
     }
@@ -62,7 +62,7 @@ class MedicineDetail extends Component {
     }
 
     // Thêm vào giỏ hàng nếu chưa có
-    const userId = userInfo.id;
+    const userId = userInfo.id || userGoogle.user.userId;
     this.props.addToCart(userId, medicine, 1);
     this.showModal("✅ Sản phẩm đã được thêm vào giỏ hàng!");
 
@@ -139,6 +139,7 @@ class MedicineDetail extends Component {
 
 const mapStateToProps = (state) => ({
   userInfo: state.user.userInfo,
+  userGoogle: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

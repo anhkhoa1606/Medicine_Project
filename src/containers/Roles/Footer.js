@@ -42,6 +42,7 @@ class Footer extends Component {
 
 const mapStateToProps = (state) => ({
   userInfo: state.user.userInfo,
+  userGoogle: state.user,
   language: state.app.language,
 });
 

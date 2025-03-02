@@ -184,8 +184,8 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // userInfo: state.user.userInfo,
-  userIdNormal: state.user.userInfo?.id || state.user.user?.userId,
+  userInfo: state.user.userInfo,
+  userGoogle: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

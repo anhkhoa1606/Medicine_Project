@@ -152,7 +152,6 @@ class Cart extends Component {
 const mapStateToProps = (state) => ({
   cart: state.cart.Carts,
   userInfo: state.user.userInfo,
-  // userIdNormal: state.user.userInfo?.id || state.user.user?.userId,
 });
 
 const mapDispatchToProps = (dispatch) => ({

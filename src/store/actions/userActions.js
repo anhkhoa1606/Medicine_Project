@@ -17,3 +17,8 @@ export const userLoginFail = () => ({
 export const processLogout = () => ({
     type: actionTypes.PROCESS_LOGOUT
 })
+
+export const setUser = (user) => ({
+    type: actionTypes.SET_USER,
+    payload: user,
+});

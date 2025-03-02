@@ -52,10 +52,10 @@ class HomePage extends Component {
 
   // Lấy giỏ hàng của người dùng
   fetchCartData = async () => {
-    const { userInfo } = this.props;
-    if (userInfo) {
+    const { userIdNormal } = this.props;
+    if (userIdNormal) {
       try {
-        const response = await getCartByUserId(userInfo.id);
+        const response = await getCartByUserId(userIdNormal);
         if (response && response.cartItems) {
           this.setState({ cartItems: response.cartItems });
         }
@@ -67,10 +67,10 @@ class HomePage extends Component {
 
   // Xử lý thêm sản phẩm vào giỏ hàng
   handleAddToCart = (product) => {
-    const { userInfo } = this.props;
+    const { userIdNormal } = this.props;
     const { cartItems } = this.state;
 
-    if (!userInfo) {
+    if (!userIdNormal) {
       this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
       return;
     }
@@ -84,7 +84,7 @@ class HomePage extends Component {
     }
 
     // Thêm vào giỏ hàng nếu chưa có
-    const userId = userInfo.id;
+    const userId = userIdNormal;
     this.props.addToCart(userId, product, 1);
     this.showModal("✅ Sản phẩm đã được thêm vào giỏ hàng!");
 
@@ -184,7 +184,8 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  userInfo: state.user.userInfo,
+  // userInfo: state.user.userInfo,
+  userIdNormal: state.user.userInfo?.id || state.user.user?.userId,
 });
 
 const mapDispatchToProps = (dispatch) => ({

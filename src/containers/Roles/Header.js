@@ -29,7 +29,10 @@ class Header extends Component {
     if (userInfo && !_.isEmpty(userInfo)) {
       let role = userInfo.roleId;
       console.log('userInfo.roleId', userInfo.roleId)
-      if (role === USER_ROLE.ADMIN || role === USER_ROLE.STAFF) {
+      if (role === USER_ROLE.ADMIN) {
+        menu = adminMenu;
+      }
+      if (role === USER_ROLE.STAFF) {
         menu = adminMenu;
       }
       if (role === USER_ROLE.CUSTOMER) {
@@ -50,7 +53,8 @@ class Header extends Component {
   };
 
   render() {
-    const {language, userInfo } = this.props;
+    const {language, userInfo, userGoogle } = this.props;
+    console.log('user', userGoogle)
 
     return (
       <div className="header-container">
@@ -58,11 +62,10 @@ class Header extends Component {
         <div className="header-tabs-container">
           <Navigator menus={this.state.menuApp} />
         </div>
-        {/* <div className="background-logo"></div> */}
         <div className="languages">
           <span className="welcome">
             <FormattedMessage id="home-header.welcome" />{" "}
-            {userInfo && userInfo.email ? userInfo.email : " "} !
+            {(userInfo?.email || userGoogle?.user?.email || " ")} !
           </span>
 
           <button className="view-cart-button" onClick={this.toggleCart}>
@@ -100,6 +103,7 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     userInfo: state.user.userInfo,
+    userGoogle: state.user,
     language: state.app.language,
   };
 };

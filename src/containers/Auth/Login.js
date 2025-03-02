@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 // import * as actions from "../store/actions";
 import * as actions from "../../store/actions";
-
+import LoginGoogleButton from "./LoginGoogleButton";
 import './Login.scss';
 import { handleLoginApi } from '../../services/userService';
-// import Header from '../../components/Header';
 import Header from "../Roles/Header";
 
 class Login extends Component {
@@ -124,9 +123,8 @@ class Login extends Component {
                             <div className="col-12 text-center login-with mt-3">
                                 <span className="">Or login with:</span>
                             </div>
-                            <div className="col-12 social-login">
-                                <i className="fab fa-facebook social-icon fb"></i>
-                                <i className="fab fa-google-plus social-icon gg"></i>
+                            <div className="social-login">
+                                <LoginGoogleButton />
                             </div>
                         </div>
                     </div>

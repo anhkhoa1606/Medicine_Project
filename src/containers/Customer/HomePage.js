@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllProducts } from "../../services/productService";
-import { addToCart } from "../../store/actions/cartActions";
+import { addToCart, checkCartAction } from "../../store/actions/cartActions";
 import { getCartByUserId } from "../../services/cartService";
 import Header from "../Roles/Header";
 import { Modal, Button } from "react-bootstrap";
@@ -67,31 +67,38 @@ class HomePage extends Component {
   };
 
   // Xử lý thêm sản phẩm vào giỏ hàng
-  handleAddToCart = (product) => {
+  handleAddToCart = async (product) => {
     const { userInfo } = this.props;
-    const { cartItems } = this.state;
 
     if (!userInfo) {
-      this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
-      return;
+        this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+        return;
     }
 
-    // Kiểm tra sản phẩm đã tồn tại chưa
-    const isProductInCart = cartItems.some((item) => item.medicineId === product.id);
+    try {
+        // Gọi API kiểm tra sản phẩm đã có trong giỏ hàng chưa
+        const response = await this.props.checkCartAction(userInfo.id, product.id);
+        console.log('response', response, userInfo.id, product.id);
+        if (response.exists) {
+            this.showModal("❌ Sản phẩm này đã có trong giỏ hàng!");
+        } else {
+            // Gửi API để thêm sản phẩm vào giỏ hàng
+            await this.props.addToCart(userInfo.id, product.id, 1);
+            console.log('response222',userInfo.id, product.id);
 
-    if (isProductInCart) {
-      this.showModal("❌ Sản phẩm này đã có trong giỏ hàng!");
-      return;
+            this.showModal("✅ Sản phẩm đã được thêm vào giỏ hàng!");
+
+            // Cập nhật lại giỏ hàng sau khi thêm
+            this.setState((prevState) => ({
+                cartItems: [...prevState.cartItems, { medicineId: product.id, quantity: 1 }]
+            }));
+        }
+    } catch (error) {
+        console.error("Lỗi khi kiểm tra giỏ hàng:", error);
+        this.showModal("⚠️ Đã xảy ra lỗi, vui lòng thử lại!");
     }
-
-    // Thêm vào giỏ hàng nếu chưa có
-    const userId = userInfo;
-    this.props.addToCart(userId, product, 1);
-    this.showModal("✅ Sản phẩm đã được thêm vào giỏ hàng!");
-
-    // Cập nhật giỏ hàng
-    this.setState({ cartItems: [...cartItems, { medicineId: product.id, quantity: 1 }] });
   };
+
 
   // Hiển thị modal thông báo
   showModal = (message) => {
@@ -192,6 +199,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addToCart: (userId, product, quantity) => dispatch(addToCart(userId, product, quantity)),
+  checkCartAction: (userId, medicineId) => dispatch(checkCartAction(userId, medicineId)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomePage));

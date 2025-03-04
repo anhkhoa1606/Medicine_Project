@@ -43,7 +43,7 @@ const cartReducer = (state = initialState, action) => {
     case actionTypes.REMOVE_CART:
       return {
         ...state,
-        Carts: state.Carts.filter((item) => item.id !== action.payload), // Xóa item khỏi Redux store
+        Carts: state.Carts.filter(item => item.id !== action.payload),
       };
     case actionTypes.GET_ORDER:
       return {

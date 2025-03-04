@@ -65,7 +65,7 @@ class Cart extends Component {
 
   render() {
     const { cart } = this.props;
-    console.log('cart', cart)
+    console.log('Cart Data:', cart);
     const { selectedItems, selectAll } = this.state;
 
     return (
@@ -91,28 +91,39 @@ class Cart extends Component {
             </div>
 
             <div className="cart-items">
-              {cart.map((item) => (
-                <div className="cart-item" key={item.id}>
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(item.id)}
-                    onChange={() => this.handleSelectItem(item.id)}
-                  />
+              {cart.map((item) => {
+                const medicine = item.data || {}; // Đảm bảo `medicine` không undefined
+                return (
+                  <div className="cart-item" key={item.id}>
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(item.id)}
+                      onChange={() => this.handleSelectItem(item.id)}
+                    />
 
-                  <img src={item.data.image} alt={item.data.name} className="cart-item-image" />
-                  <div className="cart-item-info">
-                    <h3 className="cart-item-name">{item.data.name}</h3>
-                    <p className="cart-item-description">{item.data.description}</p>
+                    {/* Kiểm tra nếu có dữ liệu thuốc mới render */}
+                    {medicine.image ? (
+                      <img src={medicine.image} alt={medicine.name} className="cart-item-image" />
+                    ) : (
+                      <div className="cart-item-placeholder">No Image</div>
+                    )}
+
+                    <div className="cart-item-info">
+                      <h3 className="cart-item-name">{medicine.name || "Unknown"}</h3>
+                      <p className="cart-item-description">{medicine.description || "No description"}</p>
+                    </div>
+
+                    <p className="cart-item-price">{item.price?.toLocaleString()} $</p>
+
+                    <button
+                      className="remove-button"
+                      onClick={() => this.handleRemoveFromCart(item.id)}
+                    >
+                      Xóa
+                    </button>
                   </div>
-                  <p className="cart-item-price">{item.price.toLocaleString()} $</p>
-                  <button
-                    className="remove-button"
-                    onClick={() => this.handleRemoveFromCart(item.id)}
-                  >
-                    Xóa
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="cart-footer">

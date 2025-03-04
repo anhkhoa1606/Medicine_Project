@@ -101,15 +101,28 @@ class Order extends Component {
       totalPrice: this.state.medicinePrice,
     };
 
-    createOrderService(orderData)
-      .then(() => {
-        toast.success("Đặt hàng thành công!");
-        localStorage.clear();
-        this.props.history.push("/payment-return", { orderData });
-      })
-      .catch(() => {
-        toast.error("Lỗi khi tạo đơn hàng.");
+    try {
+      // Gọi API để tạo đơn hàng
+      await createOrderService(orderData);
+
+      // Xóa sản phẩm trong giỏ hàng sau khi đặt hàng thành công
+      this.state.medicines.forEach((item) => {
+        this.props.removeFromCart(item.id);
       });
+
+      // Cập nhật lại localStorage
+      localStorage.removeItem("medicines");
+      localStorage.removeItem("medicinePrice");
+
+      // Hiển thị thông báo thành công
+      toast.success("Đặt hàng thành công!");
+
+      // Chuyển hướng đến trang thanh toán thành công
+      this.props.history.push("/payment-return", { orderData });
+
+    } catch (error) {
+      toast.error("Lỗi khi tạo đơn hàng.");
+    }
   };
 
   handleRemoveFromCart = (productId) => {
@@ -125,7 +138,6 @@ class Order extends Component {
     this.setState({ medicinePrice: updatedTotalPrice });
     localStorage.setItem("medicinePrice", updatedTotalPrice);
   };
-
 
   handleQuantityChange = (productId, quantity) => {
     if (quantity > 0) {
@@ -153,7 +165,7 @@ class Order extends Component {
 
   render() {
     const { medicines, medicinePrice, showPaypal, username, email, phoneNumber } = this.state;
-
+    console.log(medicines)
     return (
       <div className="order-container">
         <h2>🛒 Xác nhận đơn hàng</h2>
@@ -180,9 +192,9 @@ class Order extends Component {
           <h3>2️⃣ Sản phẩm đặt hàng</h3>
           {medicines.map((item) => (
             <div className="order-item" key={item.id}>
-              <img src={item.image} alt={item.name} className="item-image" />
+              <img src={item.data.image} alt={item.data.name} className="item-image" />
               <div className="item-details">
-                <p><strong>{item.name}</strong></p>
+                <p><strong>{item.data.name}</strong></p>
                 <p>{item.price.toLocaleString()} $ x {item.quantity}</p>
                 
               </div>

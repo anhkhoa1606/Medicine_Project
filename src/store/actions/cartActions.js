@@ -8,6 +8,7 @@ import {
 
 import {
     addToCartService,
+    checkCart,
     deleteCart,
     getCartByUserId
   } from "../../services/cartService";
@@ -112,7 +113,8 @@ export const coursePurchased = () => {
 export const addToCart = (userId, product, quantity = 1) => {
     return async (dispatch, getState) => {
         try {
-            const res = await addToCartService(userId.id, product.id, quantity);
+            const res = await addToCartService(userId, product, quantity);
+
             if (res.errCode == 0) {
                 dispatch({
                     type: actionTypes.ADD_TO_CART,
@@ -120,7 +122,7 @@ export const addToCart = (userId, product, quantity = 1) => {
                 });
                 console.log("Cart updated successfully on server.");
             } else {
-                console.error("Failed to update cart:", res.data.message);
+                console.error("Failed to update cart:", res.message);
             }
         } catch (error) {
             console.error("Error adding product to cart:", error);
@@ -177,6 +179,39 @@ export const removeFromCart = (id) => async (dispatch) => {
     });
   } catch (error) {
     console.error("Error removing item from cart", error);
+  }
+};
+
+export const checkCartAction = (userId, medicineId) => async (dispatch) => {
+  try {
+      // Gọi API check giỏ hàng
+      const response = await checkCart(userId, medicineId);
+      console.log('response', response.message);
+
+
+      if (response.exists) {
+          // Nếu sản phẩm đã có trong giỏ hàng
+          dispatch({
+              type: actionTypes.CART_ITEM_ALREADY_EXISTS,
+              payload: { medicineId, message: response.message }
+          });
+      } else {
+          // Nếu sản phẩm chưa có trong giỏ hàng
+          dispatch({
+              type: actionTypes.CART_ITEM_NOT_FOUND,
+              payload: { medicineId, message: response.message, cartId: response.cartId }
+          });
+      }
+
+      return response; 
+
+  } catch (error) {
+      console.error("Lỗi khi kiểm tra giỏ hàng:", error);
+      dispatch({
+          type: actionTypes.CHECK_CART_ERROR,
+          payload: { error: error.message }
+      });
+      throw error; // ✅ Trả lỗi để bắt lỗi ở component
   }
 };
 

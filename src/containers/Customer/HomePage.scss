@@ -140,6 +140,7 @@
     .btn-secondary:disabled {
       background-color: #ccc;
       cursor: not-allowed;
+      width: 120px;
     }
   
     /* Căn giữa icon và chữ */
@@ -149,6 +150,10 @@
       justify-content: center;
       gap: 5px; /* Tạo khoảng cách giữa icon và chữ */
     }
+  }
+
+  .modal .modal-dialog .modal-content .modal-header .modal-title {
+    margin-left: 30px;
   }
   
   

@@ -4,8 +4,8 @@
   z-index: 99;
   display: flex;
   justify-content: space-between;
-  background-color: #0f13142b;
-  height: 100px;
+  background-color: #1862742b;
+  height: 80px;
   position: relative;
   .btn-logout {
     width: 30px;
@@ -14,6 +14,7 @@
     height: 40px;
     padding: 0 10px;
     &:hover {
+      width: 60px;
       background-color: darken($colormain, 5);
     }
     i {
@@ -22,7 +23,7 @@
   }
   .languages {
     font-size: 25px;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-right: 50px;
     .welcome {
       margin-right: 10px;
@@ -34,7 +35,7 @@
 
       &.active {
         opacity: 1;
-        color: blue;
+        color: rgb(63, 63, 119);
       }
     }
     .languages-vi {
@@ -61,7 +62,7 @@
   background-color: transparent;
   border: none;
   font-size: 20px;
-  color: #dad1d1;
+  color: black;
   cursor: pointer;
   transition: color 0.3s;
 }
@@ -71,7 +72,7 @@
 }
 
 .view-cart-button:hover {
-  color: #352422;
+  color: #ccbcba;
 }
 
 .background-logo {
@@ -79,4 +80,12 @@
   background-size: cover; /* Ensures the background image covers the entire div */
   background-position: center; /* Centers the background image */
   height: 100vh; /* Adjust the height of the div */
+}
+
+.header-tabs-container {
+  padding-top: 20px;
+}
+
+.navigator-menu .menu-group .menu-group-name:first-child {
+  font-size: 20px;
 }

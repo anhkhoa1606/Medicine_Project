@@ -116,7 +116,7 @@ class ProductManage extends Component {
         formData.append("upload_preset", "user_avatar");
 
         try {
-            const response = await fetch("https://api.cloudinary.com/v1_1/dyfbye716/image/upload", {
+            const response = await fetch("https://api.cloudinary.com/v1_1/dmsggj0vu/image/upload", {
                 method: "POST",
                 body: formData,
             });

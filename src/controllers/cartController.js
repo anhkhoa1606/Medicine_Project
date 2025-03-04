@@ -43,7 +43,24 @@ let getCartByUserId = async (req, res) => {
     }
 };
 
+const deleteCart = async (req, res) => {
+    const { id } = req.body;
+  
+    try {
+      const result = await cartService.deleteCartService(id);
+  
+      if (!result.success) {
+        return res.status(404).json({ message: result.message });
+      }
+  
+      return res.status(200).json({ message: result.message });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
+  };
+
 export default {
     addToCart,
-    getCartByUserId
+    getCartByUserId,
+    deleteCart
 };

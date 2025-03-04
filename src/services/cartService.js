@@ -58,4 +58,20 @@ let getCartByUserId = async (userId) => {
     throw new Error("Server error");
   }
 };
-module.exports = { addToCart, getCartByUserId };
+
+const deleteCartService = async (id) => {
+  try {
+    const item = await db.CartItem.findOne({ where: { id } });
+    console.log('first', item, id);
+    if (!item) {
+      return { success: false, message: 'Item not found in cart' };
+    }
+
+    await item.destroy();
+    return { success: true, message: 'Item deleted successfully' };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+module.exports = { addToCart, getCartByUserId, deleteCartService };

@@ -52,8 +52,10 @@ let deleteOrder = async (req, res) => {
     });
   }
   let message = await orderService.deleteOrderService(req.body.id);
+  console.log('message', message)
   return res.status(200).json(message);
 };
+
 let filterOrdersByName = async (req, res) => {
   try {
     let infor = await orderService.filterOrdersByName(req.query.name);

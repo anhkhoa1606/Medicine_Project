@@ -17,18 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       cartId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        // references: {
-        //   model: 'Carts',
-        //   key: 'id',
-        // },
       },
       medicineId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        // references: {
-        //   model: 'Medicines',
-        //   key: 'id',
-        // },
       },
       quantity: {
         type: DataTypes.INTEGER,

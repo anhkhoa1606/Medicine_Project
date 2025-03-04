@@ -15,22 +15,30 @@ class ProductManage extends Component {
         isModalVisible: false,
         isEditMode: false,
         selectedProduct: {},
+        currentPage: 1,           // Trang hiện tại
+        totalPages: 1,            // Tổng số trang
+        limit: 8,
     };
     formRef = React.createRef();
 
     componentDidMount() {
-        this.fetchProducts();
+        this.fetchProducts(this.state.currentPage);
         this.fetchCategories(); 
     }
 
-    fetchProducts = async () => {
+    fetchProducts = async (page) => {
         try {
-            let response = await getAllProducts();
-            if (response.errCode === 0) {
-                this.setState({ products: response.data });
-            }
+          let response = await getAllProducts(page, this.state.limit);
+          console.log('response', response);
+          if (response.data.errCode === 0) {
+            this.setState({
+              products: response.data.data,
+              totalPages: response.data.pagination.totalPages,
+              currentPage: response.data.pagination.currentPage
+            });
+          }
         } catch (error) {
-            console.error("Error fetching products", error);
+          console.error("Error fetching products", error);
         }
     };
 

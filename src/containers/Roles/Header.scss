@@ -4,7 +4,7 @@
   z-index: 99;
   display: flex;
   justify-content: space-between;
-  background-color: #1862742b;
+  background-color: #2f6bc2;
   height: 80px;
   position: relative;
   .btn-logout {
@@ -27,6 +27,7 @@
     margin-right: 50px;
     .welcome {
       margin-right: 10px;
+      color: white;
     }
     .languages-en {
       margin-left: 15px;
@@ -62,7 +63,7 @@
   background-color: transparent;
   border: none;
   font-size: 20px;
-  color: black;
+  color: white;
   cursor: pointer;
   transition: color 0.3s;
 }
@@ -88,4 +89,5 @@
 
 .navigator-menu .menu-group .menu-group-name:first-child {
   font-size: 20px;
+  color: white;
 }

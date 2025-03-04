@@ -32,7 +32,8 @@
                 "header": "Quản trị hệ thống",
                 "user-manage": "Quản lý người sử dụng",
                 "product-manage": "Quản lý sản phẩm",
-                "order-manage": "Quản lý đặt hàng"
+                "order-manage": "Quản lý đặt hàng",
+                "category-manage": "Quản lý danh mục"
             }
         }
     },

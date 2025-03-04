@@ -32,7 +32,8 @@
                 "header": "System Administrator",
                 "user-manage": "Users Management",
                 "product-manage": "Products Management",
-                "order-manage": "Orders Management"
+                "order-manage": "Orders Management",
+                "category-manage": "Category Manage"
             }
         }
     },

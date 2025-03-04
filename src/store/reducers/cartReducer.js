@@ -12,6 +12,12 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.FETCH_CART:
+      return {
+        ...state,
+        Carts: action.payload,
+      };
+
     case actionTypes.ADD_TO_CART: {
       const existingProductIndex = state.Carts.findIndex(
         (item) => item.id === action.payload.id
@@ -33,6 +39,12 @@ const cartReducer = (state = initialState, action) => {
         Carts: updatedCarts, // Cập nhật vào Carts
       };
     }
+
+    case actionTypes.REMOVE_CART:
+      return {
+        ...state,
+        Carts: state.Carts.filter((item) => item.id !== action.payload), // Xóa item khỏi Redux store
+      };
     case actionTypes.GET_ORDER:
       return {
         ...state,

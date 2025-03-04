@@ -12,7 +12,18 @@ const getCartByUserId = (userId) => {
     return axios.get(`/get-cart/${userId}`);
 };
 
+const deleteCart = (id) => {
+  return axios.delete(`/delete-cart`, {
+    data: {
+      id: id,
+    },
+  });
+};
+
+
+
 export {
     addToCartService,
-    getCartByUserId
+    getCartByUserId,
+    deleteCart
 };

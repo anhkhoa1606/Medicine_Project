@@ -13,6 +13,7 @@ const actionTypes = Object.freeze({
     
     //Cart
     ADD_TO_CART: 'ADD_TO_CART',
+    FETCH_CART: 'FETCH_CART',
     REMOVE_CART: 'REMOVE_CART',
     UPDATE_CART_QUANTITY: 'UPDATE_CART_QUANTITY'
 })

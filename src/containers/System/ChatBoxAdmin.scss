@@ -1,5 +1,4 @@
 .chatbox {
-  z-index: 1000;
     #talkjs-container {
       height: 500px;
       position: fixed;
@@ -25,6 +24,7 @@
       animation: move 1s infinite;
       width: 60px;
       height: 60px;
+      z-index: 1001;
       &:hover {
         opacity: 0.8;
       }

@@ -14,7 +14,7 @@ const createProduct = (data) => {
   return axios.post(`${API_BASE_URL}/create-product`, data);
 };
 const deleteProduct = (userId) => {
-  return axios.delete(`${API_BASE_URL}//delete-medicine`, {
+  return axios.delete(`${API_BASE_URL}/delete-medicine`, {
     data: {
       id: userId,
     },

@@ -1,58 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { removeFromCart, updateCartQuantity } from "../../store/actions/cartActions";
+import { fetchCart, removeFromCart, updateCartQuantity } from "../../store/actions/cartActions";
 import "./Cart.scss";
-import { getCartByUserId } from "../../services/cartService";
-import { getMedicineById } from "../../services/productService";
 import { withRouter } from "react-router-dom";
 
 class Cart extends Component {
   state = {
-    cartData: JSON.parse(localStorage.getItem("cartData")) || [],
     selectedItems: [],
     selectAll: false,
   };
 
   componentDidMount() {
-    if (!this.state.cartData.length) {
-      this.fetchCartData();
+    const { userInfo, fetchCart } = this.props;
+    if (userInfo?.id) {
+      fetchCart(userInfo.id);
     }
   }
 
-  // Fetch cart data from API
-  fetchCartData = async () => {
-    try {
-      const { userInfo } = this.props;
-      const userId = userInfo?.id;
-      const response = await getCartByUserId(userId);
-      const cartItems = response.cartItems;
-
-      const updatedCartItems = await Promise.all(
-        cartItems.map(async (item) => {
-          const medicineResponse = await getMedicineById(item.medicineId);
-          return {
-            ...item,
-            name: medicineResponse.data.name,
-            description: medicineResponse.data.description,
-            image: medicineResponse.data.image || "/images/default.png",
-          };
-        })
-      );
-
-      this.setState({ cartData: updatedCartItems });
-      localStorage.setItem("cartData", JSON.stringify(updatedCartItems));
-    } catch (error) {
-      console.error("Error fetching products", error);
-    }
+  // Remove item from cart and refresh the cart
+  handleRemoveFromCart = async (productId) => {
+    await this.props.removeFromCart(productId);
+    this.props.fetchCart(this.props.userInfo.id); // Load lại giỏ hàng sau khi xóa
   };
 
-  // Remove item from cart
-  handleRemoveFromCart = (productId) => {
-    this.props.removeFromCart(productId);
-    const updatedCart = this.state.cartData.filter((item) => item.id !== productId);
-    this.setState({ cartData: updatedCart });
-    localStorage.setItem("cartData", JSON.stringify(updatedCart));
-  };
 
   // Select individual item
   handleSelectItem = (productId) => {
@@ -66,20 +36,24 @@ class Cart extends Component {
 
   // Select all items
   handleSelectAll = () => {
-    const { selectAll, cartData } = this.state;
+    const { selectAll } = this.state;
+    const { cart } = this.props;
+
     if (selectAll) {
       this.setState({ selectedItems: [], selectAll: false });
     } else {
-      const allProductIds = cartData.map((item) => item.id);
+      const allProductIds = cart.map((item) => item.id);
       this.setState({ selectedItems: allProductIds, selectAll: true });
     }
   };
 
   // Proceed to order page with selected items
   handleOrder = () => {
-    const selectedProducts = this.state.cartData.filter((item) =>
+    const { cart } = this.props;
+    const selectedProducts = cart.filter((item) =>
       this.state.selectedItems.includes(item.id)
     );
+
     localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
     this.props.history.push("/order", { selectedProducts });
   };
@@ -90,14 +64,21 @@ class Cart extends Component {
   };
 
   render() {
-    const { cartData, selectedItems, selectAll } = this.state;
+    const { cart } = this.props;
+    console.log('cart', cart)
+    const { selectedItems, selectAll } = this.state;
 
     return (
       <div className="cart-container">
         <h2 className="cart-title">🛒 Giỏ hàng của bạn</h2>
 
-        {cartData.length === 0 ? (
-          <p className="empty-cart">Giỏ hàng trống.</p>
+        {cart.length === 0 ? (
+          <>
+            <p className="empty-cart">Giỏ hàng trống.</p>
+            <button className="back-buttons" onClick={this.handleBackToHome}>
+              🔙 Quay lại
+            </button>
+          </>
         ) : (
           <>
             <div className="cart-header">
@@ -110,7 +91,7 @@ class Cart extends Component {
             </div>
 
             <div className="cart-items">
-              {cartData.map((item) => (
+              {cart.map((item) => (
                 <div className="cart-item" key={item.id}>
                   <input
                     type="checkbox"
@@ -118,10 +99,10 @@ class Cart extends Component {
                     onChange={() => this.handleSelectItem(item.id)}
                   />
 
-                  <img src={item.image} alt={item.name} className="cart-item-image" />
+                  <img src={item.data.image} alt={item.data.name} className="cart-item-image" />
                   <div className="cart-item-info">
-                    <h3 className="cart-item-name">{item.name}</h3>
-                    <p className="cart-item-description">{item.description}</p>
+                    <h3 className="cart-item-name">{item.data.name}</h3>
+                    <p className="cart-item-description">{item.data.description}</p>
                   </div>
                   <p className="cart-item-price">{item.price.toLocaleString()} $</p>
                   <button
@@ -150,13 +131,14 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart.Carts,
+  cart: state.cart.Carts, // Lấy giỏ hàng từ Redux store
   userInfo: state.user.userInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFromCart: (productId) => dispatch(removeFromCart(productId)),
-  updateCartQuantity: (productId, quantity) => dispatch(updateCartQuantity(productId, quantity)),
+  fetchCart: (userId) => dispatch(fetchCart(userId)), // Action lấy giỏ hàng
+  removeFromCart: (productId) => dispatch(removeFromCart(productId)), // Action xóa sản phẩm khỏi giỏ hàng
+  updateCartQuantity: (productId, quantity) => dispatch(updateCartQuantity(productId, quantity)), // Action cập nhật số lượng sản phẩm
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Cart));

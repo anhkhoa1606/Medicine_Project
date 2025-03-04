@@ -41,7 +41,7 @@ class HomePage extends Component {
     } catch (error) {
       console.error("Error fetching products", error);
     }
-};
+  };
 
 
   // Chuyển trang
@@ -68,10 +68,10 @@ class HomePage extends Component {
 
   // Xử lý thêm sản phẩm vào giỏ hàng
   handleAddToCart = (product) => {
-    const { userIdNormal } = this.props;
+    const { userInfo } = this.props;
     const { cartItems } = this.state;
 
-    if (!userIdNormal) {
+    if (!userInfo) {
       this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
       return;
     }
@@ -85,7 +85,7 @@ class HomePage extends Component {
     }
 
     // Thêm vào giỏ hàng nếu chưa có
-    const userId = userIdNormal;
+    const userId = userInfo;
     this.props.addToCart(userId, product, 1);
     this.showModal("✅ Sản phẩm đã được thêm vào giỏ hàng!");
 

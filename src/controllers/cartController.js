@@ -57,10 +57,22 @@ const deleteCart = async (req, res) => {
     } catch (error) {
       return res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
-  };
+};
+
+const checkCart = async (req, res) => {
+    const { userId, medicineId } = req.query;
+
+    try {
+        const result = await cartService.checkCartItemService(userId, medicineId);
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ message: "Lỗi server", error: error.message });
+    }
+};
 
 export default {
     addToCart,
     getCartByUserId,
-    deleteCart
+    deleteCart,
+    checkCart
 };

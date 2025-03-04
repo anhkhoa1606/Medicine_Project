@@ -156,9 +156,8 @@ let editOrderService = (data) => {
 };
 let deleteOrderService = (inputId) => {
   return new Promise(async (resolve, reject) => {
-    // console.log(inputId);
     let order = await db.Order.findOne({
-      where: { id: inputId.id },
+      where: { id: inputId },
     });
     if (!order) {
       resolve({
@@ -167,7 +166,7 @@ let deleteOrderService = (inputId) => {
       });
     }
     await db.Order.destroy({
-      where: { id: inputId.id },
+      where: { id: inputId },
     });
     resolve({
       errCode: 0,
@@ -224,6 +223,7 @@ let getDetailOrderById = (inputId) => {
     }
   });
 };
+
 module.exports = {
   createOrderService: createOrderService,
   getOrderService: getOrderService,

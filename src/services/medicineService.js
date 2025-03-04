@@ -96,7 +96,7 @@ let createProduct = (data) => {
 let updateProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id || !data.categoryId) {
+            if (!data.id) {
                 return resolve({
                     errCode: 1,
                     message: "Missing required parameters! (id, categoryId)"
@@ -114,7 +114,6 @@ let updateProduct = (data) => {
                 });
             }
 
-            // Kiểm tra xem categoryId có tồn tại không
             let categoryExists = await db.Category.findOne({ where: { id: data.categoryId } });
             if (!categoryExists) {
                 return resolve({
@@ -123,12 +122,11 @@ let updateProduct = (data) => {
                 });
             }
 
-            // Cập nhật thông tin sản phẩm
             medicine.name = data.name;
             medicine.description = data.description;
             medicine.price = data.price;
             medicine.stock = data.stock;
-            medicine.categoryId = data.categoryId;  // Cập nhật categoryId thay vì category
+            medicine.categoryId = data.categoryId;
             medicine.image = data.image;
 
             await medicine.save();

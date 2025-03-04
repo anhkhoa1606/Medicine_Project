@@ -59,9 +59,10 @@ let initWebRoutes = (app) => {
 
     //Cart
     router.post("/add-to-cart", cartController.addToCart);
-    router.delete('/delete-cart', cartController.deleteCart);
     router.get("/get-cart/:userId", cartController.getCartByUserId);
-    
+    router.get("/check-cart", cartController.checkCart);
+    router.delete("/delete-cart", cartController.deleteCart);
+
     
 
     return app.use("/", router);

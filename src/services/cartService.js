@@ -74,4 +74,34 @@ const deleteCartService = async (id) => {
   }
 };
 
-module.exports = { addToCart, getCartByUserId, deleteCartService };
+const checkCartItemService = async (userId, medicineId) => {
+  if (!userId || !medicineId) {
+      throw new Error("Thiếu userId hoặc medicineId");
+  }
+
+  try {
+      // 1️⃣ Tìm giỏ hàng 'active' của user
+      const activeCart = await db.Cart.findOne({
+          where: { userId, status: 'active' }
+      });
+
+      if (!activeCart) {
+          return { exists: false, message: "Không tìm thấy giỏ hàng hoạt động!" };
+      }
+
+      // 2️⃣ Kiểm tra trong `CartItem` xem có `medicineId` trong `cartId` chưa
+      const existingItem = await db.CartItem.findOne({
+          where: { cartId: activeCart.id, medicineId }
+      });
+
+      return existingItem
+          ? { exists: true, message: "Sản phẩm đã có trong giỏ hàng!" }
+          : { exists: false, message: "Sản phẩm chưa có trong giỏ hàng!", cartId: activeCart.id };
+
+  } catch (error) {
+      throw new Error(error.message);
+  }
+};
+
+
+module.exports = { addToCart, getCartByUserId, deleteCartService, checkCartItemService };

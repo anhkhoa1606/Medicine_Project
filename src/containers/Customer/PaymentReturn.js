@@ -58,7 +58,7 @@ class PaymentReturn extends Component {
   }
   handleHome = () => {
     if (this.props.history) {
-      this.props.history.push(`/profile`);
+      this.props.history.push(`/home`);
     }
   };
   handleConfirm = (item) => {
@@ -83,7 +83,7 @@ class PaymentReturn extends Component {
             <FormattedMessage id="payment.title" />
           </h3>
           <div className="recheck-products">
-            <table>
+            <table style={{ width: "100%" }}>
               <tbody>
                 <tr>
                   <th>
@@ -98,10 +98,6 @@ class PaymentReturn extends Component {
                   <th>
                     {" "}
                     <FormattedMessage id="payment.payment" />
-                  </th>
-                  <th>
-                    {" "}
-                    <FormattedMessage id="payment.courses" />
                   </th>
                   <th>
                     {" "}
@@ -121,9 +117,8 @@ class PaymentReturn extends Component {
                     <tr key={index}>
                       <td>{item.username}</td>
                       <td>{item.email}</td>
-                      <td>{item.phonenumber}</td>
+                      <td>{item.phoneNumber}</td>
                       <td>{item.payment}</td>
-                      {/* <td>{item.courses.name}</td> */}
                       <td>{item.totalPrice}</td>
                       <td>
                         {" "}
@@ -134,7 +129,7 @@ class PaymentReturn extends Component {
                           className="btn btn-primary"
                           onClick={() => this.handleConfirm(item)} // Pass the item to the handler
                         >
-                          <FormattedMessage id="payment.see_details" />
+                          <FormattedMessage id="payment.see_detail" />
                         </button>
                       </td>
                     </tr>

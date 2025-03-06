@@ -117,5 +117,17 @@
     },
     "home-header": {
         "welcome": "Welcome"
+    },
+    "payment": {
+        "title": "Orders History",
+        "username": "User name",
+        "phonenumber": "Phone Number",
+        "payment": "Payment",
+        "total_price": "Aotal Price",
+        "status": "Status",
+        "actions": "Actions",
+        "see_detail": "See Detail",
+        "back": "Back",
+        "paid": "Paid"
     }
 }

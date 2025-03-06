@@ -117,5 +117,17 @@
     },
     "home-header": {
         "welcome": "Xin chào"
+    },
+    "payment": {
+        "title": "Lịch sử đặt hàng",
+        "username": "Tên người dùng",
+        "phonenumber": "SĐT",
+        "payment": "Thanh toán",
+        "total_price": "Tổng tiền",
+        "status": "Trạng thái",
+        "actions": "Hành động",
+        "see_detail": "Xem chi tiết",
+        "back": "Trở về",
+        "paid": "Đã thanh toán"
     }
 }

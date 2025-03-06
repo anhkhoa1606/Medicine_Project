@@ -20,6 +20,8 @@ class HomePage extends Component {
     currentPage: 1,           // Trang hiện tại
     totalPages: 1,            // Tổng số trang
     limit: 8,
+    searchQuery: "",
+    filteredProducts: [], 
   };
 
   componentDidMount() {
@@ -35,6 +37,7 @@ class HomePage extends Component {
       if (response.data.errCode === 0) {
         this.setState({
           products: response.data.data,
+          filteredProducts: response.data.data,
           totalPages: response.data.pagination.totalPages,
           currentPage: response.data.pagination.currentPage
         });
@@ -120,8 +123,21 @@ class HomePage extends Component {
   handleViewDetail = (medicineId) => {
     this.props.history.push(`/medicine-details?id=${medicineId}`);
   };
+
+  handleSearchChange = (event) => {
+    const query = event.target.value.toLowerCase(); // Chuyển thành chữ thường để so sánh không phân biệt hoa thường
+    this.setState({ searchQuery: query });
+
+    // Lọc sản phẩm dựa trên từ khóa nhập vào
+    const filteredProducts = this.state.products.filter((product) =>
+      product.name.toLowerCase().includes(query)
+    );
+    console.log('filteredProducts', filteredProducts)
+
+    this.setState({ filteredProducts });
+  };
   render() {
-    const { products, showModal, modalMessage, currentPage, totalPages } = this.state;
+    const { filteredProducts, showModal, modalMessage, searchQuery } = this.state;
 
     return (
       <>
@@ -130,27 +146,38 @@ class HomePage extends Component {
         <div className="background"></div>
         <div className="container">
           <h2 className="text-center">🛒 Danh sách sản phẩm</h2>
-          <div className="product-grid">
-            {products.map((product) => (
-              <div className="product-card" key={product.id}>
-                <img src={product.image} className="product-image" alt={product.name} />
-                <h3 className="product-name">Name: {product.name}</h3>
-                <p className="product-price">Price: {product.price.toLocaleString()} đ</p>
-                <button
-                  className="buy-button"
-                  onClick={() => this.handleAddToCart(product)}
-                >
-                  🛍️ Chọn mua
-                </button>
-                <button
-                  className="detail-button"
-                  onClick={() => this.handleViewDetail(product.id)}
-                >
-                  🔍 Xem chi tiết
-                </button>
-              </div>
-            ))}
+          {/* Thanh tìm kiếm */}
+          <div className="search-bar">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="🔍 Tìm kiếm sản phẩm..."
+              value={searchQuery}
+              onChange={this.handleSearchChange}
+            />
           </div>
+
+          {/* Danh sách sản phẩm */}
+          <div className="product-grid">
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <div className="product-card" key={product.id}>
+                  <img src={product.image} className="product-image" alt={product.name} />
+                  <h3 className="product-name">Name: {product.name}</h3>
+                  <p className="product-price">Price: {product.price.toLocaleString()} đ</p>
+                  <button className="buy-button" onClick={() => this.handleAddToCart(product)}>
+                    🛍️ Chọn mua
+                  </button>
+                  <button className="detail-button" onClick={() => this.handleViewDetail(product.id)}>
+                    🔍 Xem chi tiết
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="no-results">Không tìm thấy sản phẩm nào</p>
+            )}
+          </div>
+
           {/* Nút chuyển trang */}
           <div className="pagination">
             <Button
@@ -173,7 +200,6 @@ class HomePage extends Component {
           </div>
         </div>
         
-
         {/* Modal thông báo */}
         <Modal show={showModal} onHide={this.handleCloseModal} centered>
           <Modal.Header closeButton>

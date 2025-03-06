@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllCategories, updateCategory, createCategory, deleteCategory } from '../../services/categoryService';
 import { Table, Input, Button, Modal, Form} from 'antd';
-import Header from "../Roles/Header";
+import Header from "../Roles/Roles";
 
 class CategoryManage extends Component {
     state = {

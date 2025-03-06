@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { fetchCart, removeFromCart, updateCartQuantity } from "../../store/actions/cartActions";
 import "./Cart.scss";
 import { withRouter } from "react-router-dom";
+import Header from "./Header"
+import Footer from "./Footer";
 
 class Cart extends Component {
   state = {
@@ -69,74 +71,78 @@ class Cart extends Component {
     const { selectedItems, selectAll } = this.state;
 
     return (
-      <div className="cart-container">
-        <h2 className="cart-title">🛒 Giỏ hàng của bạn</h2>
+      <>
+        <Header/>
+        <div className="cart-container">
+          <h2 className="cart-title">🛒 Giỏ hàng của bạn</h2>
 
-        {cart.length === 0 ? (
-          <>
-            <p className="empty-cart">Giỏ hàng trống.</p>
-            <button className="back-buttons" onClick={this.handleBackToHome}>
-              🔙 Quay lại
-            </button>
-          </>
-        ) : (
-          <>
-            <div className="cart-header">
-              <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={this.handleSelectAll}
-              />
-              <span>Chọn tất cả</span>
-            </div>
-
-            <div className="cart-items">
-              {cart.map((item) => {
-                const medicine = item.data || {}; // Đảm bảo `medicine` không undefined
-                return (
-                  <div className="cart-item" key={item.id}>
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item.id)}
-                      onChange={() => this.handleSelectItem(item.id)}
-                    />
-
-                    {/* Kiểm tra nếu có dữ liệu thuốc mới render */}
-                    {medicine.image ? (
-                      <img src={medicine.image} alt={medicine.name} className="cart-item-image" />
-                    ) : (
-                      <div className="cart-item-placeholder">No Image</div>
-                    )}
-
-                    <div className="cart-item-info">
-                      <h3 className="cart-item-name">{medicine.name || "Unknown"}</h3>
-                      <p className="cart-item-description">{medicine.description || "No description"}</p>
-                    </div>
-
-                    <p className="cart-item-price">{item.price?.toLocaleString()} $</p>
-
-                    <button
-                      className="remove-button"
-                      onClick={() => this.handleRemoveFromCart(item.id)}
-                    >
-                      Xóa
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="cart-footer">
+          {cart.length === 0 ? (
+            <>
+              <p className="empty-cart">Giỏ hàng trống.</p>
               <button className="back-buttons" onClick={this.handleBackToHome}>
                 🔙 Quay lại
               </button>
-              <button className="order-button" onClick={this.handleOrder}>
-                🛒 Đặt hàng
-              </button>
-            </div>
-          </>
-        )}
-      </div>
+            </>
+          ) : (
+            <>
+              <div className="cart-header">
+                <input
+                  type="checkbox"
+                  checked={selectAll}
+                  onChange={this.handleSelectAll}
+                />
+                <span>Chọn tất cả</span>
+              </div>
+
+              <div className="cart-items">
+                {cart.map((item) => {
+                  const medicine = item.data || {}; // Đảm bảo `medicine` không undefined
+                  return (
+                    <div className="cart-item" key={item.id}>
+                      <input
+                        type="checkbox"
+                        checked={selectedItems.includes(item.id)}
+                        onChange={() => this.handleSelectItem(item.id)}
+                      />
+
+                      {/* Kiểm tra nếu có dữ liệu thuốc mới render */}
+                      {medicine.image ? (
+                        <img src={medicine.image} alt={medicine.name} className="cart-item-image" />
+                      ) : (
+                        <div className="cart-item-placeholder">No Image</div>
+                      )}
+
+                      <div className="cart-item-info">
+                        <h3 className="cart-item-name">{medicine.name || "Unknown"}</h3>
+                        <p className="cart-item-description">{medicine.description || "No description"}</p>
+                      </div>
+
+                      <p className="cart-item-price">{item.price?.toLocaleString()} $</p>
+
+                      <button
+                        className="remove-button"
+                        onClick={() => this.handleRemoveFromCart(item.id)}
+                      >
+                        Xóa
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="cart-footer">
+                <button className="back-buttons" onClick={this.handleBackToHome}>
+                  🔙 Quay lại
+                </button>
+                <button className="order-button" onClick={this.handleOrder}>
+                  🛒 Đặt hàng
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+        <Footer/>
+      </>
     );
   }
 }

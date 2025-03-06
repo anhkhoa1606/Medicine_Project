@@ -6,7 +6,7 @@ import * as actions from "../../store/actions";
 import LoginGoogleButton from "./LoginGoogleButton";
 import './Login.scss';
 import { handleLoginApi } from '../../services/userService';
-import Header from "../Roles/Header";
+import Header from "../Roles/Roles";
 
 class Login extends Component {
     constructor(props) {

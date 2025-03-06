@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getAllProducts, createProduct, deleteProduct, updateProduct } from '../../services/productService';
 import { Table, Input, Button, Modal, Form, Upload, message, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import Header from "../Roles/Header";
+import Header from "../Roles/Roles";
 import { getAllCategories } from '../../services/categoryService';
 import { Option } from 'lucide-react';
 

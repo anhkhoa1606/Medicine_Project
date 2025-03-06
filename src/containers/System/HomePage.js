@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers, createNewUserServices, deleteUserServices } from '../../services/userService';
 import { Table, Input, Button, Modal, Form } from 'antd';
-// import Header from '../../components/Header';
-import Header from "../Roles/Header";
+import Header from "../Roles/Roles";
 class HomePage extends Component {
     state = {
         users: [],

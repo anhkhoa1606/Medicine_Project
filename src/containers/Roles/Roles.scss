@@ -1,0 +1,93 @@
+@import "../../styles/common.scss";
+
+.header-container {
+  z-index: 99;
+  display: flex;
+  justify-content: space-between;
+  background-color: #2f6bc2;
+  height: 80px;
+  position: relative;
+  .btn-logout {
+    width: 30px;
+    color: $common-text-color;
+    line-height: 40px;
+    height: 40px;
+    padding: 0 10px;
+    &:hover {
+      width: 60px;
+      background-color: darken($colormain, 5);
+    }
+    i {
+      font-size: 45px;
+    }
+  }
+  .languages {
+    font-size: 25px;
+    margin-top: 20px;
+    margin-right: 50px;
+    .welcome {
+      margin-right: 10px;
+      color: white;
+    }
+    .languages-en {
+      margin-left: 15px;
+      margin-right: 10px;
+      cursor: pointer;
+
+      &.active {
+        opacity: 1;
+        color: rgb(63, 63, 119);
+      }
+    }
+    .languages-vi {
+      cursor: pointer;
+
+      &.active {
+        opacity: 1;
+        color: orange;
+      }
+    }
+  }
+}
+.search-input {
+  input {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    border: none;
+  }
+}
+
+.view-cart-button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.view-cart-button i {
+  margin-right: 5px;
+}
+
+.view-cart-button:hover {
+  color: #ccbcba;
+}
+
+.background-logo {
+  background-image: url('../../assets/images/pngwing.com.png'); /* Replace with your image path */
+  background-size: cover; /* Ensures the background image covers the entire div */
+  background-position: center; /* Centers the background image */
+  height: 100vh; /* Adjust the height of the div */
+}
+
+.header-tabs-container {
+  padding-top: 20px;
+}
+
+.navigator-menu .menu-group .menu-group-name:first-child {
+  font-size: 20px;
+  color: white;
+}

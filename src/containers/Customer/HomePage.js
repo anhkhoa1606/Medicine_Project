@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import { getAllProducts } from "../../services/productService";
 import { addToCart, checkCartAction } from "../../store/actions/cartActions";
 import { getCartByUserId } from "../../services/cartService";
-import Header from "../Roles/Header";
+import Header from "../Roles/Roles";
 import { Modal, Button } from "react-bootstrap";
 import "./HomePage.scss";
 import { withRouter } from "react-router-dom";
-import Footer from "../Roles/Footer";
+import Footer from "../Customer/Footer";
 import ChatBox from "./ChatBox";
+import Roles from "../Roles/Roles";
 
 class HomePage extends Component {
   state = {
@@ -125,7 +126,7 @@ class HomePage extends Component {
     return (
       <>
         <ChatBox />
-        <Header />
+        <Roles />
         <div className="background"></div>
         <div className="container">
           <h2 className="text-center">🛒 Danh sách sản phẩm</h2>

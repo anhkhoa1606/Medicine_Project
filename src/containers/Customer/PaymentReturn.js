@@ -4,6 +4,8 @@ import "./Order.scss";
 import Modal from "react-bootstrap/Modal";
 import { getOrderService } from "../../services/orderService";
 import { FormattedMessage } from "react-intl";
+import Header from "./Header"
+import Footer from "./Footer";
 
 class PaymentReturn extends Component {
   constructor(props) {
@@ -78,6 +80,7 @@ class PaymentReturn extends Component {
     console.log(arrOrders);
     return (
       <>
+        <Header/>
         <div className="order-container">
           <h3>
             <FormattedMessage id="payment.title" />
@@ -204,6 +207,7 @@ class PaymentReturn extends Component {
             </div>
           </div>
         </div>
+        <Footer/>
       </>
     );
   }

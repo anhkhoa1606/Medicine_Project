@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getOrderService, deleteOrderService, editOrderService } from '../../services/orderService';
 import { Table, Input, Button, Modal, Form } from 'antd';
-import { Upload, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-// import Header from '../../components/Header';
-import Header from "../Roles/Header";
+import Header from "../Roles/Roles";
 class OrderManage extends Component {
     state = {
         orders: [],

@@ -7,6 +7,8 @@ import { FormattedMessage } from "react-intl";
 import { toast } from "react-toastify";
 import { PayPalButton } from "react-paypal-button-v2";
 import { removeFromCart, updateCartQuantity } from "../../store/actions/cartActions";
+import Header from "./Header"
+import Footer from "./Footer";
 
 class Order extends Component {
   constructor(props) {
@@ -167,75 +169,79 @@ class Order extends Component {
     const { medicines, medicinePrice, showPaypal, username, email, phoneNumber } = this.state;
     console.log(medicines)
     return (
-      <div className="order-container">
-        <h2>🛒 Xác nhận đơn hàng</h2>
+      <>
+        <Header/>
+        <div className="order-container">
+          <h2>🛒 Xác nhận đơn hàng</h2>
 
-        <div className="order-form">
-          <h3>1️⃣ Thông tin người nhận</h3>
-          <div className="form-group">
-            <label>Tên người nhận:</label>
-            <input type="text" value={username} onChange={(e) => this.handleInputChange(e, "username")} />
-          </div>
-
-          <div className="form-group">
-            <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => this.handleInputChange(e, "email")} />
-          </div>
-
-          <div className="form-group">
-            <label>Số điện thoại:</label>
-            <input type="text" value={phoneNumber} onChange={(e) => this.handleInputChange(e, "phoneNumber")} />
-          </div>
-        </div>
-
-        <div className="order-summary">
-          <h3>2️⃣ Sản phẩm đặt hàng</h3>
-          {medicines.map((item) => (
-            <div className="order-item" key={item.id}>
-              <img src={item.data.image} alt={item.data.name} className="item-image" />
-              <div className="item-details">
-                <p><strong>{item.data.name}</strong></p>
-                <p>{item.price.toLocaleString()} $ x {item.quantity}</p>
-                
-              </div>
-              <div className="cart-item-quantity">
-                <div className="cart-item-quantity">
-                  <button onClick={() => this.handleQuantityChange(item.id, item.quantity - 1)}>-</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => this.handleQuantityChange(item.id, item.quantity + 1)}>+</button>
-                </div>
-
-                <button
-                  className="remove-button"
-                  style={{ backgroundColor: '#e74c3c' }}
-                  onClick={() => this.handleRemoveFromCart(item.id)}
-                >
-                  Xóa
-                </button>
-              </div>
+          <div className="order-form">
+            <h3>1️⃣ Thông tin người nhận</h3>
+            <div className="form-group">
+              <label>Tên người nhận:</label>
+              <input type="text" value={username} onChange={(e) => this.handleInputChange(e, "username")} />
             </div>
-          ))}
-        </div>
 
-        <div className="order-total">
-          <h3>3️⃣ Thanh toán</h3>
-          <p>Tổng tiền: <strong>{medicinePrice.toLocaleString()} $</strong></p>
-          <button className="back-button" onClick={this.handleBackToCart}>
-              🔙 Quay lại giỏ hàng
-          </button>
-          {!showPaypal ? (
-            <button className="confirm-button" onClick={this.handleConfirm}>
-              ✅ Xác nhận & Thanh toán
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" value={email} onChange={(e) => this.handleInputChange(e, "email")} />
+            </div>
+
+            <div className="form-group">
+              <label>Số điện thoại:</label>
+              <input type="text" value={phoneNumber} onChange={(e) => this.handleInputChange(e, "phoneNumber")} />
+            </div>
+          </div>
+
+          <div className="order-summary">
+            <h3>2️⃣ Sản phẩm đặt hàng</h3>
+            {medicines.map((item) => (
+              <div className="order-item" key={item.id}>
+                <img src={item.data.image} alt={item.data.name} className="item-image" />
+                <div className="item-details">
+                  <p><strong>{item.data.name}</strong></p>
+                  <p>{item.price.toLocaleString()} $ x {item.quantity}</p>
+                  
+                </div>
+                <div className="cart-item-quantity">
+                  <div className="cart-item-quantity">
+                    <button onClick={() => this.handleQuantityChange(item.id, item.quantity - 1)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => this.handleQuantityChange(item.id, item.quantity + 1)}>+</button>
+                  </div>
+
+                  <button
+                    className="remove-button"
+                    style={{ backgroundColor: '#e74c3c' }}
+                    onClick={() => this.handleRemoveFromCart(item.id)}
+                  >
+                    Xóa
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="order-total">
+            <h3>3️⃣ Thanh toán</h3>
+            <p>Tổng tiền: <strong>{medicinePrice.toLocaleString()} $</strong></p>
+            <button className="back-button" onClick={this.handleBackToCart}>
+                🔙 Quay lại giỏ hàng
             </button>
-          ) : (
-            <PayPalButton
-              amount={medicinePrice}
-              onSuccess={this.onSuccessPaypal}
-              onError={() => toast.error("Thanh toán thất bại.")}
-            />
-          )}
+            {!showPaypal ? (
+              <button className="confirm-button" onClick={this.handleConfirm}>
+                ✅ Xác nhận & Thanh toán
+              </button>
+            ) : (
+              <PayPalButton
+                amount={medicinePrice}
+                onSuccess={this.onSuccessPaypal}
+                onError={() => toast.error("Thanh toán thất bại.")}
+              />
+            )}
+          </div>
         </div>
-      </div>
+        <Footer/>
+      </>
     );
   }
 }

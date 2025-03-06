@@ -5,6 +5,8 @@ import "./MedicineDetail.scss";
 import { withRouter } from "react-router-dom";
 import { addToCart } from "../../store/actions/cartActions";
 import { Button, Modal } from "react-bootstrap";
+import Header from "./Header"
+import Footer from "./Footer";
 
 class MedicineDetail extends Component {
   state = {
@@ -102,6 +104,7 @@ class MedicineDetail extends Component {
 
     return (
       <>
+        <Header/>
         <div className="container medicine-detail">
           <div className="detail-wrapper">
             <img src={medicine.image} className="medicine-image" alt={medicine.name} />
@@ -132,6 +135,7 @@ class MedicineDetail extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        <Footer/>
       </>
     );
   }

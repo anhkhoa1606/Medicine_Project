@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getAllUsers, createNewUserServices, deleteUserServices, editUserServices } from '../../services/userService';
 import { Table, Input, Button, Modal, Form, Select } from 'antd';
 import ChatBoxAdmin from "./ChatBoxAdmin";
-import Header from "../Roles/Header";
+import Header from "../Roles/Roles";
 class UserManage extends Component {
     state = {
         users: [],

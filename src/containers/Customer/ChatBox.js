@@ -23,9 +23,9 @@ class ChatBox extends React.Component {
             ? user.userId.toString()
             : null, // TalkJS requires the id to be a string
         name:
-          user && user.firstName && user.lastName
-            ? `${user.firstName} ${user.lastName}`
-            : user && user.name, // Assuming the user's name is split into firstName and lastName
+          user && user.email && user.email
+            ? `${user.email}`
+            : user && user.email, // Assuming the user's name is split into firstName and lastName
         email: user && user.email,
         photoUrl: avatar,
       }),
@@ -33,10 +33,11 @@ class ChatBox extends React.Component {
 
     const other = new Talk.User({
       id: "2",
-      name: "Mstudents",
+      name: "Medicine",
       email: "duclinh@example.com",
       photoUrl: image1,
       welcomeMessage: "Hey there! How can I help you?",
+      role: "default",
     });
 
     const conversation = session.getOrCreateConversation(
@@ -57,7 +58,7 @@ class ChatBox extends React.Component {
     const chatContainer = document.getElementById("talkjs-container");
     chatContainer.style.display =
       chatContainer.style.display === "none" ? "block" : "none";
-  };
+    };
   render() {
     return (
       <div className="chatbox">

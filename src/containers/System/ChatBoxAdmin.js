@@ -4,7 +4,7 @@ import "./ChatBoxAdmin.scss";
 import chatbox from "../../assets/images/pngwing.com.png";
 import { connect } from "react-redux";
 import image1 from "../../assets/images/pngwing.com.png";
-import avatar from "../../assets/images/pngwing.com.png";
+import avatar from "../../assets/images/images.jpg";
 import { toast } from "react-toastify";
 
 class ChatBoxAdmin extends React.Component {
@@ -28,11 +28,11 @@ class ChatBoxAdmin extends React.Component {
         ? user.id.toString()
         : user.userId
         ? user.userId.toString()
-        : null, // TalkJS requires the id to be a string
+        : null,
       name:
-        user.firstName && user.lastName
-          ? `${user.firstName} ${user.lastName}`
-          : user.name,
+        user.email && user.email
+          ? `${user.email}`
+          : user.email,
       email: user.email,
       photoUrl: avatar,
     });
@@ -57,11 +57,6 @@ class ChatBoxAdmin extends React.Component {
       chatContainer.style.display === "none" ? "block" : "none";
   };
   render() {
-    const { userInfo, user } = this.props;
-    console.log(user);
-    console.log(userInfo);
-    let userGoogle = user.user;
-    console.log(userGoogle);
     return (
       <div className="chatbox">
         <img

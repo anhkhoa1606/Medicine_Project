@@ -88,7 +88,8 @@ class UserManage extends Component {
         ];
 
         return (
-            <>
+            <div>
+                <ChatBoxAdmin />
                 <Header/>
                 <div className="container mt-4">
                     <h2 className="text-center">Manage Users</h2>
@@ -156,8 +157,7 @@ class UserManage extends Component {
 
                     </Modal>
                 </div>
-                <ChatBoxAdmin />
-            </>
+            </div>
         );
     }
 }

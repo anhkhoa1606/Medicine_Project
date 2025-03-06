@@ -124,6 +124,7 @@ class HomePage extends Component {
 
     return (
       <>
+        <ChatBox />
         <Header />
         <div className="background"></div>
         <div className="container">
@@ -169,8 +170,8 @@ class HomePage extends Component {
               Next ➡️
             </Button>
           </div>
-          <ChatBox />
         </div>
+        
 
         {/* Modal thông báo */}
         <Modal show={showModal} onHide={this.handleCloseModal} centered>

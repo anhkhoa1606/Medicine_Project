@@ -67,7 +67,7 @@ h2 {
 
 .confirm-button {
   display: block;
-  width: 100%;
+  width: 49%;
   padding: 10px;
   background-color: #2ecc71;
   color: white;
@@ -75,6 +75,7 @@ h2 {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  margin-left: 10px;
 }
 
 .confirm-button:hover {
@@ -93,8 +94,9 @@ h2 {
 .back-button {
   background-color: #3498db;
   color: white;
-  width: 100%;
-  margin-bottom: 10px;
+  width: 49%;
+  margin-right: 10px;
+  max-height: 50px;
 }
 
 .back-button:hover {
@@ -138,4 +140,7 @@ h2 {
   width: 100%;
 }
 
+.button{
+  display: flex;
+}
 

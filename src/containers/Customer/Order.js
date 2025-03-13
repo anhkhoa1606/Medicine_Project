@@ -223,20 +223,22 @@ class Order extends Component {
           <div className="order-total">
             <h3>3️⃣ <FormattedMessage id="order.pay" /></h3>
             <p><FormattedMessage id="order.total" />: <strong>{medicinePrice.toLocaleString()} $</strong></p>
-            <button className="back-button" onClick={this.handleBackToCart}>
-                🔙 <FormattedMessage id="order.back" />
-            </button>
-            {!showPaypal ? (
-              <button className="confirm-button" onClick={this.handleConfirm}>
-                ✅ <FormattedMessage id="order.payment" />
+            <div className="button">
+              <button className="back-button" onClick={this.handleBackToCart}>
+                  🔙 <FormattedMessage id="order.back" />
               </button>
-            ) : (
-              <PayPalButton
-                amount={medicinePrice}
-                onSuccess={this.onSuccessPaypal}
-                onError={() => toast.error("Thanh toán thất bại.")}
-              />
-            )}
+              {!showPaypal ? (
+                <button className="confirm-button" onClick={this.handleConfirm}>
+                  ✅ <FormattedMessage id="order.payment" />
+                </button>
+              ) : (
+                <PayPalButton
+                  amount={medicinePrice}
+                  onSuccess={this.onSuccessPaypal}
+                  onError={() => toast.error("Thanh toán thất bại.")}
+                />
+              )}
+            </div>
           </div>
         </div>
         <Footer/>

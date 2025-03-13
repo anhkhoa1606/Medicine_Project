@@ -5,6 +5,7 @@ import "./Cart.scss";
 import { withRouter } from "react-router-dom";
 import Header from "./Header"
 import Footer from "./Footer";
+import { FormattedMessage } from "react-intl";
 
 class Cart extends Component {
   state = {
@@ -74,13 +75,13 @@ class Cart extends Component {
       <>
         <Header/>
         <div className="cart-container">
-          <h2 className="cart-title">🛒 Giỏ hàng của bạn</h2>
+          <h2 className="cart-title">🛒 <FormattedMessage id="cart.cart" /></h2>
 
           {cart.length === 0 ? (
             <>
-              <p className="empty-cart">Giỏ hàng trống.</p>
+              <p className="empty-cart"><FormattedMessage id="cart.empty" /></p>
               <button className="back-buttons" onClick={this.handleBackToHome}>
-                🔙 Quay lại
+                🔙 <FormattedMessage id="cart.back" />
               </button>
             </>
           ) : (
@@ -91,7 +92,7 @@ class Cart extends Component {
                   checked={selectAll}
                   onChange={this.handleSelectAll}
                 />
-                <span>Chọn tất cả</span>
+                <span><FormattedMessage id="cart.all" /></span>
               </div>
 
               <div className="cart-items">
@@ -132,10 +133,10 @@ class Cart extends Component {
 
               <div className="cart-footer">
                 <button className="back-buttons" onClick={this.handleBackToHome}>
-                  🔙 Quay lại
+                  🔙 <FormattedMessage id="cart.back" />
                 </button>
                 <button className="order-button" onClick={this.handleOrder}>
-                  🛒 Đặt hàng
+                  🛒 <FormattedMessage id="cart.order" />
                 </button>
               </div>
             </>

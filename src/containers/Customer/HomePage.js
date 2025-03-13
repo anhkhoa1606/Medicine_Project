@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { getAllProducts } from "../../services/productService";
 import { addToCart, checkCartAction } from "../../store/actions/cartActions";
 import { getCartByUserId } from "../../services/cartService";
-import Header from "../Roles/Roles";
 import { Modal, Button } from "react-bootstrap";
 import "./HomePage.scss";
 import { withRouter } from "react-router-dom";
 import Footer from "../Customer/Footer";
 import ChatBox from "./ChatBox";
 import Roles from "../Roles/Roles";
+import { FormattedMessage } from "react-intl";
 
 class HomePage extends Component {
   state = {
@@ -145,7 +145,7 @@ class HomePage extends Component {
         <Roles />
         <div className="background"></div>
         <div className="container">
-          <h2 className="text-center">🛒 Danh sách sản phẩm</h2>
+          <h2 className="text-center">🛒 <FormattedMessage id="body.list-product" /></h2>
           {/* Thanh tìm kiếm */}
           <div className="search-bar">
             <input
@@ -163,18 +163,18 @@ class HomePage extends Component {
               filteredProducts.map((product) => (
                 <div className="product-card" key={product.id}>
                   <img src={product.image} className="product-image" alt={product.name} />
-                  <h3 className="product-name">Name: {product.name}</h3>
-                  <p className="product-price">Price: {product.price.toLocaleString()} đ</p>
+                  <h3 className="product-name"><FormattedMessage id="body.name" />: {product.name}</h3>
+                  <p className="product-price"><FormattedMessage id="body.price" />: {product.price.toLocaleString()} đ</p>
                   <button className="buy-button" onClick={() => this.handleAddToCart(product)}>
-                    🛍️ Chọn mua
+                    🛍️ <FormattedMessage id="body.choose" />
                   </button>
                   <button className="detail-button" onClick={() => this.handleViewDetail(product.id)}>
-                    🔍 Xem chi tiết
+                    🔍 <FormattedMessage id="body.detail" />
                   </button>
                 </div>
               ))
             ) : (
-              <p className="no-results">Không tìm thấy sản phẩm nào</p>
+              <p className="no-results"><FormattedMessage id="body.not" /></p>
             )}
           </div>
 
@@ -185,17 +185,17 @@ class HomePage extends Component {
               onClick={() => this.handlePageChange(this.state.currentPage - 1)}
               disabled={this.state.currentPage === 1}
             >
-              ⬅️ Previous
+              ⬅️ <FormattedMessage id="body.previous" />
             </Button>
 
-            <span className="page-info">Trang {this.state.currentPage} / {this.state.totalPages}</span>
+            <span className="page-info"><FormattedMessage id="body.page" /> {this.state.currentPage} / {this.state.totalPages}</span>
 
             <Button
               variant="secondary"
               onClick={() => this.handlePageChange(this.state.currentPage + 1)}
               disabled={this.state.currentPage === this.state.totalPages}
             >
-              Next ➡️
+              <FormattedMessage id="body.next" /> ➡️
             </Button>
           </div>
         </div>
@@ -203,14 +203,14 @@ class HomePage extends Component {
         {/* Modal thông báo */}
         <Modal show={showModal} onHide={this.handleCloseModal} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Thông báo</Modal.Title>
+            <Modal.Title><FormattedMessage id="body.notification" /></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {modalMessage}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={this.handleCloseModal}>
-              Đóng
+            <FormattedMessage id="body.close" />
             </Button>
           </Modal.Footer>
         </Modal>

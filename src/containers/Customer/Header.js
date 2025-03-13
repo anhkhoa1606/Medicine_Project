@@ -23,7 +23,7 @@ class Header extends Component {
   };
 
   componentDidMount() {
-    let { userInfo, history } = this.props;
+    let { userInfo } = this.props;
     console.log('userInfo', userInfo);
     let menu = [];
     if (userInfo && !_.isEmpty(userInfo)) {

@@ -129,5 +129,48 @@
         "see_detail": "See Detail",
         "back": "Back",
         "paid": "Paid"
+    },
+    "body": {
+        "list-product": "List products",
+        "name": "Name",
+        "price": "Price",
+        "choose": "Add to cart",
+        "detail": "Detail",
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "not": "No products found",
+        "notification": "Notification",
+        "close": "Close"
+    },
+    "footer": {
+        "info": "List products",
+        "intro": "Introduce",
+        "contact": "Contact",
+        "question": "Frequently asked",
+        "policy": "Policy",
+        "policy_security": "Privacy policy",
+        "use": "Terms of use",
+        "connect": "Connect with us",
+        "end": "© 2025 Good Medicine - All rights reserved."
+    },
+    "cart": {
+        "cart": "Your shopping cart",
+        "all": "Select all",
+        "back": "Back",
+        "order": "Orders",
+        "empty": "Cart is empty."
+    },
+    "order": {
+        "confirm": "Order confirmation",
+        "info": "Recipient information",
+        "name": "Recipient name:",
+        "phone": "Phone number:",
+        "product": "Order products",
+        "total": "Total amount",
+        "pay": "Pay",
+        "back": "Return to cart",
+        "payment": "Confirm & Pay",
+        "delete": "Remove"
     }
 }

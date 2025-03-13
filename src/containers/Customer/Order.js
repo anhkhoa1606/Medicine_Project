@@ -167,17 +167,16 @@ class Order extends Component {
 
   render() {
     const { medicines, medicinePrice, showPaypal, username, email, phoneNumber } = this.state;
-    console.log(medicines)
     return (
       <>
         <Header/>
         <div className="order-container">
-          <h2>🛒 Xác nhận đơn hàng</h2>
+          <h2>🛒 <FormattedMessage id="order.confirm" /></h2>
 
           <div className="order-form">
-            <h3>1️⃣ Thông tin người nhận</h3>
+            <h3>1️⃣ <FormattedMessage id="order.info" /></h3>
             <div className="form-group">
-              <label>Tên người nhận:</label>
+              <label><FormattedMessage id="order.name" /></label>
               <input type="text" value={username} onChange={(e) => this.handleInputChange(e, "username")} />
             </div>
 
@@ -187,13 +186,13 @@ class Order extends Component {
             </div>
 
             <div className="form-group">
-              <label>Số điện thoại:</label>
+              <label><FormattedMessage id="order.phone" /></label>
               <input type="text" value={phoneNumber} onChange={(e) => this.handleInputChange(e, "phoneNumber")} />
             </div>
           </div>
 
           <div className="order-summary">
-            <h3>2️⃣ Sản phẩm đặt hàng</h3>
+            <h3>2️⃣ <FormattedMessage id="order.product" /></h3>
             {medicines.map((item) => (
               <div className="order-item" key={item.id}>
                 <img src={item.data.image} alt={item.data.name} className="item-image" />
@@ -214,7 +213,7 @@ class Order extends Component {
                     style={{ backgroundColor: '#e74c3c' }}
                     onClick={() => this.handleRemoveFromCart(item.id)}
                   >
-                    Xóa
+                    <FormattedMessage id="order.delete" />
                   </button>
                 </div>
               </div>
@@ -222,14 +221,14 @@ class Order extends Component {
           </div>
 
           <div className="order-total">
-            <h3>3️⃣ Thanh toán</h3>
-            <p>Tổng tiền: <strong>{medicinePrice.toLocaleString()} $</strong></p>
+            <h3>3️⃣ <FormattedMessage id="order.pay" /></h3>
+            <p><FormattedMessage id="order.total" />: <strong>{medicinePrice.toLocaleString()} $</strong></p>
             <button className="back-button" onClick={this.handleBackToCart}>
-                🔙 Quay lại giỏ hàng
+                🔙 <FormattedMessage id="order.back" />
             </button>
             {!showPaypal ? (
               <button className="confirm-button" onClick={this.handleConfirm}>
-                ✅ Xác nhận & Thanh toán
+                ✅ <FormattedMessage id="order.payment" />
               </button>
             ) : (
               <PayPalButton

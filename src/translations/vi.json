@@ -129,5 +129,47 @@
         "see_detail": "Xem chi tiết",
         "back": "Trở về",
         "paid": "Đã thanh toán"
+    },
+    "body": {
+        "list-product": "Danh sách sản phẩm",
+        "name": "Sản phẩm",
+        "price": "Giá",
+        "choose": "Chọn mua",
+        "detail": "Xem chi tiết",
+        "previous": "Trước",
+        "next": "Sau",
+        "page": "Trang",
+        "not": "Không tìm thấy sản phẩm nào",
+        "notification": "Thông báo",
+        "close": "Đóng"
+    },
+    "footer": {
+        "intro": "Giới thiệu",
+        "contact": "Liên hệ",
+        "question": "Câu hỏi thường gặp",
+        "policy": "Chính sách",
+        "policy_security": "Chính sách bảo mật",
+        "use": "Điều khoản sử dụng",
+        "connect": "Kết nối với chúng tôi",
+        "end": "© 2025 Thuốc hay - Tất cả các quyền được bảo lưu."
+    },
+    "cart": {
+        "cart": "Giỏ hàng của bạn",
+        "all": "Chọn tất cả",
+        "back": "Trở về",
+        "order": "Đặt hàng",
+        "empty": "Giỏ hàng trống."
+    },
+    "order": {
+        "confirm": "Xác nhận đơn hàng",
+        "info": "Thông tin người nhận",
+        "name": "Tên người nhận:",
+        "phone": "Số điện thoại:",
+        "product": "Sản phẩm đặt hàng",
+        "total": "Tổng tiền",
+        "pay": "Thanh toán",
+        "back": "Quay lại giỏ hàng",
+        "payment": "Xác nhận & Thanh toán",
+        "delete": "Xóa"
     }
 }

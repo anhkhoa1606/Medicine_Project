@@ -9,6 +9,7 @@ export const path = {
     ORDER: "/order",
     PAYMENT_RETURN: "/payment-return",
     PAYMENT: "/payment",
+    PROFILE: "/profile",
     MEDICINE_DETAIL: "/medicine-details",
 };
 

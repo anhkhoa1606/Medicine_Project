@@ -16,6 +16,7 @@ import PaymentReturn from "./Customer/PaymentReturn";
 import ConfirmModal from '../components/ConfirmModal';
 import CustomScrollbars from '../components/CustomScrollbars';
 import MedicineDetail from './Customer/MedicineDetail';
+import Profile from './Customer/Profile';
 
 class App extends Component {
 
@@ -49,6 +50,7 @@ class App extends Component {
                                 <Route path={path.HOME} exact component={(Home)} />
                                 <Route path={path.HOMEPAGE} component={HomePage} />
                                 <Route path={path.MEDICINE_DETAIL} component={MedicineDetail} />
+                                <Route path={path.PROFILE} component={Profile} />
                                 <Route
                                     path={path.ORDER}
                                     component={userIsAuthenticated(Order)}

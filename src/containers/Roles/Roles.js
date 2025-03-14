@@ -53,6 +53,12 @@ class Roles extends Component {
     this.props.history.push("/cart");
   };
 
+  handleProfile = () => {
+    const {history } = this.props;
+    history.push('/profile');
+  }
+
+
   render() {
     const {language, userInfo, userGoogle } = this.props;
     console.log('user', userGoogle)
@@ -64,7 +70,7 @@ class Roles extends Component {
           <Navigator menus={this.state.menuApp} />
         </div>
         <div className="languages">
-          <span className="welcome">
+          <span className="welcome" onClick={this.handleProfile}>
             <FormattedMessage id="home-header.welcome" />{" "}
             {(userInfo?.email || userGoogle?.user?.email || " ")} !
           </span>

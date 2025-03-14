@@ -6,6 +6,8 @@
   background-color: #cbd0d4;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: 315px;
+  position: relative;
 }
 
 .cart-title {
@@ -76,9 +78,10 @@
 }
 
 .cart-item-price {
-  font-size: 16px;
+  margin-top: 15px;
+  font-size: 25px;
   font-weight: bold;
-  color: #e74c3c;
+  color: #222121;
   width: 100px;
   text-align: center;
 }
@@ -109,6 +112,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100px;
 }
 
 .remove-button:hover {
@@ -118,8 +122,6 @@
 .cart-footer {
   text-align: center;
   margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
 }
 
 .order-button {
@@ -130,6 +132,9 @@
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  position: absolute;
+  bottom: 26px;
+  right: 20px;
 }
 
 .order-button:hover {
@@ -152,6 +157,9 @@
 .back-buttons {
   background-color: #3498db;
   color: white;
+  position: absolute;
+  bottom: 26px;
+  left: 20px;
 }
 
 .back-buttons:hover {

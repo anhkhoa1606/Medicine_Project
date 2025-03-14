@@ -30,8 +30,13 @@ const editUserServices = (inputData) => {
   return axios.put("/update-user", inputData);
 };
 
+const getUserById = (id) => {
+  return axios.get(`/get-user-by-id`, { params: { id } });
+};
+
 export {
   handleLoginApi,
+  getUserById,
   getAllUsers,
   createNewUserServices,
   createRegisterUserServices,

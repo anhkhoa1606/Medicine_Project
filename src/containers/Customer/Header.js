@@ -46,6 +46,10 @@ class Header extends Component {
     processLogout();
     history.push('/login');
   }
+  handleProfile = () => {
+    const {history } = this.props;
+    history.push('/profile');
+  }
 
   toggleCart = () => {
     this.props.history.push("/cart");
@@ -62,7 +66,7 @@ class Header extends Component {
           <Navigator menus={this.state.menuApp} />
         </div>
         <div className="languages">
-          <span className="welcome">
+          <span className="welcome" onClick={this.handleProfile}>
             <FormattedMessage id="home-header.welcome" />{" "}
             {(userInfo?.email || userGoogle?.user?.email || " ")} !
           </span>

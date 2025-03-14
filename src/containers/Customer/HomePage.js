@@ -29,7 +29,6 @@ class HomePage extends Component {
     this.fetchCartData();
   }
 
-  // Lấy danh sách sản phẩm
   fetchProducts = async (page) => {
     try {
       let response = await getAllProducts(page, this.state.limit);
@@ -125,10 +124,9 @@ class HomePage extends Component {
   };
 
   handleSearchChange = (event) => {
-    const query = event.target.value.toLowerCase(); // Chuyển thành chữ thường để so sánh không phân biệt hoa thường
+    const query = event.target.value.toLowerCase();
     this.setState({ searchQuery: query });
 
-    // Lọc sản phẩm dựa trên từ khóa nhập vào
     const filteredProducts = this.state.products.filter((product) =>
       product.name.toLowerCase().includes(query)
     );

@@ -22,7 +22,7 @@
     }
   }
   .languages {
-    font-size: 25px;
+    font-size: 20px;
     margin-top: 20px;
     margin-right: 50px;
     .welcome {
@@ -83,11 +83,28 @@
   height: 100vh; /* Adjust the height of the div */
 }
 
-.header-tabs-container {
-  padding-top: 20px;
-}
-
 .navigator-menu .menu-group .menu-group-name:first-child {
   font-size: 20px;
   color: white;
 }
+.header-logo {
+  width: 150px;
+  img {
+    width: 65%;
+    height: auto;
+    padding-top: 5px;
+    margin-left: 30px;
+  }
+}
+
+// .title-header {
+//   font-size: 30px;
+//   font-weight: bold;
+//   color: white;
+//   margin-top: 15px;
+//   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+// }
+
+// .header-tabs-container {
+//   display: flex;
+// }

@@ -8,6 +8,7 @@ import "./Roles.scss";
 import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
+import image1 from '../../assets/images/pngwing.com.png';
 
 class Roles extends Component {
   constructor(props) {
@@ -57,6 +58,10 @@ class Roles extends Component {
     const {history } = this.props;
     history.push('/profile');
   }
+  handleHome = () => {
+    const {history } = this.props;
+    history.push('/home');
+  }
 
 
   render() {
@@ -67,6 +72,10 @@ class Roles extends Component {
       <div className="header-container">
         {/* Thanh Navigator */}
         <div className="header-tabs-container">
+          <div className="header-logo" onClick={this.handleHome}>
+            <img src={image1} alt="Logo" />
+            <div className="title-header">Medicine</div>
+          </div>
           <Navigator menus={this.state.menuApp} />
         </div>
         <div className="languages">

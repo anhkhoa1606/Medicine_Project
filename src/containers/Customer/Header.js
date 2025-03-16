@@ -8,6 +8,7 @@ import "./Header.scss";
 import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
+import image1 from '../../assets/images/pngwing.com.png';
 
 class Header extends Component {
   constructor(props) {
@@ -55,14 +56,22 @@ class Header extends Component {
     this.props.history.push("/cart");
   };
 
+  handleHome = () => {
+    const {history } = this.props;
+    history.push('/home');
+  }
+
   render() {
     const {language, userInfo, userGoogle } = this.props;
     console.log('user', userGoogle)
 
     return (
       <div className="header-container">
-        {/* Thanh Navigator */}
         <div className="header-tabs-container">
+          <div className="header-logo" onClick={this.handleHome}>
+            <img src={image1} alt="Logo" />
+            <div className="title-header">Medicine</div>
+          </div>
           <Navigator menus={this.state.menuApp} />
         </div>
         <div className="languages">

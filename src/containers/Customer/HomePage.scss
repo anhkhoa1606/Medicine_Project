@@ -95,12 +95,70 @@
       }
     }
   }
-  .background {
-    background-image: url('../../assets/images/9052.jpg_wh1200.jpg'); /* Replace with your image path */
-    background-size: cover; /* Ensures the background image covers the entire div */
-    background-position: center; /* Centers the background image */
-    height: 100vh; /* Adjust the height of the div */
+  .background-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
   }
+  
+  .background-slider {
+    display: flex;
+    width: 500%; /* Vì có 5 ảnh */
+    height: 100%;
+    animation: slideBackground 25s linear infinite; /* Animation lặp vô hạn */
+  }
+  
+  .background-slider img {
+    width: 100vw; /* Mỗi ảnh chiếm toàn màn hình */
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    animation: bounce 1.5s infinite ease-in-out;
+  }
+
+  .title-body {
+    font-size: 60px;
+    text-align: center;
+  }
+  
+  .subtitle-body {
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  /* Animation trượt ảnh */
+  @keyframes slideBackground {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(0); } /* Dừng lại một chút */
+    25% { transform: translateX(-100vw); }
+    45% { transform: translateX(-100vw); }
+    50% { transform: translateX(-200vw); }
+    70% { transform: translateX(-200vw); }
+    75% { transform: translateX(-300vw); }
+    95% { transform: translateX(-300vw); }
+    100% { transform: translateX(-400vw); } /* Quay lại ảnh đầu */
+  }
+  @keyframes bounce {
+    0%, 100% {
+      transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-20px);
+    }
+  }
+  
+
+  
   .pagination {
     display: flex;
     justify-content: center;

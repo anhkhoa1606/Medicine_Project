@@ -10,7 +10,11 @@ import Footer from "../Customer/Footer";
 import ChatBox from "./ChatBox";
 import Roles from "../Roles/Roles";
 import { FormattedMessage } from "react-intl";
-
+import image1 from '../../assets/images/ani-kolleshi-7jjnJ-QA9fY-unsplash.jpg';
+import image2 from '../../assets/images/national-cancer-institute-L8tWZT4CcVQ-unsplash.jpg';
+import image3 from '../../assets/images/julia-zyablova-S1v7hVUiCg0-unsplash.jpg';
+import image4 from '../../assets/images/laurynas-me-1TL8AoEDj_c-unsplash.jpg';
+import image5 from '../../assets/images/lucas-vasques-9vnACvX2748-unsplash.jpg';
 class HomePage extends Component {
   state = {
     products: [],
@@ -141,7 +145,20 @@ class HomePage extends Component {
       <>
         <ChatBox />
         <Roles />
-        <div className="background"></div>
+        <div className="background-container">
+          <div className="background-slider">
+            <img src={image1} alt="Slide 1" />
+            <img src={image2} alt="Slide 2" />
+            <img src={image3} alt="Slide 3" />
+            <img src={image4} alt="Slide 4" />
+            <img src={image5} alt="Slide 5" />
+          </div>
+          <div className="overlay">
+            <div className="title-body">Welcome to Medicine</div>
+            <div className="subtitle-body">Your Trusted Partner in Healthcare and Wellness</div>
+          </div>
+        </div>
+
         <div className="container">
           <h2 className="text-center">🛒 <FormattedMessage id="body.list-product" /></h2>
           {/* Thanh tìm kiếm */}

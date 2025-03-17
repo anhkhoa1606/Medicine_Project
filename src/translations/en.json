@@ -172,5 +172,56 @@
         "back": "Return to cart",
         "payment": "Confirm & Pay",
         "delete": "Remove"
+    },
+    "profile": {
+        "title": "User Profile",
+        "save": "Save",
+        "back": "Back",
+        "edit": "Edit"
+    },
+    "users": {
+        "title": "Manage Users",
+        "delete": "Delete",
+        "add": "Add new user",
+        "edit": "Edit",
+        "create": "Create",
+        "save": "Save",
+        "actions": "Actions",
+        "username": "Username",
+        "role": "Role"
+    },
+    "products": {
+        "title": "Manage Products",
+        "delete": "Delete",
+        "add": "Add new user",
+        "edit": "Edit",
+        "create": "Create",
+        "save": "Save",
+        "actions": "Actions",
+        "name": "Name",
+        "price": "Price",
+        "stock": "Stock",
+        "image": "Image",
+        "category": "Category",
+        "upload": "Upload Image"
+    },
+    "category": {
+        "title": "Manage Categories",
+        "delete": "Delete",
+        "add": "Add new category",
+        "edit": "Edit",
+        "create": "Create",
+        "save": "Save",
+        "actions": "Actions",
+        "name": "Name",
+        "description": "Description"
+    },
+    "orders": {
+        "title": "Manage Orders",
+        "delete": "Delete",
+        "edit": "Edit",
+        "actions": "Actions",
+        "name": "Name",
+        "price": "Total Price"
     }
 }

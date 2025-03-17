@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { getOrderService, deleteOrderService, editOrderService } from '../../services/orderService';
 import { Table, Input, Button, Modal, Form } from 'antd';
 import Header from "../Roles/Roles";
+import { FormattedMessage } from "react-intl";
+
 class OrderManage extends Component {
     state = {
         orders: [],
@@ -67,12 +69,12 @@ class OrderManage extends Component {
         );
 
         const columns = [
-            { title: 'Order Name', dataIndex: 'username', key: 'username' },
-            { title: 'Total Price', dataIndex: 'totalPrice', key: 'totalPrice' },
-            { title: 'Actions', key: 'actions', render: (text, record) => (
+            { title: <FormattedMessage id="orders.name" />, dataIndex: 'username', key: 'username' },
+            { title: <FormattedMessage id="orders.price" />, dataIndex: 'totalPrice', key: 'totalPrice' },
+            { title: <FormattedMessage id="orders.actions" />, key: 'actions', render: (text, record) => (
                 <>
-                    <Button type="primary" onClick={() => this.handleEdit(record)}>Edit</Button>
-                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}>Delete</Button>
+                    <Button type="primary" onClick={() => this.handleEdit(record)}><FormattedMessage id="orders.edit" /></Button>
+                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}><FormattedMessage id="orders.delete" /></Button>
                 </>
             ) }
         ];
@@ -81,7 +83,7 @@ class OrderManage extends Component {
             <>
                 <Header/>
                 <div className="container" style={{ marginTop: "120px" }}>
-                    <h2 className="text-center">Manage Orders</h2>
+                    <h2 className="text-center"><FormattedMessage id="orders.title" /></h2>
                     <Input 
                         placeholder="Search orders..."
                         value={searchTerm}
@@ -104,7 +106,7 @@ class OrderManage extends Component {
                                 <Input />
                             </Form.Item>
                             <Form.Item>
-                                <Button type="primary" htmlType="submit">Save Changes</Button>
+                                <Button type="primary" htmlType="submit"><FormattedMessage id="orders.save" /></Button>
                             </Form.Item>
                         </Form>
                     </Modal>

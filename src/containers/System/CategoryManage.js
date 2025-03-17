@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getAllCategories, updateCategory, createCategory, deleteCategory } from '../../services/categoryService';
 import { Table, Input, Button, Modal, Form} from 'antd';
 import Header from "../Roles/Roles";
+import { FormattedMessage } from "react-intl";
 
 class CategoryManage extends Component {
     state = {
@@ -93,12 +94,12 @@ class CategoryManage extends Component {
         );
 
         const columns = [
-            { title: 'Name', dataIndex: 'name', key: 'name' },
-            { title: 'Description', dataIndex: 'description', key: 'description' },
-            { title: 'Actions', key: 'actions', render: (text, record) => (
+            { title: <FormattedMessage id="category.name" />, dataIndex: 'name', key: 'name' },
+            { title: <FormattedMessage id="category.description" />, dataIndex: 'description', key: 'description' },
+            { title: <FormattedMessage id="category.actions" />, key: 'actions', render: (text, record) => (
                 <>
-                    <Button type="primary" onClick={() => this.handleEdit(record)}>Edit</Button>
-                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}>Delete</Button>
+                    <Button type="primary" onClick={() => this.handleEdit(record)}><FormattedMessage id="category.edit" /></Button>
+                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}><FormattedMessage id="category.delete" /></Button>
                 </>
             ) }
         ];
@@ -107,8 +108,8 @@ class CategoryManage extends Component {
             <>
                 <Header/>
                 <div className="container" style={{ marginTop: "120px" }}>
-                    <h2 className="text-center">Manage Categories</h2>
-                    <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
+                    <h2 className="text-center"><FormattedMessage id="category.title" /></h2>
+                    <Button type="primary" onClick={this.handleAddNew} className="mb-3"><FormattedMessage id="category.add" /></Button>
                     <Input 
                         placeholder="Search categories..."
                         value={searchTerm}
@@ -118,7 +119,7 @@ class CategoryManage extends Component {
                     <Table dataSource={filteredCategories} columns={columns} rowKey="id" />
 
                     <Modal
-                        title={isEditMode ? "Edit Category" : "Add New Category"}
+                        title={isEditMode ? <FormattedMessage id="category.edit" /> : <FormattedMessage id="category.add" />}
                         visible={isModalVisible}
                         onCancel={this.handleModalCancel}
                         footer={null}
@@ -131,7 +132,7 @@ class CategoryManage extends Component {
                                 <Input.TextArea />
                             </Form.Item>
                             <Form.Item>
-                                <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
+                                <Button type="primary" htmlType="submit">{isEditMode ? <FormattedMessage id="category.save" /> : <FormattedMessage id="category.create" />}</Button>
                             </Form.Item>
                         </Form>
                     </Modal>

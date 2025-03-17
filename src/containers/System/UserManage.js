@@ -4,6 +4,8 @@ import { getAllUsers, createNewUserServices, deleteUserServices, editUserService
 import { Table, Input, Button, Modal, Form, Select } from 'antd';
 import ChatBoxAdmin from "./ChatBoxAdmin";
 import Header from "../Roles/Roles";
+import { FormattedMessage } from "react-intl";
+
 class UserManage extends Component {
     state = {
         users: [],
@@ -76,13 +78,13 @@ class UserManage extends Component {
         );
 
         const columns = [
-            { title: 'Username', dataIndex: 'firstName', key: 'firstName' },
+            { title: <FormattedMessage id="users.username" />, dataIndex: 'firstName', key: 'firstName' },
             { title: 'Email', dataIndex: 'email', key: 'email' },
-            { title: 'Role', dataIndex: 'roleId', key: 'roleId' },
-            { title: 'Actions', key: 'actions', render: (text, record) => (
+            { title: <FormattedMessage id="users.role" />, dataIndex: 'roleId', key: 'roleId' },
+            { title: <FormattedMessage id="users.actions" />, key: 'actions', render: (text, record) => (
                 <>
-                    <Button type="primary" onClick={() => this.handleEdit(record)}>Edit</Button>
-                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}>Delete</Button>
+                    <Button type="primary" onClick={() => this.handleEdit(record)}><FormattedMessage id="users.edit" /></Button>
+                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}><FormattedMessage id="users.delete" /></Button>
                 </>
             ) }
         ];
@@ -92,8 +94,8 @@ class UserManage extends Component {
                 <ChatBoxAdmin />
                 <Header/>
                 <div className="container" style={{ marginTop: "120px" }}>
-                    <h2 className="text-center">Manage Users</h2>
-                    <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
+                    <h2 className="text-center"><FormattedMessage id="users.title" /></h2>
+                    <Button type="primary" onClick={this.handleAddNew} className="mb-3"><FormattedMessage id="users.add" /></Button>
                     <Input 
                         placeholder="Search users..."
                         value={searchTerm}
@@ -103,7 +105,7 @@ class UserManage extends Component {
                     <Table dataSource={filteredUsers} columns={columns} rowKey="id" />
 
                     <Modal
-                        title={isEditMode ? "Edit User" : "Add New User"}
+                        title={isEditMode ? <FormattedMessage id="users.edit" /> : <FormattedMessage id="users.add" />}
                         visible={isModalVisible}
                         onCancel={this.handleModalCancel}
                         footer={null}
@@ -151,7 +153,7 @@ class UserManage extends Component {
                             </Form.Item>
 
                             <Form.Item>
-                                <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
+                                <Button type="primary" htmlType="submit">{isEditMode ? <FormattedMessage id="users.save" /> : <FormattedMessage id="users.create" />}</Button>
                             </Form.Item>
                         </Form>
 

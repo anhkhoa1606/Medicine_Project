@@ -171,5 +171,57 @@
         "back": "Quay lại giỏ hàng",
         "payment": "Xác nhận & Thanh toán",
         "delete": "Xóa"
+    },
+    "profile": {
+        "title": "Thông tin người dùng",
+        "save": "Lưu",
+        "back": "Trở về",
+        "edit": "Chỉnh sửa"
+    },
+    "users": {
+        "title": "Quản lý người dùng",
+        "delete": "Xóa",
+        "add": "Thêm người dùng",
+        "edit": "Chỉnh sửa",
+        "create": "Tạo người dùng",
+        "save": "Lưu",
+        "actions": "Hành động",
+        "username": "Tên người dùng",
+        "role": "Chức vụ"
+    },
+    "products": {
+        "title": "Quản lý sản phẩm",
+        "delete": "Xóa",
+        "add": "Thêm sản phẩm",
+        "edit": "Chỉnh sửa",
+        "create": "Tạo sản phẩm",
+        "save": "Lưu",
+        "actions": "Hành động",
+        "name": "Tên sản phẩm",
+        "price": "Giá",
+        "stock": "Kho",
+        "image": "Hình ảnh",
+        "category": "Danh mục",
+        "upload": "Tại hình ảnh"
+    },
+    "category": {
+        "title": "Quản lý danh mục",
+        "delete": "Xóa",
+        "add": "Thêm danh mục",
+        "edit": "Chỉnh sửa",
+        "create": "Tạo danh mục",
+        "save": "Lưu",
+        "actions": "Hành động",
+        "name": "Tên danh mục",
+        "description": "Mô tả"
+    },
+    "orders": {
+        "title": "Quản lý đặt hàng",
+        "delete": "Xóa",
+        "edit": "Chỉnh sửa",
+        "save": "Lưu",
+        "actions": "Hành động",
+        "name": "Tên người dùng",
+        "price": "Tổng giá"
     }
 }

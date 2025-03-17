@@ -6,6 +6,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import Header from "../Roles/Roles";
 import { getAllCategories } from '../../services/categoryService';
 import { Option } from 'lucide-react';
+import { FormattedMessage } from "react-intl";
 
 class ProductManage extends Component {
     state = {
@@ -144,20 +145,20 @@ class ProductManage extends Component {
         );
 
         const columns = [
-            { title: 'Name', dataIndex: 'name', key: 'name' },
-            { title: 'Price', dataIndex: 'price', key: 'price' },
-            { title: 'Stock', dataIndex: 'stock', key: 'stock' },
-            { title: 'Image', dataIndex: 'image', key: 'image', render: image => image && <img src={image} alt="product" style={{ width: 50 }} /> },
-            { title: 'Category', dataIndex: 'categoryId', key: 'categoryId', 
+            { title: <FormattedMessage id="products.name" />, dataIndex: 'name', key: 'name' },
+            { title: <FormattedMessage id="products.price" />, dataIndex: 'price', key: 'price' },
+            { title: <FormattedMessage id="products.stock" />, dataIndex: 'stock', key: 'stock' },
+            { title: <FormattedMessage id="products.image" />, dataIndex: 'image', key: 'image', render: image => image && <img src={image} alt="product" style={{ width: 50 }} /> },
+            { title: <FormattedMessage id="products.category" />, dataIndex: 'categoryId', key: 'categoryId', 
                 render: categoryId => {
                     const category = categories.find(cat => cat.id === categoryId);
                     return category ? category.name : "Unknown";
                 }
             },
-            { title: 'Actions', key: 'actions', render: (text, record) => (
+            { title: <FormattedMessage id="products.actions" />, key: 'actions', render: (text, record) => (
                 <>
-                    <Button type="primary" onClick={() => this.handleEdit(record)}>Edit</Button>
-                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}>Delete</Button>
+                    <Button type="primary" onClick={() => this.handleEdit(record)}><FormattedMessage id="products.edit" /></Button>
+                    <Button danger onClick={() => this.handleDelete(record.id)} style={{ marginLeft: 10 }}><FormattedMessage id="products.delete" /></Button>
                 </>
             ) }
         ];
@@ -166,8 +167,8 @@ class ProductManage extends Component {
             <>
                 <Header/>
                 <div className="container" style={{ marginTop: "120px" }}>
-                    <h2 className="text-center">Manage Products</h2>
-                    <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
+                    <h2 className="text-center"><FormattedMessage id="products.title" /></h2>
+                    <Button type="primary" onClick={this.handleAddNew} className="mb-3"><FormattedMessage id="products.add" /></Button>
                     <Input 
                         placeholder="Search products..."
                         value={searchTerm}
@@ -177,7 +178,7 @@ class ProductManage extends Component {
                     <Table dataSource={filteredProducts} columns={columns} rowKey="id" />
 
                     <Modal
-                        title={isEditMode ? "Edit Product" : "Add New Product"}
+                        title={isEditMode ? <FormattedMessage id="products.edit" /> : <FormattedMessage id="products.add" />}
                         visible={isModalVisible}
                         onCancel={this.handleModalCancel}
                         footer={null}
@@ -204,12 +205,12 @@ class ProductManage extends Component {
                             </Form.Item>
                             <Form.Item label="Image">
                                 <Upload beforeUpload={() => false} onChange={this.handleImageUpload} showUploadList={false}>
-                                    <Button icon={<UploadOutlined />}>Upload Image</Button>
+                                    <Button icon={<UploadOutlined />}><FormattedMessage id="products.upload" /></Button>
                                 </Upload>
                                 {this.state.selectedProduct?.image && <img src={this.state.selectedProduct.image} alt="Product" style={{ width: 100, marginTop: 10 }} />}
                             </Form.Item>
                             <Form.Item>
-                                <Button type="primary" htmlType="submit">{isEditMode ? "Save Changes" : "Create"}</Button>
+                                <Button type="primary" htmlType="submit">{isEditMode ? <FormattedMessage id="products.save" /> : <FormattedMessage id="products.create" />}</Button>
                             </Form.Item>
                         </Form>
                     </Modal>

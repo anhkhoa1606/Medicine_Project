@@ -6,6 +6,7 @@ import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaEdit, FaSave, FaArrowLef
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Profile.scss";
+import { FormattedMessage } from "react-intl";
 
 class Profile extends Component {
   state = {
@@ -78,7 +79,7 @@ class Profile extends Component {
         <Header />
         <div className="profile-container">
           <div className="profile-card">
-            <h2><FaUser /> User Profile</h2>
+            <h2><FaUser /><FormattedMessage id="profile.title" /></h2>
             <div className="profile-info">
               {this.renderProfileField("Name", name, "name", isEditing, FaUser)}
               {this.renderProfileField("Email", email, "email", isEditing, FaEnvelope)}
@@ -87,11 +88,11 @@ class Profile extends Component {
               {errorMessage && <div className="error-message">{errorMessage}</div>}
               <div className="button-group">
                 {isEditing ? (
-                  <button className="save-button" onClick={this.handleSaveChanges}><FaSave /> Save</button>
+                  <button className="save-button" onClick={this.handleSaveChanges}><FaSave /><FormattedMessage id="profile.save" /></button>
                 ) : (
-                  <button className="edit-button" onClick={this.handleEditToggle}><FaEdit /> Edit</button>
+                  <button className="edit-button" onClick={this.handleEditToggle}><FaEdit /><FormattedMessage id="profile.edit" /></button>
                 )}
-                <button className="back-button" onClick={this.handleBackToHome}><FaArrowLeft /> Back</button>
+                <button className="back-button" onClick={this.handleBackToHome}><FaArrowLeft /><FormattedMessage id="profile.back" /></button>
               </div>
             </div>
           </div>

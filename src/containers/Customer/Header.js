@@ -14,8 +14,8 @@ import flagEN from '../../assets/images/england.jpg';
 import ReactSelect from "react-select";
 
 const options = [
-  { value: LANGUAGES.EN, image: flagEN },
   { value: LANGUAGES.VI, image: flagVN },
+  { value: LANGUAGES.EN, image: flagEN },
 ];
 
 class Header extends Component {

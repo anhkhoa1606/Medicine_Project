@@ -1,7 +1,7 @@
 import React from "react";
 import Talk from "talkjs";
 import "./ChatBox.scss";
-import chatbox from "../../assets/images/pngwing.com.png";
+import chatbox from "../../assets/images/5962463.png";
 import { connect } from "react-redux";
 import image1 from "../../assets/images/pngwing.com.png";
 import avatar from "../../assets/images/pngwing.com.png";

@@ -27,16 +27,15 @@
     margin-top: 20px;
     margin-right: 50px;
     display: flex;
+    cursor: pointer;
     .welcome {
       margin-right: 10px;
       color: white;
-      cursor: pointer;
       padding-top: 5px;
     }
     .languages-en {
       margin-left: 15px;
       margin-right: 10px;
-      cursor: pointer;
 
       &.active {
         opacity: 1;
@@ -44,7 +43,6 @@
       }
     }
     .languages-vi {
-      cursor: pointer;
 
       &.active {
         opacity: 1;

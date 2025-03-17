@@ -9,6 +9,14 @@ import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import image1 from '../../assets/images/pngwing.com.png';
+import ReactSelect from "react-select";
+import flagVN from '../../assets/images/vn.png';
+import flagEN from '../../assets/images/england.jpg';
+
+const options = [
+  { value: LANGUAGES.VI, image: flagVN },
+  { value: LANGUAGES.EN, image: flagEN },
+];
 
 class Roles extends Component {
   constructor(props) {
@@ -17,6 +25,12 @@ class Roles extends Component {
       menuApp: [],
     };
   }
+
+  formatOptionLabel = (option) => (
+    <div>
+      <img width={50} height={30} src={option.image} alt={option.label} />
+    </div>
+  );
 
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
@@ -66,7 +80,17 @@ class Roles extends Component {
 
   render() {
     const {language, userInfo, userGoogle } = this.props;
-    console.log('user', userGoogle)
+
+    const customStyles = {
+      indicatorSeparator: () => ({}),
+      dropdownIndicator: () => ({ display: "none" }),
+      option: (provided, state) => ({
+        ...provided,
+      }),
+      control: () => ({
+        width: 70,
+      }),
+    };
 
     return (
       <div className="header-container">
@@ -88,18 +112,13 @@ class Roles extends Component {
             <i className="fas fa-shopping-cart"></i> {/* Icon giỏ hàng */}
           </button>
 
-          <span
-            className={language === LANGUAGES.VI ? "languages-vi active" : "languages-vi"}
-            onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
-          >
-            VN
-          </span>
-          <span
-            className={language === LANGUAGES.EN ? "languages-en active" : "languages-en"}
-            onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
-          >
-            EN
-          </span>
+          <ReactSelect
+            defaultValue={options[0]}
+            styles={customStyles}
+            options={options}
+            formatOptionLabel={this.formatOptionLabel}
+            onChange={(option) => this.handleChangeLanguage(option.value)}
+          />
 
           <div
             className="btn btn-logout"

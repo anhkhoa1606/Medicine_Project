@@ -19,16 +19,19 @@
     }
     i {
       font-size: 35px;
+      padding-top: 3px;
     }
   }
   .languages {
     font-size: 20px;
     margin-top: 20px;
     margin-right: 50px;
+    display: flex;
     .welcome {
       margin-right: 10px;
       color: white;
       cursor: pointer;
+      padding-top: 5px;
     }
     .languages-en {
       margin-left: 15px;

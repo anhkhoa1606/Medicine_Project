@@ -9,6 +9,14 @@ import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import image1 from '../../assets/images/pngwing.com.png';
+import flagVN from '../../assets/images/vn.png';
+import flagEN from '../../assets/images/england.jpg';
+import ReactSelect from "react-select";
+
+const options = [
+  { value: LANGUAGES.EN, image: flagEN },
+  { value: LANGUAGES.VI, image: flagVN },
+];
 
 class Header extends Component {
   constructor(props) {
@@ -17,10 +25,14 @@ class Header extends Component {
       menuApp: [],
     };
   }
+  formatOptionLabel = (option) => (
+    <div>
+      <img width={50} height={30} src={option.image} alt={option.label} />
+    </div>
+  );
 
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
-    console.log('changeLanguageAppRedux', language);
   };
 
   componentDidMount() {
@@ -63,7 +75,16 @@ class Header extends Component {
 
   render() {
     const {language, userInfo, userGoogle } = this.props;
-    console.log('user', userGoogle)
+    const customStyles = {
+      indicatorSeparator: () => ({}),
+      dropdownIndicator: () => ({ display: "none" }),
+      option: (provided, state) => ({
+        ...provided,
+      }),
+      control: () => ({
+        width: 70,
+      }),
+    };
 
     return (
       <div className="header-container">
@@ -81,21 +102,15 @@ class Header extends Component {
           </span>
 
           <button className="view-cart-button" onClick={this.toggleCart}>
-            <i className="fas fa-shopping-cart"></i> {/* Icon giỏ hàng */}
+            <i className="fas fa-shopping-cart"></i>
           </button>
-
-          <span
-            className={language === LANGUAGES.VI ? "languages-vi active" : "languages-vi"}
-            onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
-          >
-            VN
-          </span>
-          <span
-            className={language === LANGUAGES.EN ? "languages-en active" : "languages-en"}
-            onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
-          >
-            EN
-          </span>
+          <ReactSelect
+            defaultValue={options[0]}
+            styles={customStyles}
+            options={options}
+            formatOptionLabel={this.formatOptionLabel}
+            onChange={(option) => this.handleChangeLanguage(option.value)}
+          />
 
           <div
             className="btn btn-logout"

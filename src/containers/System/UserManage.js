@@ -108,7 +108,7 @@ class UserManage extends Component {
                         onCancel={this.handleModalCancel}
                         footer={null}
                     >
-                        <Form onFinish={this.handleModalOk} initialValues={selectedUser || { roleId: "admin", gender: true }}>
+                        <Form key={selectedUser ? selectedUser.id : "new-user"} onFinish={this.handleModalOk} initialValues={selectedUser || { roleId: "admin", gender: true }}>
                             <Form.Item name="email" label="Email" rules={[{ required: true, message: 'Please enter email' }]}>
                                 <Input />
                             </Form.Item>

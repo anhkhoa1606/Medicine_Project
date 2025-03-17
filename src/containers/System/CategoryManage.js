@@ -123,7 +123,7 @@ class CategoryManage extends Component {
                         onCancel={this.handleModalCancel}
                         footer={null}
                     >
-                        <Form ref={this.formRef} onFinish={this.handleModalOk} initialValues={ selectedCategory || {}}>
+                        <Form key={selectedCategory ? selectedCategory.id : "new-product"} ref={this.formRef} onFinish={this.handleModalOk} initialValues={ selectedCategory || {}}>
                             <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please enter category name' }]}>
                                 <Input />
                             </Form.Item>

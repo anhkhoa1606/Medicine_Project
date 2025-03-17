@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUserById, editUserServices } from "../../services/userService"; // Import your service methods
-import "./Profile.scss";
+import { getUserById, editUserServices } from "../../services/userService";
 import { withRouter } from "react-router-dom";
+import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaEdit, FaSave, FaArrowLeft } from "react-icons/fa";
 import Header from "./Header";
 import Footer from "./Footer";
+import "./Profile.scss";
 
 class Profile extends Component {
   state = {
@@ -25,12 +26,11 @@ class Profile extends Component {
     const { userInfo } = this.props;
     try {
       const response = await getUserById(userInfo.id);
-      console.log(response.data)
       if (response.errCode === 0) {
         this.setState({
           user: response.data,
           name: response.data.firstName,
-          email: response.data.email, 
+          email: response.data.email,
           phoneNumber: response.data.phoneNumber,
           address: response.data.address,
         });
@@ -41,133 +41,57 @@ class Profile extends Component {
   };
 
   handleEditToggle = () => {
-    this.setState((prevState) => ({
-      isEditing: !prevState.isEditing,
-    }));
+    this.setState((prevState) => ({ isEditing: !prevState.isEditing }));
   };
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
+    this.setState({ [name]: value });
   };
 
   handleSaveChanges = async () => {
-    const { user } = this.state; // Get the current user object from state
-    const { name, email, phone, address } = this.state;
-  
-    if (!user) {
-      console.error("User not found.");
-      return;
-    }
-  
+    const { user, name, email, phoneNumber, address } = this.state;
+    if (!user) return;
     try {
-      // Include the user ID along with the data to be updated
-      const inputData = { id: user.id, name, email, phone, address };
-      
-      const response = await editUserServices(inputData); // Send updated data to the server
-  
+      const response = await editUserServices({ id: user.id, name, email, phoneNumber, address });
       if (response.errCode === 0) {
         this.setState({ isEditing: false });
-        this.fetchUserInfo(); // Refresh user info after successful update
+        this.fetchUserInfo();
       } else {
         this.setState({ errorMessage: "Failed to update user information." });
       }
     } catch (error) {
-      console.error("Error updating user info", error);
       this.setState({ errorMessage: "Error occurred while updating." });
     }
   };
-  
 
   handleBackToHome = () => {
-    const {history } = this.props;
-    history.push('/home');
-  }
-
+    this.props.history.push("/home");
+  };
 
   render() {
     const { user, isEditing, name, email, phoneNumber, address, errorMessage } = this.state;
-    if (!user) {
-      return <div>Loading...</div>;
-    }
+    if (!user) return <div className="loading">Loading...</div>;
 
     return (
       <>
         <Header />
-        <div className="container profile-detail">
-          <div className="profile-wrapper">
-            <h2>User Profile</h2>
+        <div className="profile-container">
+          <div className="profile-card">
+            <h2><FaUser /> User Profile</h2>
             <div className="profile-info">
-              <div className="profile-field">
-                <label>Name:</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={this.handleInputChange}
-                  />
-                ) : (
-                  <p>{user.firstName} {user.lastName}</p>
-                )}
-              </div>
-              <div className="profile-field">
-                <label>Email:</label>
-                {isEditing ? (
-                  <input
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={this.handleInputChange}
-                  />
-                ) : (
-                  <p>{user.email}</p>
-                )}
-              </div>
-              <div className="profile-field">
-                <label>Phone:</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="phoneNumber"
-                    value={phoneNumber}
-                    onChange={this.handleInputChange}
-                  />
-                ) : (
-                  <p>{user.phoneNumber}</p>
-                )}
-              </div>
-              <div className="profile-field">
-                <label>Address:</label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="address"
-                    value={address}
-                    onChange={this.handleInputChange}
-                  />
-                ) : (
-                  <p>{user.address}</p>
-                )}
-              </div>
-              {/* Error Message */}
+              {this.renderProfileField("Name", name, "name", isEditing, FaUser)}
+              {this.renderProfileField("Email", email, "email", isEditing, FaEnvelope)}
+              {this.renderProfileField("Phone", phoneNumber, "phoneNumber", isEditing, FaPhone)}
+              {this.renderProfileField("Address", address, "address", isEditing, FaMapMarkerAlt)}
               {errorMessage && <div className="error-message">{errorMessage}</div>}
-
               <div className="button-group">
                 {isEditing ? (
-                  <button className="save-button" onClick={this.handleSaveChanges}>
-                    Save Changes
-                  </button>
+                  <button className="save-button" onClick={this.handleSaveChanges}><FaSave /> Save</button>
                 ) : (
-                  <button className="edit-button" onClick={this.handleEditToggle}>
-                    Edit Profile
-                  </button>
+                  <button className="edit-button" onClick={this.handleEditToggle}><FaEdit /> Edit</button>
                 )}
-                <button className="back-button" onClick={this.handleBackToHome}>
-                  Back to Home
-                </button>
+                <button className="back-button" onClick={this.handleBackToHome}><FaArrowLeft /> Back</button>
               </div>
             </div>
           </div>
@@ -176,14 +100,23 @@ class Profile extends Component {
       </>
     );
   }
+
+  renderProfileField(label, value, name, isEditing, Icon) {
+    return (
+      <div className="profile-field">
+        <label><Icon /> {label}:</label>
+        {isEditing ? (
+          <input type="text" name={name} value={value} onChange={this.handleInputChange} />
+        ) : (
+          <p>{value}</p>
+        )}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
-  userInfo: state.user.userInfo, // Assuming you have userInfo in your Redux store
+  userInfo: state.user.userInfo,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  // Add any actions if necessary
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));
+export default withRouter(connect(mapStateToProps)(Profile));

@@ -4,7 +4,7 @@
   z-index: 99;
   display: flex;
   justify-content: space-between;
-  background-color: #2f6bc2;
+  background-color: #bcc1c8;
   height: 80px;
   position: relative;
   .btn-logout {
@@ -18,7 +18,7 @@
       background-color: darken($colormain, 5);
     }
     i {
-      font-size: 45px;
+      font-size: 35px;
     }
   }
   .languages {
@@ -28,6 +28,7 @@
     .welcome {
       margin-right: 10px;
       color: white;
+      cursor: pointer;
     }
     .languages-en {
       margin-left: 15px;
@@ -73,7 +74,8 @@
 }
 
 .view-cart-button:hover {
-  color: #ccbcba;
+  color: darken($colormain, 5);
+  
 }
 
 .background-logo {
@@ -89,6 +91,7 @@
 }
 .header-logo {
   width: 150px;
+  display: flex;
   img {
     width: 65%;
     height: auto;

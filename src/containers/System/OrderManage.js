@@ -80,7 +80,7 @@ class OrderManage extends Component {
         return (
             <>
                 <Header/>
-                <div className="container mt-4">
+                <div className="container" style={{ marginTop: "120px" }}>
                     <h2 className="text-center">Manage Orders</h2>
                     <Input 
                         placeholder="Search orders..."

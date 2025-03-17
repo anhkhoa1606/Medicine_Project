@@ -88,7 +88,7 @@ class HomePage extends Component {
         return (
             <>
                 <Header/>
-                <div className="container mt-4">
+                <div className="container" style={{ marginTop: "120px" }}>
                     <h2 className="text-center">HomePage</h2>
                     <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
                     <Input 

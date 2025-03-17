@@ -6,7 +6,9 @@
   justify-content: space-between;
   background-color: #bcc1c8;
   height: 80px;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
   .btn-logout {
     width: 30px;
     color: $common-text-color;
@@ -112,4 +114,11 @@
 
 .header-tabs-container {
   display: flex;
+}
+
+.custom-navigator {
+ .menu-group {
+  margin-left: 110px;
+  margin-top: 20px;
+ }
 }

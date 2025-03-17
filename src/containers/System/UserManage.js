@@ -88,10 +88,10 @@ class UserManage extends Component {
         ];
 
         return (
-            <div>
+            <>
                 <ChatBoxAdmin />
                 <Header/>
-                <div className="container mt-4">
+                <div className="container" style={{ marginTop: "120px" }}>
                     <h2 className="text-center">Manage Users</h2>
                     <Button type="primary" onClick={this.handleAddNew} className="mb-3">Add New</Button>
                     <Input 
@@ -157,7 +157,7 @@ class UserManage extends Component {
 
                     </Modal>
                 </div>
-            </div>
+            </>
         );
     }
 }

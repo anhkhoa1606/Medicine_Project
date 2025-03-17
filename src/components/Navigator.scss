@@ -9,6 +9,8 @@
         list-style-type: none;
     }
     .menu-group {
+        margin-left: 110px;
+        margin-top: 20px;
         &:hover {
             cursor: pointer;
             background-color: darken($colormain, 5);

@@ -26,6 +26,14 @@ const getRevenue = () => {
   return axios.get(`/revenue`);
 };
 
+const getUserChart = () => {
+  return axios.get(`/get-order-chart`);
+};
+
+const getTotal = () => {
+  return axios.get(`/get-total-revenue`);
+};
+
 export {
   createOrderService,
   getOrderService,
@@ -34,5 +42,7 @@ export {
   getOderByUserService,
   findOrdersByName,
   getDetailOrderById,
-  getRevenue
+  getRevenue,
+  getUserChart,
+  getTotal
 };

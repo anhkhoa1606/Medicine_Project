@@ -21,6 +21,11 @@ const findOrdersByName = (name) => {
 const deleteOrderService = (inputId) => {
   return axios.delete("/delete-order", { data: { id: inputId } });
 };
+
+const getRevenue = () => {
+  return axios.get(`/revenue`);
+};
+
 export {
   createOrderService,
   getOrderService,
@@ -29,4 +34,5 @@ export {
   getOderByUserService,
   findOrdersByName,
   getDetailOrderById,
+  getRevenue
 };

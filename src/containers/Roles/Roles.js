@@ -100,7 +100,7 @@ class Roles extends Component {
             <img src={image1} alt="Logo" />
             <div className="title-header">Medicine</div>
           </div>
-          <Navigator menus={this.state.menuApp} />
+          {/* <Navigator menus={this.state.menuApp} /> */}
         </div>
         <div className="languages">
           <span className="welcome" onClick={this.handleProfile}>

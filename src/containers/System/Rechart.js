@@ -10,9 +10,9 @@ import {
 } from "recharts";
 import { getRevenue } from "../../services/orderService";
 import Header from "../Customer/Header";
-import Footer from "../Customer/Footer";
-import "./Rechart.scss"; // Import file CSS
+import "./Rechart.scss";
 import DashboardSidebar from "./Dashboard";
+import { FormattedMessage } from "react-intl";
 
 class Rechart extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class Rechart extends Component {
         <Header />
         <DashboardSidebar/>
         <div className="rechart-container">
-          <h2 className="rechart-title">Doanh thu</h2>
+          <h2 className="rechart-title"><FormattedMessage id="menu.system.system-administrator.revenue" /></h2>
 
           {loading && <p className="rechart-loading">Đang tải dữ liệu...</p>}
           {error && <p className="rechart-error">{error}</p>}

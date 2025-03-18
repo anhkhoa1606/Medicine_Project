@@ -65,7 +65,8 @@ let initWebRoutes = (app) => {
 
     //Chart
     router.get("/revenue", orderController.getRevenue);
-
+    router.get("/get-order-chart", orderController.getTotalUniqueUsers);
+    router.get("/get-total-revenue", orderController.getTotalRevenue);
     
 
     return app.use("/", router);

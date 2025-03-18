@@ -225,6 +225,7 @@ let getDetailOrderById = (inputId) => {
   });
 };
 
+
 const getRevenue = async () => {
   try {
     const orders = await db.Order.findAll({
@@ -266,8 +267,57 @@ const getRevenue = async () => {
   }
 };
 
+const getTotalUniqueUsersLast7Days = async () => {
+  try {
+    const result = await db.Order.findOne({
+      attributes: [[fn("COUNT", fn("DISTINCT", col("userId"))), "total_unique_users"]],
+      where: {
+        createdAt: {
+          [Op.gte]: literal("DATE_SUB(CURDATE(), INTERVAL 6 DAY)"),
+        },
+      },
+      raw: true, // Trả về object đơn giản
+    });
 
+    return {
+      errCode: 0,
+      errMessage: "Success",
+      totalUniqueUsers: result.total_unique_users || 0, // Trả về số lượng userId khác nhau
+    };
+  } catch (error) {
+    console.error("Error fetching total unique users:", error);
+    return {
+      errCode: -1,
+      errMessage: "Internal Server Error",
+    };
+  }
+};
 
+const getTotalRevenueLast7Days = async () => {
+  try {
+    const result = await db.Order.findOne({
+      attributes: [[fn("SUM", col("totalPrice")), "total_revenue"]],
+      where: {
+        createdAt: {
+          [Op.gte]: literal("DATE_SUB(CURDATE(), INTERVAL 6 DAY)"),
+        },
+      },
+      raw: true, // Trả về object đơn giản
+    });
+
+    return {
+      errCode: 0,
+      errMessage: "Success",
+      totalRevenue: result.total_revenue || 0, // Trả về tổng doanh thu (mặc định 0 nếu null)
+    };
+  } catch (error) {
+    console.error("Error fetching total revenue:", error);
+    return {
+      errCode: -1,
+      errMessage: "Internal Server Error",
+    };
+  }
+};
 
 module.exports = {
   createOrderService: createOrderService,
@@ -277,5 +327,7 @@ module.exports = {
   deleteOrderService: deleteOrderService,
   filterOrdersByName: filterOrdersByName,
   getDetailOrderById: getDetailOrderById,
-  getRevenue: getRevenue
+  getRevenue: getRevenue,
+  getTotalUniqueUsersLast7Days: getTotalUniqueUsersLast7Days,
+  getTotalRevenueLast7Days: getTotalRevenueLast7Days
 };

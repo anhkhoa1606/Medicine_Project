@@ -95,6 +95,24 @@ const getRevenue = async (req, res) => {
   }
 };
 
+const getTotalUniqueUsers = async (req, res) => {
+  try {
+    const result = await orderService.getTotalUniqueUsersLast7Days();
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ errCode: -1, errMessage: "Internal Server Error" });
+  }
+};
+
+const getTotalRevenue = async (req, res) => {
+  try {
+    const result = await orderService.getTotalRevenueLast7Days();
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ errCode: -1, errMessage: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   createOrder: createOrder,
   getOrder: getOrder,
@@ -103,5 +121,7 @@ module.exports = {
   getOderByUserService: getOderByUserService,
   filterOrdersByName: filterOrdersByName,
   getDetailOrderById: getDetailOrderById,
-  getRevenue: getRevenue
+  getRevenue: getRevenue,
+  getTotalUniqueUsers: getTotalUniqueUsers,
+  getTotalRevenue: getTotalRevenue
 };

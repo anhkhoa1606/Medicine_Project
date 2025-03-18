@@ -139,14 +139,14 @@
   /* Animation trượt ảnh */
   @keyframes slideBackground {
     0% { transform: translateX(0); }
-    20% { transform: translateX(0); } /* Dừng lại một chút */
+    20% { transform: translateX(0); }
     25% { transform: translateX(-100vw); }
     45% { transform: translateX(-100vw); }
     50% { transform: translateX(-200vw); }
     70% { transform: translateX(-200vw); }
     75% { transform: translateX(-300vw); }
     95% { transform: translateX(-300vw); }
-    100% { transform: translateX(-400vw); } /* Quay lại ảnh đầu */
+    100% { transform: translateX(-400vw); }
   }
   @keyframes bounce {
     0%, 100% {

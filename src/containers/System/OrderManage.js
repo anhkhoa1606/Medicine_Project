@@ -4,6 +4,7 @@ import { getOrderService, deleteOrderService, editOrderService } from '../../ser
 import { Table, Input, Button, Modal, Form } from 'antd';
 import Header from "../Roles/Roles";
 import { FormattedMessage } from "react-intl";
+import DashboardSidebar from './Dashboard';
 
 class OrderManage extends Component {
     state = {
@@ -82,7 +83,8 @@ class OrderManage extends Component {
         return (
             <>
                 <Header/>
-                <div className="container" style={{ marginTop: "120px" }}>
+                <DashboardSidebar />
+                <div className="container" style={{ marginTop: "120px", marginLeft: "300px" }}>
                     <h2 className="text-center"><FormattedMessage id="orders.title" /></h2>
                     <Input 
                         placeholder="Search orders..."

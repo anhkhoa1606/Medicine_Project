@@ -4,6 +4,7 @@ import { getAllCategories, updateCategory, createCategory, deleteCategory } from
 import { Table, Input, Button, Modal, Form} from 'antd';
 import Header from "../Roles/Roles";
 import { FormattedMessage } from "react-intl";
+import DashboardSidebar from './Dashboard';
 
 class CategoryManage extends Component {
     state = {
@@ -107,7 +108,8 @@ class CategoryManage extends Component {
         return (
             <>
                 <Header/>
-                <div className="container" style={{ marginTop: "120px" }}>
+                <DashboardSidebar />
+                <div className="container" style={{ marginTop: "120px", marginLeft: "300px" }}>
                     <h2 className="text-center"><FormattedMessage id="category.title" /></h2>
                     <Button type="primary" onClick={this.handleAddNew} className="mb-3"><FormattedMessage id="category.add" /></Button>
                     <Input 

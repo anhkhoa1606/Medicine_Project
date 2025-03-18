@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import * as actions from "../../store/actions";
 import Navigator from "../../components/Navigator";
-import { adminMenu, customerMenu } from "../Roles/menuApp";
+import { adminMenu } from "../Roles/menuApp";
 import "./Roles.scss";
 import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";

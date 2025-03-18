@@ -7,6 +7,7 @@ import Header from "../Roles/Roles";
 import { getAllCategories } from '../../services/categoryService';
 import { Option } from 'lucide-react';
 import { FormattedMessage } from "react-intl";
+import DashboardSidebar from './Dashboard';
 
 class ProductManage extends Component {
     state = {
@@ -166,7 +167,8 @@ class ProductManage extends Component {
         return (
             <>
                 <Header/>
-                <div className="container" style={{ marginTop: "120px" }}>
+                <DashboardSidebar />
+                <div className="container" style={{ marginTop: "120px", marginLeft: "300px" }}>
                     <h2 className="text-center"><FormattedMessage id="products.title" /></h2>
                     <Button type="primary" onClick={this.handleAddNew} className="mb-3"><FormattedMessage id="products.add" /></Button>
                     <Input 

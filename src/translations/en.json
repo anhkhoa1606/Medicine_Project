@@ -33,7 +33,8 @@
                 "user-manage": "Users Management",
                 "product-manage": "Products Management",
                 "order-manage": "Orders Management",
-                "category-manage": "Category Manage"
+                "category-manage": "Category Manage",
+                "dashboard": "Dashboard"
             }
         }
     },

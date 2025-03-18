@@ -5,7 +5,7 @@ import { Table, Input, Button, Modal, Form, Select } from 'antd';
 import ChatBoxAdmin from "./ChatBoxAdmin";
 import Header from "../Roles/Roles";
 import { FormattedMessage } from "react-intl";
-
+import DashboardSidebar from "./Dashboard"
 class UserManage extends Component {
     state = {
         users: [],
@@ -93,7 +93,8 @@ class UserManage extends Component {
             <>
                 <ChatBoxAdmin />
                 <Header/>
-                <div className="container" style={{ marginTop: "120px" }}>
+                <DashboardSidebar />
+                <div className="container" style={{ marginTop: "120px", marginLeft: "300px"}}>
                     <h2 className="text-center"><FormattedMessage id="users.title" /></h2>
                     <Button type="primary" onClick={this.handleAddNew} className="mb-3"><FormattedMessage id="users.add" /></Button>
                     <Input 

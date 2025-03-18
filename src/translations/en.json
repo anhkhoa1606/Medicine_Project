@@ -34,7 +34,8 @@
                 "product-manage": "Products Management",
                 "order-manage": "Orders Management",
                 "category-manage": "Category Manage",
-                "dashboard": "Dashboard"
+                "dashboard": "Dashboard",
+                "revenue": "Revenue"
             }
         }
     },

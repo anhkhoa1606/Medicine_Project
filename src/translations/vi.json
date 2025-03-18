@@ -34,7 +34,8 @@
                 "product-manage": "Quản lý sản phẩm",
                 "order-manage": "Quản lý đặt hàng",
                 "category-manage": "Quản lý danh mục",
-                "dashboard": "Danh mục"
+                "dashboard": "Danh mục",
+                "revenue": "Doanh thu"
             }
         }
     },

@@ -63,6 +63,9 @@ let initWebRoutes = (app) => {
     router.get("/check-cart", cartController.checkCart);
     router.delete("/delete-cart", cartController.deleteCart);
 
+    //Chart
+    router.get("/revenue", orderController.getRevenue);
+
     
 
     return app.use("/", router);

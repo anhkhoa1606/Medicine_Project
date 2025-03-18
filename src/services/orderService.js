@@ -1,5 +1,5 @@
 import db from "../models/index";
-import { Op } from "sequelize";
+import { Op, fn, col, literal, Sequelize  } from "sequelize";
 
 let createOrderService = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -60,6 +60,7 @@ let getOrderService = () => {
     }
   });
 };
+
 let getOderByUserService = (userId) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -224,6 +225,50 @@ let getDetailOrderById = (inputId) => {
   });
 };
 
+const getRevenue = async () => {
+  try {
+    const orders = await db.Order.findAll({
+      attributes: [
+        [fn("DATE", col("createdAt")), "date"],
+        [fn("SUM", col("totalPrice")), "revenue"]
+      ],
+      where: {
+        createdAt: {
+          [Op.gte]: literal("DATE_SUB(CURDATE(), INTERVAL 6 DAY)"),
+        },
+      },
+      group: ["date"],
+      order: [["createdAt", "ASC"]],
+      raw: true, // Giúp trả về dữ liệu dưới dạng object đơn giản
+    });
+
+    // Tính tổng doanh thu
+    const totalRevenue = orders.reduce((acc, row) => acc + row.revenue, 0);
+
+    // Tính phần trăm doanh thu từng ngày
+    const result = orders.map(row => ({
+      date: row.date,
+      revenue: row.revenue,
+      percentage: totalRevenue ? ((row.revenue / totalRevenue) * 100).toFixed(2) : 0
+    }));
+
+    return {
+      errCode: 0,
+      errMessage: "Success",
+      data: result,
+    };
+  } catch (error) {
+    console.error("Error fetching revenue data:", error);
+    return {
+      errCode: -1,
+      errMessage: "Internal Server Error",
+    };
+  }
+};
+
+
+
+
 module.exports = {
   createOrderService: createOrderService,
   getOrderService: getOrderService,
@@ -232,4 +277,5 @@ module.exports = {
   deleteOrderService: deleteOrderService,
   filterOrdersByName: filterOrdersByName,
   getDetailOrderById: getDetailOrderById,
+  getRevenue: getRevenue
 };

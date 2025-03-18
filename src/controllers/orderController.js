@@ -81,6 +81,20 @@ let getDetailOrderById = async (req, res) => {
     });
   }
 };
+
+const getRevenue = async (req, res) => {
+  try {
+    const result = await orderService.getRevenue();
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in getRevenueLast7Days controller:", error);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createOrder: createOrder,
   getOrder: getOrder,
@@ -89,4 +103,5 @@ module.exports = {
   getOderByUserService: getOderByUserService,
   filterOrdersByName: filterOrdersByName,
   getDetailOrderById: getDetailOrderById,
+  getRevenue: getRevenue
 };

@@ -1,124 +1,373 @@
 @import "../../styles/common.scss";
-
-.header-container {
-  z-index: 99;
-  display: flex;
-  justify-content: space-between;
-  background-color: #bcc1c8;
-  height: 80px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  .btn-logout {
-    width: 30px;
-    color: $common-text-color;
-    line-height: 40px;
-    height: 40px;
-    padding: 0 10px;
-    &:hover {
-      width: 60px;
-      background-color: darken($colormain, 5);
-    }
-    i {
-      font-size: 35px;
-      padding-top: 3px;
-    }
-  }
-  .languages {
-    font-size: 20px;
-    margin-top: 20px;
-    margin-right: 50px;
+@media (min-width: 1366px) {
+  .header-container {
+    z-index: 99;
     display: flex;
-    cursor: pointer;
-    .welcome {
-      margin-right: 10px;
-      color: white;
-      padding-top: 5px;
-    }
-    .languages-en {
-      margin-left: 15px;
-      margin-right: 10px;
-
-      &.active {
-        opacity: 1;
-        color: rgb(63, 63, 119);
+    justify-content: space-between;
+    background-color: #bcc1c8;
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    .btn-logout {
+      width: 30px;
+      color: $common-text-color;
+      line-height: 40px;
+      height: 40px;
+      padding: 0 10px;
+      &:hover {
+        width: 60px;
+        background-color: darken($colormain, 5);
+      }
+      i {
+        font-size: 35px;
+        padding-top: 3px;
       }
     }
-    .languages-vi {
-
-      &.active {
-        opacity: 1;
-        color: orange;
+    .languages {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-right: 50px;
+      display: flex;
+      cursor: pointer;
+      .welcome {
+        margin-right: 10px;
+        color: white;
+        padding-top: 5px;
+      }
+      .languages-en {
+        margin-left: 15px;
+        margin-right: 10px;
+  
+        &.active {
+          opacity: 1;
+          color: rgb(63, 63, 119);
+        }
+      }
+      .languages-vi {
+  
+        &.active {
+          opacity: 1;
+          color: orange;
+        }
       }
     }
   }
-}
-.search-input {
-  input {
-    width: 300px;
-    height: 30px;
-    border-radius: 5px;
-    margin-top: 5px;
+  .search-input {
+    input {
+      width: 300px;
+      height: 30px;
+      border-radius: 5px;
+      margin-top: 5px;
+      border: none;
+    }
+  }
+  
+  .view-cart-button {
+    background-color: transparent;
     border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding-bottom: 20px;
+  }
+  
+  .view-cart-button i {
+    margin-right: 5px;
+  }
+  
+  .view-cart-button:hover {
+    color: darken($colormain, 5);
+  }
+  
+  .background-logo {
+    background-image: url('../../assets/images/pngwing.com.png'); /* Replace with your image path */
+    background-size: cover; /* Ensures the background image covers the entire div */
+    background-position: center; /* Centers the background image */
+    height: 100vh; /* Adjust the height of the div */
+  }
+  
+  
+  .navigator-menu .menu-group .menu-group-name:first-child {
+    font-size: 20px;
+    color: white;
+  }
+  
+  .header-logo {
+    width: 150px;
+    display: flex;
+    img {
+      width: 65%;
+      height: auto;
+      padding-top: 5px;
+      margin-left: 30px;
+    }
+  }
+  .title-header {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    margin-top: 15px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  }
+  
+  .header-tabs-container {
+    display: flex;
+  }
+  
+  .custom-navigator {
+   .menu-group {
+    margin-left: 110px;
+    margin-top: 20px;
+   }
   }
 }
-
-.view-cart-button {
-  background-color: transparent;
-  border: none;
-  font-size: 20px;
-  color: white;
-  cursor: pointer;
-  transition: color 0.3s;
-  padding-bottom: 20px;
-}
-
-.view-cart-button i {
-  margin-right: 5px;
-}
-
-.view-cart-button:hover {
-  color: darken($colormain, 5);
-}
-
-.background-logo {
-  background-image: url('../../assets/images/pngwing.com.png'); /* Replace with your image path */
-  background-size: cover; /* Ensures the background image covers the entire div */
-  background-position: center; /* Centers the background image */
-  height: 100vh; /* Adjust the height of the div */
-}
-
-
-.navigator-menu .menu-group .menu-group-name:first-child {
-  font-size: 20px;
-  color: white;
-}
-
-.header-logo {
-  width: 150px;
-  display: flex;
-  img {
-    width: 65%;
-    height: auto;
-    padding-top: 5px;
-    margin-left: 30px;
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .header-container {
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+    background-color: #bcc1c8;
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    .btn-logout {
+      width: 30px;
+      color: $common-text-color;
+      line-height: 40px;
+      height: 40px;
+      padding: 0 10px;
+      &:hover {
+        width: 60px;
+        background-color: darken($colormain, 5);
+      }
+      i {
+        font-size: 35px;
+        padding-top: 3px;
+      }
+    }
+    .languages {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-right: 50px;
+      display: flex;
+      cursor: pointer;
+      .welcome {
+        margin-right: 10px;
+        color: white;
+        padding-top: 5px;
+      }
+      .languages-en {
+        margin-left: 15px;
+        margin-right: 10px;
+  
+        &.active {
+          opacity: 1;
+          color: rgb(63, 63, 119);
+        }
+      }
+      .languages-vi {
+  
+        &.active {
+          opacity: 1;
+          color: orange;
+        }
+      }
+    }
+  }
+  .search-input {
+    input {
+      width: 300px;
+      height: 30px;
+      border-radius: 5px;
+      margin-top: 5px;
+      border: none;
+    }
+  }
+  
+  .view-cart-button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding-bottom: 20px;
+  }
+  
+  .view-cart-button i {
+    margin-right: 5px;
+  }
+  
+  .view-cart-button:hover {
+    color: darken($colormain, 5);
+  }
+  
+  .background-logo {
+    background-image: url('../../assets/images/pngwing.com.png'); /* Replace with your image path */
+    background-size: cover; /* Ensures the background image covers the entire div */
+    background-position: center; /* Centers the background image */
+    height: 100vh; /* Adjust the height of the div */
+  }
+  
+  
+  .navigator-menu .menu-group .menu-group-name:first-child {
+    font-size: 20px;
+    color: white;
+  }
+  
+  .header-logo {
+    width: 150px;
+    display: flex;
+    img {
+      width: 65%;
+      height: auto;
+      padding-top: 5px;
+      margin-left: 30px;
+    }
+  }
+  .title-header {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    margin-top: 15px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  }
+  
+  .header-tabs-container {
+    display: flex;
+  }
+  
+  .custom-navigator {
+   .menu-group {
+    margin-left: 110px;
+    margin-top: 20px;
+   }
   }
 }
-.title-header {
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-  margin-top: 15px;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-}
-
-.header-tabs-container {
-  display: flex;
-}
-
-.custom-navigator {
- .menu-group {
-  margin-left: 110px;
-  margin-top: 20px;
- }
+@media (max-width: 932px) {
+  .header-container {
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+    background-color: #bcc1c8;
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    .btn-logout {
+      width: 30px;
+      color: $common-text-color;
+      line-height: 40px;
+      height: 40px;
+      padding: 0 10px;
+      &:hover {
+        width: 60px;
+        background-color: darken($colormain, 5);
+      }
+      i {
+        font-size: 35px;
+        padding-top: 3px;
+      }
+    }
+    .languages {
+      font-size: 20px;
+      margin-top: 20px;
+      margin-right: 50px;
+      display: flex;
+      cursor: pointer;
+      .welcome {
+        margin-right: 10px;
+        color: white;
+        padding-top: 5px;
+      }
+      .languages-en {
+        margin-left: 15px;
+        margin-right: 10px;
+  
+        &.active {
+          opacity: 1;
+          color: rgb(63, 63, 119);
+        }
+      }
+      .languages-vi {
+  
+        &.active {
+          opacity: 1;
+          color: orange;
+        }
+      }
+    }
+  }
+  .search-input {
+    input {
+      width: 300px;
+      height: 30px;
+      border-radius: 5px;
+      margin-top: 5px;
+      border: none;
+    }
+  }
+  
+  .view-cart-button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding-bottom: 20px;
+  }
+  
+  .view-cart-button i {
+    margin-right: 5px;
+  }
+  
+  .view-cart-button:hover {
+    color: darken($colormain, 5);
+  }
+  
+  .background-logo {
+    background-image: url('../../assets/images/pngwing.com.png'); /* Replace with your image path */
+    background-size: cover; /* Ensures the background image covers the entire div */
+    background-position: center; /* Centers the background image */
+    height: 100vh; /* Adjust the height of the div */
+  }
+  
+  
+  .navigator-menu .menu-group .menu-group-name:first-child {
+    font-size: 20px;
+    color: white;
+  }
+  
+  .header-logo {
+    width: 150px;
+    display: flex;
+    img {
+      width: 65%;
+      height: auto;
+      padding-top: 5px;
+      margin-left: 1px;
+    }
+  }
+  .title-header {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    margin-top: 20px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  }
+  
+  .header-tabs-container {
+    display: flex;
+  }
+  
+  .custom-navigator {
+   .menu-group {
+    margin-left: 110px;
+    margin-top: 20px;
+   }
+  }
 }

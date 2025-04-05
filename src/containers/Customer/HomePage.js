@@ -145,74 +145,77 @@ class HomePage extends Component {
       <>
         <ChatBox />
         <Roles />
-        <div className="background-container">
-          <div className="background-slider">
-            <img src={image1} alt="Slide 1" />
-            <img src={image2} alt="Slide 2" />
-            <img src={image3} alt="Slide 3" />
-            <img src={image4} alt="Slide 4" />
-            <img src={image5} alt="Slide 5" />
-          </div>
-          <div className="overlay">
-            <div className="title-body">Welcome to Medicine</div>
-            <div className="subtitle-body">Your Trusted Partner in Healthcare and Wellness</div>
-          </div>
-        </div>
-
-        <div className="container">
-          <h2 className="text-center">🛒 <FormattedMessage id="body.list-product" /></h2>
-          {/* Thanh tìm kiếm */}
-          <div className="search-bar">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="🔍 Tìm kiếm sản phẩm..."
-              value={searchQuery}
-              onChange={this.handleSearchChange}
-            />
+        <div className="homepage">
+          <div className="background-container">
+            <div className="background-slider">
+              <img src={image1} alt="Slide 1" />
+              <img src={image2} alt="Slide 2" />
+              <img src={image3} alt="Slide 3" />
+              <img src={image4} alt="Slide 4" />
+              <img src={image5} alt="Slide 5" />
+            </div>
+            <div className="overlay">
+              <div className="title-body">Welcome to Medicine</div>
+              <div className="subtitle-body">Your Trusted Partner in Healthcare and Wellness</div>
+            </div>
           </div>
 
-          {/* Danh sách sản phẩm */}
-          <div className="product-grid">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <div className="product-card" key={product.id}>
-                  <img src={product.image} className="product-image" alt={product.name} />
-                  <h3 className="product-name"><FormattedMessage id="body.name" />: {product.name}</h3>
-                  <p className="product-price"><FormattedMessage id="body.price" />: {product.price.toLocaleString()} đ</p>
-                  <button className="buy-button" onClick={() => this.handleAddToCart(product)}>
-                    🛍️ <FormattedMessage id="body.choose" />
-                  </button>
-                  <button className="detail-button" onClick={() => this.handleViewDetail(product.id)}>
-                    🔍 <FormattedMessage id="body.detail" />
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p className="no-results"><FormattedMessage id="body.not" /></p>
-            )}
+          <div className="container">
+            <h2 className="text-center">🛒 <FormattedMessage id="body.list-product" /></h2>
+            {/* Thanh tìm kiếm */}
+            <div className="search-bar">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="🔍 Tìm kiếm sản phẩm..."
+                value={searchQuery}
+                onChange={this.handleSearchChange}
+              />
+            </div>
+
+            {/* Danh sách sản phẩm */}
+            <div className="product-grid">
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <div className="product-card" key={product.id}>
+                    <img src={product.image} className="product-image" alt={product.name} />
+                    <h3 className="product-name"><FormattedMessage id="body.name" />: {product.name}</h3>
+                    <p className="product-price"><FormattedMessage id="body.price" />: {product.price.toLocaleString()} đ</p>
+                    <button className="buy-button" onClick={() => this.handleAddToCart(product)}>
+                      🛍️ <FormattedMessage id="body.choose" />
+                    </button>
+                    <button className="detail-button" onClick={() => this.handleViewDetail(product.id)}>
+                      🔍 <FormattedMessage id="body.detail" />
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className="no-results"><FormattedMessage id="body.not" /></p>
+              )}
+            </div>
+
+            {/* Nút chuyển trang */}
+            <div className="pagination">
+              <Button
+                variant="secondary"
+                onClick={() => this.handlePageChange(this.state.currentPage - 1)}
+                disabled={this.state.currentPage === 1}
+              >
+                ⬅️ <FormattedMessage id="body.previous" />
+              </Button>
+
+              <span className="page-info"><FormattedMessage id="body.page" /> {this.state.currentPage} / {this.state.totalPages}</span>
+
+              <Button
+                variant="secondary"
+                onClick={() => this.handlePageChange(this.state.currentPage + 1)}
+                disabled={this.state.currentPage === this.state.totalPages}
+              >
+                <FormattedMessage id="body.next" /> ➡️
+              </Button>
+            </div>
           </div>
-
-          {/* Nút chuyển trang */}
-          <div className="pagination">
-            <Button
-              variant="secondary"
-              onClick={() => this.handlePageChange(this.state.currentPage - 1)}
-              disabled={this.state.currentPage === 1}
-            >
-              ⬅️ <FormattedMessage id="body.previous" />
-            </Button>
-
-            <span className="page-info"><FormattedMessage id="body.page" /> {this.state.currentPage} / {this.state.totalPages}</span>
-
-            <Button
-              variant="secondary"
-              onClick={() => this.handlePageChange(this.state.currentPage + 1)}
-              disabled={this.state.currentPage === this.state.totalPages}
-            >
-              <FormattedMessage id="body.next" /> ➡️
-            </Button>
-          </div>
+            <Footer/>
         </div>
         
         {/* Modal thông báo */}
@@ -229,7 +232,6 @@ class HomePage extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Footer/>
       </>
     );
   }

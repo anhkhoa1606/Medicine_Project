@@ -8,10 +8,10 @@ import "./Roles.scss";
 import { LANGUAGES, USER_ROLE } from "../../utils/constant";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
-import image1 from '../../assets/images/pngwing.com.png';
+import image1 from "../../assets/images/pngwing.com.png";
 import ReactSelect from "react-select";
-import flagVN from '../../assets/images/vn.png';
-import flagEN from '../../assets/images/england.jpg';
+import flagVN from "../../assets/images/vn.png";
+import flagEN from "../../assets/images/england.jpg";
 
 const options = [
   { value: LANGUAGES.VI, image: flagVN },
@@ -34,16 +34,16 @@ class Roles extends Component {
 
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
-    console.log('changeLanguageAppRedux', language);
+    console.log("changeLanguageAppRedux", language);
   };
 
   componentDidMount() {
     let { userInfo, history } = this.props;
-    console.log('userInfo', userInfo);
+    console.log("userInfo", userInfo);
     let menu = [];
     if (userInfo && !_.isEmpty(userInfo)) {
       let role = userInfo.roleId;
-      console.log('userInfo.roleId', userInfo.roleId)
+      console.log("userInfo.roleId", userInfo.roleId);
       if (role === USER_ROLE.ADMIN) {
         menu = adminMenu;
       }
@@ -61,25 +61,35 @@ class Roles extends Component {
   handleLogout = () => {
     const { processLogout, history } = this.props;
     processLogout();
-    history.push('/login');
-  }
+    history.push("/login");
+  };
 
   toggleCart = () => {
     this.props.history.push("/cart");
   };
 
   handleProfile = () => {
-    const {history } = this.props;
-    history.push('/profile');
-  }
+    const { history } = this.props;
+    history.push("/profile");
+  };
   handleHome = () => {
-    const {history } = this.props;
-    history.push('/home');
-  }
+    const { history } = this.props;
+    history.push("/home");
+  };
 
+  handleRegister = () => {
+    const { history } = this.props;
+    history.push("/register");
+  };
+
+  handleLogin = () => {
+    const { history } = this.props;
+    history.push("/login");
+  };
 
   render() {
-    const {language, userInfo, userGoogle } = this.props;
+    const { userInfo, userGoogle } = this.props;
+    const isLoggedIn = userInfo || (userGoogle && userGoogle.user);
 
     const customStyles = {
       indicatorSeparator: () => ({}),
@@ -100,17 +110,28 @@ class Roles extends Component {
             <img src={image1} alt="Logo" />
             <div className="title-header">Medicine</div>
           </div>
-          {/* <Navigator menus={this.state.menuApp} /> */}
         </div>
         <div className="languages">
-          <span className="welcome" onClick={this.handleProfile}>
-            <FormattedMessage id="home-header.welcome" />{" "}
-            {(userInfo?.email || userGoogle?.user?.email || " ")} !
-          </span>
-
-          <button className="view-cart-button" onClick={this.toggleCart}>
-            <i className="fas fa-shopping-cart"></i> {/* Icon giỏ hàng */}
-          </button>
+          {isLoggedIn ? (
+            <>
+              <span className="welcome" onClick={this.handleProfile}>
+                <FormattedMessage id="home-header.welcome" />{" "}
+                {userInfo?.email || userGoogle?.user?.email || " "} !
+              </span>
+              <button className="view-cart-button" onClick={this.toggleCart}>
+                <i className="fas fa-shopping-cart"></i>
+              </button>
+            </>
+          ) : (
+            <div className="d-flex">
+              <div className="welcome" onClick={this.handleLogin}>
+                Login
+              </div>
+              <div className="welcome" onClick={this.handleRegister}>
+                Register
+              </div>
+            </div>
+          )}
 
           <ReactSelect
             defaultValue={options[0]}
@@ -127,7 +148,6 @@ class Roles extends Component {
           >
             <i className="fas fa-sign-out-alt"></i>
           </div>
-          
         </div>
       </div>
     );
@@ -146,7 +166,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     processLogout: () => dispatch(actions.processLogout()),
-    changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language)),
+    changeLanguageAppRedux: (language) =>
+      dispatch(actions.changeLanguageApp(language)),
   };
 };
 

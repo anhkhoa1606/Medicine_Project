@@ -17,7 +17,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import CustomScrollbars from '../components/CustomScrollbars';
 import MedicineDetail from './Customer/MedicineDetail';
 import Profile from './Customer/Profile';
-
+import Register from './Customer/Register';
 class App extends Component {
 
     handlePersistorState = () => {
@@ -61,6 +61,7 @@ class App extends Component {
                                 />
                                 <Route path={path.CART} component={userIsAuthenticated(Cart)} />
                                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                <Route path={path.REGISTER} component={userIsNotAuthenticated(Register)} />
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                             </Switch>
                         </CustomScrollbars>

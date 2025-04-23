@@ -31,7 +31,7 @@ class Register extends Component {
     handleRegister = async () => {
         const { email, password, firstName, lastName, address, phoneNumber, gender, roleId } = this.state;
 
-        if (!email || !password || !firstName || !lastName || !address || !phoneNumber || !gender) {
+        if (!email || !password || !firstName || !lastName || !address || !phoneNumber) {
             this.setState({ registerError: 'Please fill in all fields.' });
             return;
         }
@@ -58,11 +58,11 @@ class Register extends Component {
                     lastName: '',
                     address: '',
                     phoneNumber: '',
-                    gender: '',
-                    role: 'customer'
+                    gender: '0',
+                    role: 'customer',
                 });
             } else {
-                this.setState({ registerError: response.message || 'Registration failed.' });
+                this.setState({ registerError: response.errMessage || 'Registration failed.' });
             }
         } catch (error) {
             console.error('Error during registration:', error);
@@ -160,9 +160,9 @@ class Register extends Component {
                                 onChange={this.handleInputChange}
                                 className="form-control"
                             >
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
+                                <option value="0">Male</option>
+                                <option value="1">Female</option>
+                                <option value="2">Other</option>
                             </select>
                         </div>
                         {registerError && (

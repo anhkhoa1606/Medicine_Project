@@ -47,25 +47,11 @@ let handleUserGoogle = async (data) => {
       let user = await db.User.findOne({ where: { email: data.email } });
       console.log("data", data);
       if (user) {
-        const token = generateAccessToken({
-          id: user.id,
-          username: user.email,
-        });
-        const refreshToken = generateRefreshToken({
-          id: user.id,
-          username: user.email,
-        });
-
-        // Optionally save the tokens in the database
-        await db.Access_Token.create({ userId: user.id, token, refreshToken });
-
         resolve({
           errCode: 1,
           errMessage:
             "Your email already exists, Plz try another email address GOOGLE",
           userId: user.id,
-          // token,
-          // refreshToken,
         });
       } else {
         let newUser = await db.User.create({

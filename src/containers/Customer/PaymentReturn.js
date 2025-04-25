@@ -79,7 +79,7 @@ class PaymentReturn extends Component {
     let arrOrders = this.state.arrOrders;
     console.log(arrOrders);
     return (
-      <>
+      <div className="order-page">
         <Header/>
         <div className="order-container">
           <h3>
@@ -208,7 +208,7 @@ class PaymentReturn extends Component {
           </div>
         </div>
         <Footer/>
-      </>
+      </div>
     );
   }
 }

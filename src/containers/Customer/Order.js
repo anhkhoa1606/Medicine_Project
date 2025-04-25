@@ -168,7 +168,7 @@ class Order extends Component {
   render() {
     const { medicines, medicinePrice, showPaypal, username, email, phoneNumber } = this.state;
     return (
-      <>
+      <div className="order-page">
         <Header/>
         <div className="order-container">
           <h2>🛒 <FormattedMessage id="order.confirm" /></h2>
@@ -242,7 +242,7 @@ class Order extends Component {
           </div>
         </div>
         <Footer/>
-      </>
+      </div>
     );
   }
 }

@@ -217,8 +217,6 @@ class HomePage extends Component {
           </div>
             <Footer/>
         </div>
-        
-        {/* Modal thông báo */}
         <Modal show={showModal} onHide={this.handleCloseModal} centered>
           <Modal.Header closeButton>
             <Modal.Title><FormattedMessage id="body.notification" /></Modal.Title>

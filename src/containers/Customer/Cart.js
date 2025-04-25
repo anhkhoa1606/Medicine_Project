@@ -61,14 +61,12 @@ class Cart extends Component {
     this.props.history.push("/order", { selectedProducts });
   };
 
-  // Back to home or product page
   handleBackToHome = () => {
     this.props.history.push("/home");
   };
 
   render() {
     const { cart } = this.props;
-    console.log('Cart Data:', cart);
     const { selectedItems, selectAll } = this.state;
 
     return (

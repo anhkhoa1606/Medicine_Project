@@ -121,7 +121,6 @@ class MedicineDetail extends Component {
           </div>
         </div>
 
-        {/* Modal thông báo */}
         <Modal show={showModal} onHide={this.handleCloseModal} centered>
           <Modal.Header closeButton>
             <Modal.Title>Thông báo</Modal.Title>

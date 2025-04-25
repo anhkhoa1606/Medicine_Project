@@ -102,19 +102,18 @@
   .background-container {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
     position: relative;
   }
   
   .background-slider {
     display: flex;
-    width: 500%; /* Vì có 5 ảnh */
+    width: 500%;
     height: 100%;
-    animation: slideBackground 25s linear infinite; /* Animation lặp vô hạn */
+    animation: slideBackground 25s linear infinite;
   }
   
   .background-slider img {
-    width: 100vw; /* Mỗi ảnh chiếm toàn màn hình */
+    width: 100vw; 
     height: 100vh;
     object-fit: cover;
   }

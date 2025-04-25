@@ -36,6 +36,12 @@ class Register extends Component {
             return;
         }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            this.setState({ registerError: 'Invalid email format.' });
+            return;
+        }
+
         try {
             const response = await createNewUserServices({
                 email,

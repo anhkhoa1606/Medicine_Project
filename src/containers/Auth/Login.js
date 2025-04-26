@@ -30,8 +30,6 @@ class Login extends Component {
         this.setState({
             password: e.target.value
         })
-
-
     }
 
     handleLogin = async () => {

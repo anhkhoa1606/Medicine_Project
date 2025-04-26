@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./Order.scss"; 
+import "./Payment.scss"; 
 import Modal from "react-bootstrap/Modal";
 import { getOrderService } from "../../services/orderService";
 import { FormattedMessage } from "react-intl";

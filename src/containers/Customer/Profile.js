@@ -24,9 +24,9 @@ class Profile extends Component {
   }
 
   fetchUserInfo = async () => {
-    const { userInfo } = this.props;
+    const { userInfo, userGoogle } = this.props;
     try {
-      const response = await getUserById(userInfo.id);
+      const response = await getUserById(userInfo?.id || userGoogle?.user?.userId);
       if (response.errCode === 0) {
         this.setState({
           user: response.data,
@@ -118,6 +118,7 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => ({
   userInfo: state.user.userInfo,
+  userGoogle: state.user,
 });
 
 export default withRouter(connect(mapStateToProps)(Profile));

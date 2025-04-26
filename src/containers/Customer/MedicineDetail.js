@@ -102,7 +102,7 @@ class MedicineDetail extends Component {
     return (
       <>
         <Header/>
-        <div className="container medicine-detail">
+        <div className="medicine-detail">
           <div className="detail-wrapper">
             <img src={medicine.image} className="medicine-image" alt={medicine.name} />
             <div className="medicine-info">

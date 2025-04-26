@@ -56,7 +56,6 @@ class Order extends Component {
     script.async = true;
     script.onload = () => this.setState({ sdkReady: true });
     document.body.appendChild(script);
-    console.log(data);
   };
 
   handleInputChange = (e, field) => {
@@ -92,7 +91,7 @@ class Order extends Component {
   };
 
   onSuccessPaypal = async (details, data) => {
-    const userId = this.props.userIdNormal;
+    const userId = this.props.userIdNormal || this.props.userGoogle.user?.id;
     const orderData = {
       userId,
       username: this.state.username,
@@ -249,6 +248,7 @@ class Order extends Component {
 
 const mapStateToProps = (state) => ({
   userIdNormal: state.user.userInfo?.id,
+  userGoogle: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

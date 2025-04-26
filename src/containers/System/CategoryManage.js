@@ -72,7 +72,6 @@ class CategoryManage extends Component {
                 ...values,
                 image: selectedCategory?.image || values.image || ""
             };
-            console.log("categoryData", categoryData);
 
             if (isEditMode) {
                 categoryData.id = selectedCategory.id;

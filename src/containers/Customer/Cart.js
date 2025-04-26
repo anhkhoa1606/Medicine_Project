@@ -14,16 +14,16 @@ class Cart extends Component {
   };
 
   componentDidMount() {
-    const { userInfo, fetchCart } = this.props;
-    if (userInfo?.id) {
-      fetchCart(userInfo.id);
+    const { userInfo, fetchCart, userGoogle } = this.props;
+    if (userInfo?.id || userGoogle.user?.userId) {
+      fetchCart(userInfo?.id || userGoogle.user?.userId);
     }
   }
 
   // Remove item from cart and refresh the cart
   handleRemoveFromCart = async (productId) => {
     await this.props.removeFromCart(productId);
-    this.props.fetchCart(this.props.userInfo.id); // Load lại giỏ hàng sau khi xóa
+    this.props.fetchCart(this.props.userInfo?.id || this.props.userGoogle.user?.userId);
   };
 
 
@@ -147,8 +147,9 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart.Carts, // Lấy giỏ hàng từ Redux store
+  cart: state.cart.Carts,
   userInfo: state.user.userInfo,
+  userGoogle: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

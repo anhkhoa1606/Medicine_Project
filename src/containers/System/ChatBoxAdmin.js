@@ -11,7 +11,6 @@ class ChatBoxAdmin extends React.Component {
   async componentDidMount() {
     await Talk.ready;
     const user = this.props.user.userInfo || this.props.user.user;
-    console.log("userIdChatBox", user);
     const session = new Talk.Session({
       appId: "t6qVyh1K", // replace with your own TalkJS appId
       me: new Talk.User({

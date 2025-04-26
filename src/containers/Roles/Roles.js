@@ -34,16 +34,13 @@ class Roles extends Component {
 
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
-    console.log("changeLanguageAppRedux", language);
   };
 
   componentDidMount() {
     let { userInfo, history } = this.props;
-    console.log("userInfo", userInfo);
     let menu = [];
     if (userInfo && !_.isEmpty(userInfo)) {
       let role = userInfo.roleId;
-      console.log("userInfo.roleId", userInfo.roleId);
       if (role === USER_ROLE.ADMIN) {
         menu = adminMenu;
       }
@@ -89,7 +86,7 @@ class Roles extends Component {
 
   render() {
     const { userInfo, userGoogle } = this.props;
-    const isLoggedIn = userInfo || (userGoogle && userGoogle.user);
+    const isLoggedIn = userInfo || (userGoogle && userGoogle);
 
     const customStyles = {
       indicatorSeparator: () => ({}),

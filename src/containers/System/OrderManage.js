@@ -21,7 +21,6 @@ class OrderManage extends Component {
     fetchOrders = async () => {
         try {
             let response = await getOrderService();
-            console.log('response', response);
             if (response.errCode === 0) {
                 this.setState({ orders: response.order });
             }
@@ -64,7 +63,6 @@ class OrderManage extends Component {
 
     render() {
         const { orders, searchTerm, isModalVisible, selectedOrder } = this.state;
-        console.log('orders:', orders)
         const filteredOrders = orders.filter(order =>
             order.username && order.username.toLowerCase().includes(searchTerm.toLowerCase())
         );

@@ -71,7 +71,6 @@ const cartReducer = (state = initialState, action) => {
 
     case actionTypes.CREATE_PAYMENT:
       state.urlPayment = action.data;
-      console.log("state.urlPayment", state.urlPayment);
       return {
         ...state,
       };

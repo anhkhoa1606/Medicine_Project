@@ -31,7 +31,6 @@ class ProductManage extends Component {
     fetchProducts = async (page) => {
         try {
           let response = await getAllProducts(page, this.state.limit);
-          console.log('response', response);
           if (response.data.errCode === 0) {
             this.setState({
               products: response.data.data,
@@ -96,7 +95,6 @@ class ProductManage extends Component {
                 ...values,
                 image: selectedProduct?.image || values.image || ""
             };
-            console.log("productData", productData);
 
             if (isEditMode) {
                 productData.id = selectedProduct.id;

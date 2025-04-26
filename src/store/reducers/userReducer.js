@@ -30,7 +30,6 @@ const appReducer = (state = initialState, action) => {
                 user: null
             };
         case actionTypes.SET_USER:
-            console.log(action.payload);
             localStorage.setItem("user", JSON.stringify(action.payload)); // Log the action payload
             return { ...state, isLoggedIn: true, user: action.payload };
             

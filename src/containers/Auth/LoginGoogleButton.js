@@ -17,11 +17,9 @@ function LoginGoogleButton() {
         email,
         name,
       });
-      console.log(response.data);
 
       // Assuming response.data contains the userId
       const userId = response.data.userId;
-      console.log(userId);
       // Add userId to decodedUser
       const updatedUser = { ...decodedUser, userId };
 
@@ -36,9 +34,7 @@ function LoginGoogleButton() {
         buttonText="Login with Google"
         onSuccess={(credentialResponse) => {
           var decode = jwtDecode(credentialResponse.credential);
-          console.log(credentialResponse);
 
-          console.log(decode);
           handleLogin(decode);
           history.push("/home");
         }}

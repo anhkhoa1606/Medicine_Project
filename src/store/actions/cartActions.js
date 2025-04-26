@@ -37,7 +37,6 @@ export const createOrderSuccess = (data) => ({
 export const getOrder = () => {
   return async (dispatch, getState) => {
     let res = await getOrderService();
-    console.log(res.order);
     if (res && res.errCode === 0) {
       dispatch(getOrderSuccess(res.order));
     }
@@ -120,7 +119,6 @@ export const addToCart = (userId, product, quantity = 1) => {
                     type: actionTypes.ADD_TO_CART,
                     payload: product,
                 });
-                console.log("Cart updated successfully on server.");
             } else {
                 console.error("Failed to update cart:", res.message);
             }
@@ -132,13 +130,9 @@ export const addToCart = (userId, product, quantity = 1) => {
 
 export const fetchCart = (userId) => async (dispatch) => {
   try {
-    console.log("Fetching cart for userId:", userId);
-
     // Gọi API lấy giỏ hàng
     const response = await getCartByUserId(userId);
     const cartItems = response.cartItems || []; // Đảm bảo không bị lỗi nếu API trả về undefined
-
-    console.log("Cart API response:", cartItems);
 
     // Gửi yêu cầu lấy thông tin thuốc từ medicineId
     const medicineRequests = cartItems.map((item) =>
@@ -153,8 +147,6 @@ export const fetchCart = (userId) => async (dispatch) => {
       ...medicineResponses[index].data, // Merge dữ liệu từ API thuốc
     }));
 
-    console.log("Updated Cart Items:", updatedCartItems);
-
     // Dispatch dữ liệu đã cập nhật vào Redux store
     dispatch({
       type: actionTypes.FETCH_CART,
@@ -168,10 +160,7 @@ export const fetchCart = (userId) => async (dispatch) => {
 
 export const removeFromCart = (id) => async (dispatch) => {
   try {
-    console.log("Removing item from cart:", { id });
-
     const response = await deleteCart(id);
-    console.log("Cart API response:", response.data);
 
     dispatch({
       type: actionTypes.REMOVE_CART,
@@ -186,8 +175,6 @@ export const checkCartAction = (userId, medicineId) => async (dispatch) => {
   try {
       // Gọi API check giỏ hàng
       const response = await checkCart(userId, medicineId);
-      console.log('response', response.message);
-
 
       if (response.exists) {
           // Nếu sản phẩm đã có trong giỏ hàng

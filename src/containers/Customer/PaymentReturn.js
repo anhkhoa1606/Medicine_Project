@@ -20,13 +20,10 @@ class PaymentReturn extends Component {
   async componentDidMount() {
     try {
       let userId = this.props.userId;
-      console.log(userId);
-
       let ordersArray;
 
       // Fetch orders
       const orders = await getOrderService(userId);
-      console.log("Orders:", orders.order);
 
       const userOrders = orders.order.filter(
         (order) => order.userId === userId
@@ -77,7 +74,6 @@ class PaymentReturn extends Component {
   };
   render() {
     let arrOrders = this.state.arrOrders;
-    console.log(arrOrders);
     return (
       <div className="order-page">
         <Header/>

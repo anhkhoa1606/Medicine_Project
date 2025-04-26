@@ -47,8 +47,6 @@ class Rechart extends Component {
     try {
       const totalResponse = await getTotal();
       const userResponse = await getUserChart();
-      console.log(totalResponse)
-      console.log(userResponse)
 
       this.setState({
         totalRevenue: totalResponse.totalRevenue,

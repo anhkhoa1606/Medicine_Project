@@ -29,7 +29,6 @@ class MedicineDetail extends Component {
 
     try {
       let response = await getMedicineById(medicineId);
-      console.log('response', response.data.data)
       
       if (response.data.errCode === 0) {
         this.setState({ medicine: response.data.data });
@@ -48,7 +47,6 @@ class MedicineDetail extends Component {
   handleAddToCart = (medicine) => {
     const { userInfo, userGoogle } = this.props;
     const { cartItems } = this.state;
-    console.log('cartItems: ' + cartItems)
 
     if (!userInfo || !userGoogle) {
       this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
@@ -90,7 +88,6 @@ class MedicineDetail extends Component {
 
   render() {
     const { medicine, showModal, modalMessage } = this.state;
-    console.log('medicine', medicine)
 
     if (!medicine) {
       return (

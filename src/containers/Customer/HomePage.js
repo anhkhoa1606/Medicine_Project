@@ -36,7 +36,6 @@ class HomePage extends Component {
   fetchProducts = async (page) => {
     try {
       let response = await getAllProducts(page, this.state.limit);
-      console.log('response', response);
       if (response.data.errCode === 0) {
         this.setState({
           products: response.data.data,
@@ -75,29 +74,28 @@ class HomePage extends Component {
 
   // Xử lý thêm sản phẩm vào giỏ hàng
   handleAddToCart = async (product) => {
-    const { userInfo } = this.props;
+    const { userInfo, userGoogle } = this.props;
+    const googoleUser = userGoogle.user?.userId;
 
-    if (!userInfo) {
-        this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+    if (!userInfo && !userGoogle) {
+        this.showModal("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!sss");
         return;
     }
 
     try {
         // Gọi API kiểm tra sản phẩm đã có trong giỏ hàng chưa
-        const response = await this.props.checkCartAction(userInfo.id, product.id);
-        console.log('response', response, userInfo.id, product.id);
+        const response = await this.props.checkCartAction(userInfo?.id || googoleUser, product?.id);
         if (response.exists) {
             this.showModal("❌ Sản phẩm này đã có trong giỏ hàng!");
         } else {
             // Gửi API để thêm sản phẩm vào giỏ hàng
-            await this.props.addToCart(userInfo.id, product.id, 1);
-            console.log('response222',userInfo.id, product.id);
+            await this.props.addToCart(userInfo?.id || googoleUser, product?.id, 1);
 
             this.showModal("✅ Sản phẩm đã được thêm vào giỏ hàng!");
 
             // Cập nhật lại giỏ hàng sau khi thêm
             this.setState((prevState) => ({
-                cartItems: [...prevState.cartItems, { medicineId: product.id, quantity: 1 }]
+                cartItems: [...prevState.cartItems, { medicineId: product?.id, quantity: 1 }]
             }));
         }
     } catch (error) {
@@ -134,7 +132,6 @@ class HomePage extends Component {
     const filteredProducts = this.state.products.filter((product) =>
       product.name.toLowerCase().includes(query)
     );
-    console.log('filteredProducts', filteredProducts)
 
     this.setState({ filteredProducts });
   };

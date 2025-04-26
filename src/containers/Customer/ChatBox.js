@@ -12,7 +12,6 @@ class ChatBox extends React.Component {
     await Talk.ready;
     const user = this.props.user.userInfo || this.props.user.user;
 
-    console.log("userIdChatBox", user);
     const session = new Talk.Session({
       appId: "t6qVyh1K",
       me: new Talk.User({

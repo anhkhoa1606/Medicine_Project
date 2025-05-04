@@ -79,7 +79,7 @@ class Profile extends Component {
         <Header />
         <div className="profile-container">
           <div className="profile-card">
-            <h2><FaUser /><FormattedMessage id="profile.title" /></h2>
+            <h2 className="profile-title"><FaUser /><FormattedMessage id="profile.title" /></h2>
             <div className="profile-info">
               {this.renderProfileField("Name", name, "name", isEditing, FaUser)}
               {this.renderProfileField("Email", email, "email", isEditing, FaEnvelope)}

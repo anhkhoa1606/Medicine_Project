@@ -4,6 +4,10 @@
   margin: 0 100px;
   height: auto;
 }
+.profile-title{
+  display: flex;
+  justify-content: center;
+}
 @media (min-width: 1366px) {
   .profile-detail {
     max-width: 900px;
@@ -37,6 +41,9 @@
   }
   
   .profile-field label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
     font-weight: bold;
     color: #555;
@@ -152,6 +159,9 @@
   }
   
   .profile-field label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
     font-weight: bold;
     color: #555;
@@ -267,6 +277,9 @@
   }
   
   .profile-field label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
     font-weight: bold;
     color: #555;

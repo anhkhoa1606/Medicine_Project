@@ -33,7 +33,7 @@ class ChatBox extends React.Component {
     const other = new Talk.User({
       id: "2",
       name: "Medicine",
-      email: "duclinh@example.com",
+      email: "khoa@example.com",
       photoUrl: image1,
       welcomeMessage: "Hey there! How can I help you?",
       role: "default",

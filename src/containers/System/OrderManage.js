@@ -90,7 +90,7 @@ class OrderManage extends Component {
                         onChange={this.handleSearch}
                         className="mb-3"
                     />
-                    <Table dataSource={filteredOrders} columns={columns} rowKey="id" />
+                    <Table dataSource={filteredOrders} columns={columns} rowKey="id" pagination={{ pageSize: 8 }}/>
 
                     <Modal
                         title="Edit Order"

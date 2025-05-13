@@ -117,7 +117,7 @@ class CategoryManage extends Component {
                         onChange={this.handleSearch}
                         className="mb-3"
                     />
-                    <Table dataSource={filteredCategories} columns={columns} rowKey="id" />
+                    <Table dataSource={filteredCategories} columns={columns} rowKey="id" pagination={{ pageSize: 8 }}/>
 
                     <Modal
                         title={isEditMode ? <FormattedMessage id="category.edit" /> : <FormattedMessage id="category.add" />}

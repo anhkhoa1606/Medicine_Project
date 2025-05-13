@@ -103,7 +103,7 @@ class UserManage extends Component {
                         onChange={this.handleSearch}
                         className="mb-3"
                     />
-                    <Table dataSource={filteredUsers} columns={columns} rowKey="id" />
+                    <Table dataSource={filteredUsers} columns={columns} rowKey="id" pagination={{ pageSize: 8 }} />
 
                     <Modal
                         title={isEditMode ? <FormattedMessage id="users.edit" /> : <FormattedMessage id="users.add" />}

@@ -130,7 +130,8 @@
         "actions": "Hành động",
         "see_detail": "Xem chi tiết",
         "back": "Trở về",
-        "paid": "Đã thanh toán"
+        "paid": "Đã thanh toán",
+        "close": "Đóng"
     },
     "body": {
         "list-product": "Danh sách sản phẩm",

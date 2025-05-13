@@ -130,7 +130,8 @@
         "actions": "Actions",
         "see_detail": "See Detail",
         "back": "Back",
-        "paid": "Paid"
+        "paid": "Paid",
+        "close": "Close"
     },
     "body": {
         "list-product": "List products",

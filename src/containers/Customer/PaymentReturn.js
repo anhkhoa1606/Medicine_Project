@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./Payment.scss"; 
+import "./Payment.scss";
 import Modal from "react-bootstrap/Modal";
 import { getOrderService } from "../../services/orderService";
 import { FormattedMessage } from "react-intl";
@@ -41,7 +41,7 @@ class PaymentReturn extends Component {
       console.error("Error fetching orders:", error);
     }
   }
-  
+
   async componentDidUpdate(prevProps, prevState) {
     // Check if userId prop has changed
     if (this.props.userId !== prevProps.userId) {
@@ -76,7 +76,7 @@ class PaymentReturn extends Component {
     let arrOrders = this.state.arrOrders;
     return (
       <div className="order-page">
-        <Header/>
+        <Header />
         <div className="order-container">
           <h3>
             <FormattedMessage id="payment.title" />
@@ -169,7 +169,7 @@ class PaymentReturn extends Component {
                       <tr>
                         <td>{this.state.selectedOrder.email}</td>
                         <td>{this.state.selectedOrder.phonenumber}</td>
-                        <td>{this.state.selectedOrder.courses.name}</td>
+                        <td>{this.state.selectedOrder.username}</td>
                         <td>{this.state.selectedOrder.payment}</td>
                         <td>{this.state.selectedOrder.totalPrice}</td>
                       </tr>
@@ -203,7 +203,7 @@ class PaymentReturn extends Component {
             </div>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     );
   }

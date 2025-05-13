@@ -131,7 +131,8 @@
         "see_detail": "See Detail",
         "back": "Back",
         "paid": "Paid",
-        "close": "Close"
+        "close": "Close",
+        "order_detail": "Order Detail"
     },
     "body": {
         "list-product": "List products",

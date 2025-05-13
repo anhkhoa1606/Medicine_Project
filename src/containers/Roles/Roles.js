@@ -85,9 +85,7 @@ class Roles extends Component {
   };
 
   render() {
-    const { userInfo, userGoogle } = this.props;
-    const isLoggedIn = userInfo || (userGoogle && userGoogle);
-
+    const { userInfo, userGoogle, isLoggedIn } = this.props;
     const customStyles = {
       indicatorSeparator: () => ({}),
       dropdownIndicator: () => ({ display: "none" }),

@@ -217,7 +217,9 @@
         "save": "Lưu",
         "actions": "Hành động",
         "name": "Tên danh mục",
-        "description": "Mô tả"
+        "description": "Mô tả",
+        "revenue": "Tổng doanh thu | Hôm nay",
+        "customers": "Khách hàng | Hôm nay"
     },
     "orders": {
         "title": "Quản lý đặt hàng",

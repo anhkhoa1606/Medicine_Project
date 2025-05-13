@@ -218,7 +218,9 @@
         "save": "Save",
         "actions": "Actions",
         "name": "Name",
-        "description": "Description"
+        "description": "Description",
+        "revenue": "Total revenue | Today",
+        "customers": "Customers | Today"
     },
     "orders": {
         "title": "Manage Orders",

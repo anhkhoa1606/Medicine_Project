@@ -69,7 +69,7 @@ class Rechart extends Component {
           {/* Hai ô tổng quan */}
           <div className="summary-cards">
             <div className="summary-card">
-              <p className="summary-title">Tổng doanh thu | Hôm nay</p>
+              <p className="summary-title"><FormattedMessage id="category.revenue" /></p>
               <div className="summary-content">
                 <span className="summary-icon">💲</span>
                 <span className="summary-value">{totalRevenue}</span>
@@ -77,7 +77,7 @@ class Rechart extends Component {
             </div>
 
             <div className="summary-card">
-              <p className="summary-title">Khách hàng | Hôm nay</p>
+              <p className="summary-title"><FormattedMessage id="category.customers" /></p>
               <div className="summary-content">
                 <span className="summary-icon">👥</span>
                 <span className="summary-value">{totalUsers}</span>

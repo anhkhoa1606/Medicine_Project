@@ -195,7 +195,7 @@ class PaymentReturn extends Component {
             <div className="bottom-content d-flex">
               <div className="back-cart d-flex" onClick={this.handleHome}>
                 <i className="fas fa-chevron-left mt-1 mr-2 ml-3"></i>
-                <div>
+                <div className="back-cart-text">
                   {" "}
                   <FormattedMessage id="payment.back" />
                 </div>

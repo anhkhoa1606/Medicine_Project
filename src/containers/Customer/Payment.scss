@@ -3,10 +3,21 @@
   position: relative;
 }
 
+.recheck-products {
+  margin-top: 20px;
+}
+
+.bottom-content {
+  margin-top: 10px;
+  .back-cart-text {
+    margin-left: 10px;
+  }
+}
+
 @media (min-width: 1366px) {
   /* Order.scss */
 .order-container {
-  max-width: 800px;
+  max-width: 950px;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;

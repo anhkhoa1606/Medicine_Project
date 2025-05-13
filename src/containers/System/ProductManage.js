@@ -175,7 +175,17 @@ class ProductManage extends Component {
                         onChange={this.handleSearch}
                         className="mb-3"
                     />
-                    <Table dataSource={filteredProducts} columns={columns} rowKey="id" />
+                    <Table 
+                        dataSource={filteredProducts} 
+                        columns={columns} 
+                        rowKey="id" 
+                        pagination={{
+                            current: this.state.currentPage,
+                            total: this.state.totalPages * this.state.limit,
+                            pageSize: this.state.limit,
+                            onChange: (page) => this.fetchProducts(page),
+                        }} 
+                    />
 
                     <Modal
                         title={isEditMode ? <FormattedMessage id="products.edit" /> : <FormattedMessage id="products.add" />}

@@ -148,19 +148,15 @@ class PaymentReturn extends Component {
                   <tbody>
                     <tr>
                       <th>Email</th>
-                      <th>
+                      <th style={{ paddingLeft: "20px" }}>
                         {" "}
                         <FormattedMessage id="payment.phonenumber" />
                       </th>
-                      <th>
+                      <th style={{ paddingLeft: "50px" }}>
                         {" "}
                         <FormattedMessage id="payment.payment" />
                       </th>
-                      <th>
-                        {" "}
-                        <FormattedMessage id="payment.courses" />
-                      </th>
-                      <th>
+                      <th style={{ paddingLeft: "70px" }}> 
                         {" "}
                         <FormattedMessage id="payment.total_price" />
                       </th>
@@ -168,18 +164,13 @@ class PaymentReturn extends Component {
                     {this.state.selectedOrder && ( // Check if selectedOrder exists
                       <tr>
                         <td>{this.state.selectedOrder.email}</td>
-                        <td>{this.state.selectedOrder.phonenumber}</td>
-                        <td>{this.state.selectedOrder.username}</td>
-                        <td>{this.state.selectedOrder.payment}</td>
-                        <td>{this.state.selectedOrder.totalPrice}</td>
+                        <td style={{ paddingLeft: "20px" }}>{this.state.selectedOrder.phoneNumber}</td>
+                        <td style={{ paddingLeft: "50px" }}>{this.state.selectedOrder.payment}</td>
+                        <td style={{ paddingLeft: "50px" }}>{this.state.selectedOrder.totalPrice}</td>
                       </tr>
                     )}
                   </tbody>
                 </table>
-                <div className="pr-5">
-                  {" "}
-                  <FormattedMessage id="payment.status2" />
-                </div>
               </Modal.Body>
               <Modal.Footer>
                 <button
